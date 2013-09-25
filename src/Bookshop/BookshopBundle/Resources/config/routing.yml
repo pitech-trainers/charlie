@@ -1,0 +1,9 @@
+bookshop_bookshop_homepage:
+    pattern:  /
+    defaults: { _controller: BookshopBookshopBundle:Default:index }
+category:
+  pattern: category/{id}
+  defaults: { _controller: BookshopBookshopBundle:Default:category}
+  requirements:
+        _method:  GET
+        id: \d+
