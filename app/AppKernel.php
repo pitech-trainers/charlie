@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Bookshop\BookshopBundle\BookshopBookshopBundle(),
             
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
