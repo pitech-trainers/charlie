@@ -1,0 +1,7 @@
+parameters:
+#    bookshop_bookshop.example.class: Bookshop\BookshopBundle\Example
+
+services:
+#    bookshop_bookshop.example:
+#        class: %bookshop_bookshop.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

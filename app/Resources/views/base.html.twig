@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}MyBooks{% endblock %}</title>
+        {% block stylesheets %}
+        <link href="{{ asset ('bundles/bookshopbookshop/css/styles.css')}}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset ('bundles/bookshopbookshop/css/widgets.css')}}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+
+
+    <body>
+        <div class="wrapper">
+            <div class="page">
+                <div class="header-container">
+                    <div class="header">
+                        <div class="quick-access">
+                            <form id="search_mini_form" action="product_list.html" method="get">
+                                <div class="form-search">
+                                    <label for="search">Search:</label>
+                                    <input id="search" type="text" name="q" value="" class="input-text" maxlength="128" />
+                                    <button type="submit" title="Search" class="button"><span><span>Search</span></span></button>
+                                </div>
+                            </form>
+
+                            <p class="welcome-msg">Default welcome msg! </p>
+
+                            <ul class="links">
+                                <li class="first" ><a href="dashboard.html" title="My Account" >My Account</a></li>
+                                <li ><a href="cart.html" title="My Cart" class="top-link-cart">My Cart</a></li>
+                                <li class="last" ><a href="checkout.html" title="Checkout" class="top-link-checkout">Checkout</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            {% block navigation%}
+
+
+                <div class="nav-container">
+                    {{ knp_menu_render('BookshopBookshopBundle:Builder:categoryMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
+                    </div>
+            {% endblock%}
+                    <div class="main-container col3-layout">
+                        <div class="main">
+                            <div class="col-wrapper">
+
+                                    {% block body%}
+                                    {%endblock%}
+
+                                <div class="col-left sidebar">{% block leftsidebar%}{%endblock%}</div>
+
+                            </div>
+                            <div class="col-right sidebar">
+                                    {%block rightsidebar%}
+                                    <div class="block block-cart">
+                                        <div class="block-title">
+                                            <strong><span>My Cart</span></strong>
+                                        </div>
+                                        <div class="block-content">
+                                            <p class="empty">You have no items in your shopping cart.</p>
+                                        </div>
+                                    </div>
+                                        {%endblock%}
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-container">
+                            <div class="footer">
+                                <ul>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Customer Service</a></li>
+                                    <li class="last privacy"><a href="#">Privacy Policy</a></li>
+                                </ul>
+
+                                <ul class="links">
+                                    <li class="first" ><a href="#" title="Site Map" >Site Map</a></li>
+                                    <li ><a href="#" title="Search Terms" >Search Terms</a></li>
+                                    <li ><a href="#" title="Orders and Returns" >Orders and Returns</a></li>
+                                    <li class=" last" ><a href="#" title="Contact Us" >Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </body>
+
+        </html>
