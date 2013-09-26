@@ -1,0 +1,4 @@
+bookshop_bookshop:
+    resource: "@BookshopBookshopBundle/Resources/config/routing.yml"
+    prefix:   /
+
