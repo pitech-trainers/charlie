@@ -70,3 +70,11 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Bookshop\BookshopBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.twig_swift
+    registration:
+        form:
+            type: bookshop_user_registration
+        confirmation:
+            enabled:    true
+            template: BookshopBookshopBundle:Registration:email.txt.twig

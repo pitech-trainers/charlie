@@ -1,9 +1,141 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
-    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-        {{ form_widget(form) }}
-        <div>
-            <input type="submit" value="{{ 'registration.submit'|trans }}" />
-        </div>
-    </form>
+
+
+<div class="account-create">
+    <div class="page-title">
+        <h1>Create an Account</h1>
+    </div>
+    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" id="form-validate" class="fos_user_registration_register">
+        <div class="fieldset">
+            <input type="hidden" name="success_url" value="" />
+            <input type="hidden" name="error_url" value="" />
+            <h2 class="legend">Personal Information</h2>
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="customer-name">
+                        <div class="field name-firstname">
+                            <label for="firstname" class="required"><em>*</em>First Name</label>
+                            <div class="input-box">
+                                                            {{ form_widget(form.first_name, {'attr': {'class': 'input-text required-entry'} }) }}
+                                    <!--<input type="text" id="firstname" name="firstname" value="" title="First Name" maxlength="255" class="input-text required-entry validation-failed"  />-->
+                                                            {% if form_errors(form.first_name) %}
+                                    <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.first_name) }}</div>
+                                                            {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="field name-lastname">
+                                <label for="lastname" class="required"><em>*</em>Last Name</label>
+                                <div class="input-box">
+                                                            {{ form_widget(form.last_name, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                            {% if form_errors(form.last_name) %}
+                                        <div class="validation-advice" id="advice-required-entry-email" style="">This is a required field.</div>
+                                                            {% endif %}    
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="field">
+                                <label for="email_address" class="required"><em>*</em>Email Address</label>
+                                <div class="input-box">
+                                                        {{ form_widget(form.email, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                        {% if form_errors(form.email) %}
+                                        <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.email) }}</div>
+                                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="field">
+
+                                    <label for="mobile">Mobile</label>
+                                    <div class="input-box">
+                                                        {{ form_widget(form.mobile, {'attr': {'class': 'input-text required-entry','pattern' : ''} }) }}
+                                                        {% if form_errors(form.mobile) %}
+                                            <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.mobile) }}</div>
+                                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="field">
+                                        <label>Gender</label>
+                                        <div class="input-box">
+                                                        {% for child in form.gender %}
+                                                            {{ form_label(child) }}
+                                                            {{ form_widget(child) }}
+                                                <br/>
+                                                        {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label for="education" class="required">Education</label>
+                                            <div class="input-box">
+                                                        {{ form_widget(form.education) }}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="fieldset">
+                                    <h2 class="legend">Login Information</h2>
+                                    <ul class="form-list">
+                                        <li>
+                                            <label for="username" class="required"><em>*</em>Username</label>
+                                            <div class="input-box">
+                                                    {{ form_widget(form.username, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                    {% if form_errors(form.username) %}
+                                                    <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.username) }}</div>
+                                                    {% endif %}
+                                                </div>
+                                            </li>
+                                            <li class="fields">
+                                                <div class="field">
+                                                    <label for="password" class="required"><em>*</em>Password</label>
+                                                    <div class="input-box">
+                                                        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                        {% if form_errors(form.username) %}
+                                                            <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.plainPassword.first) }}</div>
+                                                        {% endif %}   
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <label for="confirmation" class="required"><em>*</em>Confirm Password</label>
+                                                        <div class="input-box">
+                                                        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                        {% if form_errors(form.plainPassword.second) %}
+                                                                <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.plainPassword.second) }}</div>
+                                                        {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div id="window-overlay" class="window-overlay" style="display:none;"></div>
+                                                <div id="remember-me-popup" class="remember-me-popup" style="display:none;">
+                                                    <div class="remember-me-popup-head">
+                                                        <h3>What's this?</h3>
+                                                        <a href="#" class="remember-me-popup-close" title="Close">Close</a>
+                                                    </div>
+                                                    <div class="remember-me-popup-body">
+                                                        <p>Checking &quot;Remember Me&quot; will let you access your shopping cart on this computer when you are logged out</p>
+                                                        <div class="remember-me-popup-close-button a-right">
+                                                            <a href="#" class="remember-me-popup-close button" title="Close"><span>Close</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buttons-set">
+                                                <p class="required">* Required Fields</p>
+                                                {% if not app.request.server.get('HTTP_REFERER') is null %}
+                                                    <p class="back-link"><a href="{{app.request.server.get('HTTP_REFERER') }}" class="back-link"><small>&laquo; </small>Back</a></p>
+                                                {% endif %}
+                                                
+                                                {{ form_rest(form) }}
+                                                <div>
+                                                    <button type="submit" title="Submit" class="button" value="" ><span><span>{{ 'registration.submit'|trans }}</span></span></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
 

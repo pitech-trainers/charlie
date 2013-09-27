@@ -1,0 +1,25 @@
+#Menu
+menu:
+    forgot_pass: Forgot password
+    register: Register
+    my:
+      cart: My Cart
+      account: My Account
+      
+registration:
+    check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
+    confirmed: Congrats %username%, your account is now activated.
+    back: Back to the originating page.
+    submit: Register
+    flash:
+        user_created: The user has been created successfully
+    email:
+        subject: Book Shop – Account activation %username%
+        message: |
+            Hello %username% - %username%!
+
+            To activate your account please access the following link : %confirmationUrl%
+            This link is available for 24 hours and can be used only once.
+
+            Regards,
+            the Team.

@@ -1,0 +1,7 @@
+#Menu
+menu:
+    forgot_pass: Parola uitata
+    register: Inregistrare
+    my:
+      cart: Cartul meu
+      account: Contul meu

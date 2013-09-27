@@ -25,46 +25,42 @@
                             </form>
 
                             <p class="welcome-msg">Default welcome msg! </p>
-
-                            <ul class="links">
-                                <li class="first" ><a href="dashboard.html" title="My Account" >My Account</a></li>
-                                <li ><a href="cart.html" title="My Cart" class="top-link-cart">My Cart</a></li>
-                                <li class="last" ><a href="checkout.html" title="Checkout" class="top-link-checkout">Checkout</a></li>
-                            </ul>
-
+                            {{ knp_menu_render('BookshopBookshopBundle:Builder:linksMenu', {'template': 'BookshopBookshopBundle:Menu:links_menu.html.twig'}) }}
                         </div>
                     </div>
                 </div>
-            {% block navigation%}
+            {% block navigation %}
 
 
                 <div class="nav-container">
                     {{ knp_menu_render('BookshopBookshopBundle:Builder:categoryMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
                     </div>
-            {% endblock%}
+            {% endblock %}
                     <div class="main-container col3-layout">
                         <div class="main">
-                            <div class="col-wrapper">
+                            {% block body%}
 
-                                    {% block body%}
-                                    {%endblock%}
-
-                                <div class="col-left sidebar">{% block leftsidebar%}{%endblock%}</div>
-
-                            </div>
-                            <div class="col-right sidebar">
-                                    {%block rightsidebar%}
-                                    <div class="block block-cart">
-                                        <div class="block-title">
-                                            <strong><span>My Cart</span></strong>
-                                        </div>
-                                        <div class="block-content">
-                                            <p class="empty">You have no items in your shopping cart.</p>
-                                        </div>
-                                    </div>
-                                        {%endblock%}
-
+                                {% block leftsidebar%}
+                                <div class="col-wrapper">
+                                    <div class="col-left sidebar"></div>
                                 </div>
+                                {%endblock leftsidebar%}
+
+                                {%block rightsidebar%}
+                                <div class="col-right sidebar">
+
+                                        <div class="block block-cart">
+                                            <div class="block-title">
+                                                <strong><span>My Cart</span></strong>
+                                            </div>
+                                            <div class="block-content">
+                                                <p class="empty">You have no items in your shopping cart.</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {%endblock rightsidebar%}   
+                            {%endblock body%}
                             </div>
                         </div>
                         <div class="footer-container">
