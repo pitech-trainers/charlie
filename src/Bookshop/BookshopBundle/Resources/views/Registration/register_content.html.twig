@@ -17,7 +17,11 @@
                         <div class="field name-firstname">
                             <label for="firstname" class="required"><em>*</em>First Name</label>
                             <div class="input-box">
-                                                            {{ form_widget(form.first_name, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                            {% set firstNClass = '' %}
+                                                            {% if form_errors(form.first_name) %} 
+                                                                {% set firstNClass = firstNClass~'validation-failed ' %}
+                                                            {% endif %}
+                                                            {{ form_widget(form.first_name, {'attr': {'class': firstNClass~'input-text required-entry'} }) }}
                                     <!--<input type="text" id="firstname" name="firstname" value="" title="First Name" maxlength="255" class="input-text required-entry validation-failed"  />-->
                                                             {% if form_errors(form.first_name) %}
                                     <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.first_name) }}</div>
@@ -28,9 +32,13 @@
                             <div class="field name-lastname">
                                 <label for="lastname" class="required"><em>*</em>Last Name</label>
                                 <div class="input-box">
-                                                            {{ form_widget(form.last_name, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                            {% set lastNClass = '' %}
+                                                            {% if form_errors(form.last_name) %} 
+                                                                {% set lastNClass = lastNClass~'validation-failed ' %}
+                                                            {% endif %}
+                                                            {{ form_widget(form.last_name, {'attr': {'class': lastNClass~'input-text required-entry'} }) }}
                                                             {% if form_errors(form.last_name) %}
-                                        <div class="validation-advice" id="advice-required-entry-email" style="">This is a required field.</div>
+                                        <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.last_name) }}</div>
                                                             {% endif %}    
                                     </div>
                                 </div>
@@ -40,7 +48,11 @@
                             <div class="field">
                                 <label for="email_address" class="required"><em>*</em>Email Address</label>
                                 <div class="input-box">
-                                                        {{ form_widget(form.email, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                        {% set e_class = '' %}
+                                                        {% if form_errors(form.email) %} 
+                                                            {% set e_class = e_class~'validation-failed ' %}
+                                                        {% endif %}
+                                                        {{ form_widget(form.email, {'attr': {'class': e_class~'input-text required-entry'} }) }}
                                                         {% if form_errors(form.email) %}
                                         <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.email) }}</div>
                                                         {% endif %}
@@ -50,7 +62,10 @@
 
                                     <label for="mobile">Mobile</label>
                                     <div class="input-box">
-                                                        {{ form_widget(form.mobile, {'attr': {'class': 'input-text required-entry','pattern' : ''} }) }}
+                                                        {% set m_class = '' %}
+                                                        {% if form_errors(form.mobile) %} {% set m_class = m_class~'validation-failed ' %}
+                                                        {% endif %}
+                                                        {{ form_widget(form.mobile, {'attr': {'class': m_class~'input-text required-entry','pattern' : ''} }) }}
                                                         {% if form_errors(form.mobile) %}
                                             <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.mobile) }}</div>
                                                         {% endif %}
@@ -83,7 +98,10 @@
                                         <li>
                                             <label for="username" class="required"><em>*</em>Username</label>
                                             <div class="input-box">
-                                                    {{ form_widget(form.username, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                    {% set u_class = '' %}
+                                                    {% if form_errors(form.username) %} {% set u_class = u_class~'validation-failed ' %}
+                                                    {% endif %}
+                                                    {{ form_widget(form.username, {'attr': {'class': u_class~'input-text required-entry'} }) }}
                                                     {% if form_errors(form.username) %}
                                                     <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.username) }}</div>
                                                     {% endif %}
@@ -93,16 +111,22 @@
                                                 <div class="field">
                                                     <label for="password" class="required"><em>*</em>Password</label>
                                                     <div class="input-box">
-                                                        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'input-text required-entry'} }) }}
-                                                        {% if form_errors(form.username) %}
+                                                        {% set p_class = '' %}
+                                                        {% if form_errors(form.plainPassword.first) %}
+                                                            {% set p_class = p_class~'validation-failed ' %}
+                                                        {% endif %}
+                                                        {{ form_widget(form.plainPassword.first, {'attr': {'class': p_class~'input-text required-entry'} }) }}
+                                                        {% if form_errors(form.plainPassword.first) %}
                                                             <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.plainPassword.first) }}</div>
-                                                        {% endif %}   
+                                                        {% endif %}
+                                                        
                                                         </div>
                                                     </div>
                                                     <div class="field">
                                                         <label for="confirmation" class="required"><em>*</em>Confirm Password</label>
                                                         <div class="input-box">
-                                                        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'input-text required-entry'} }) }}
+                                                        
+                                                        {{ form_widget(form.plainPassword.second, {'attr': {'class': p_class~'input-text required-entry'} }) }}
                                                         {% if form_errors(form.plainPassword.second) %}
                                                                 <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.plainPassword.second) }}</div>
                                                         {% endif %}

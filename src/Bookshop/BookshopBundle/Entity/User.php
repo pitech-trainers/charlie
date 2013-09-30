@@ -27,6 +27,12 @@ class User extends BaseUser
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      * 
      * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z]+$/",
+     *     htmlPattern="*",
+     *     match=true,
+     *     message="The name contains leters only."
+     * )
      */
     protected $first_name;
     
@@ -36,6 +42,12 @@ class User extends BaseUser
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
      * 
      * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z]+$/",
+     *     htmlPattern="*",
+     *     match=true,
+     *     message="The name contains leters only."
+     * )
      */
     protected $last_name;
     

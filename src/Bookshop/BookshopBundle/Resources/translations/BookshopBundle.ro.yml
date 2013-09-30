@@ -1,7 +1,47 @@
 #Menu
 menu:
-    forgot_pass: Parola uitata
-    register: Inregistrare
+    forgot_pass: Parola uitată
+    register: Înregistrare
     my:
       cart: Cartul meu
       account: Contul meu
+
+registration:
+    check_email: Un email a fost trimis către %email%. Conține un link de activare pe care trebuie să îl accesezi pentru a-ți activa contul.
+    confirmed: Felicitări %username%, contul tău a fost confirmat.
+    back: Înapoi la pagina de la care ai venit.
+    submit: Înregistrează-te
+    flash:
+        user_created: Utilizatorul a fost creat cu succes
+    email:
+        subject: Book Shop – Activarea contului
+        message: |
+            Salut %first_name%-%last_name% !
+            
+            Pentru a-ți valida contul accesează te rog link-ul : %confirmationUrl%
+            Acest link este valabil doar 24 de ore si poate fi folosit doar o singura data.
+
+            Toate cele bune,
+            Echipa
+            
+resetting:
+    password_already_requested: Deja s-a făcut o cerere în ultimele 24 de ore pentru parola acestui utilizator.
+    check_email: A fost trimis un email către %email%. Conține un link pe care trebuie să îl accesezi pentru a-ți reseta parola.
+    request:
+        invalid_username: Numele de utilizator sau adresa de email "%username%" nu există.
+        username: "Numele de utilizator sau adresa de email:"
+        submit: Resetează parola
+    reset:
+        password_matching: Parolele nu corespund!
+        submit: Schimbă parola
+    flash:
+        success: Parola a fost resetată cu succes
+    email:
+        subject: Resetare parolă
+        message: |
+            Salut %first_name%-%last_name% !
+
+            Pentru a-ți reseta parola - accesează %confirmationUrl%
+
+            Toate cele bune,
+            Echipa

@@ -7,3 +7,8 @@ services:
             arguments: [%fos_user.model.user.class%]
             tags:
                 - { name: form.type, alias: bookshop_user_registration }
+    acme_user.registration.form.type:
+            class: Bookshop\BookshopBundle\Form\Type\ProfileFormType
+            arguments: [%fos_user.model.user.class%]
+            tags:
+                - { name: form.type, alias: bookshop_user_profile }

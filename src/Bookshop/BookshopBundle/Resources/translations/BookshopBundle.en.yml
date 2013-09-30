@@ -16,10 +16,31 @@ registration:
     email:
         subject: Book Shop – Account activation %username%
         message: |
-            Hello %username% - %username%!
+            Hello %first_name%-%last_name% !
 
             To activate your account please access the following link : %confirmationUrl%
             This link is available for 24 hours and can be used only once.
+
+            Regards,
+            the Team.
+resetting:
+    password_already_requested: The password for this user has already been requested within the last 24 hours.
+    check_email: An email has been sent to %email%. It contains a link you must click to reset your password.
+    request:
+        invalid_username: The username or email address "%username%" does not exist.
+        username: "Username or email address:"
+        submit: Reset password
+    reset:
+        password_matching: Passwords not matching!
+        submit: Change password
+    flash:
+        success: The password has been reset successfully
+    email:
+        subject: Reset Password
+        message: |
+            Hello %first_name%-%last_name% !
+
+            To reset your password - please visit %confirmationUrl%
 
             Regards,
             the Team.

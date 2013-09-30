@@ -1,0 +1,115 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+    <div class="account-create">
+    <div class="page-title">
+        <h1>Create an Account</h1>
+    </div>
+        
+    <form action="{{ path('fos_user_profile_edit') }}" method="POST" id="form-validate" class="fos_user_profile_edit">
+    
+        <div class="fieldset">
+            <h2 class="legend">Personal Information</h2>
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="customer-name">
+                        <div class="field name-firstname">
+                            <label for="firstname" class="required"><em>*</em>First Name</label>
+                            <div class="input-box">
+                                <input type="text" id="firstname" name="firstname" value="{{ user.firstName }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
+                            </div>
+                        </div>
+                        <div class="field name-lastname">
+                            <label for="lastname" class="required"><em>*</em>Last Name</label>
+                            <div class="input-box">
+                                <input type="text" id="lastname" name="firstname" value="{{ user.lastName }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="email_address" class="required"><em>*</em>Email Address</label>
+                        <div class="input-box">
+                            <input type="text" id="email_address" name="firstname" value="{{ user.email }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
+                        </div>
+                    </div>
+                    <div class="field">
+
+                        <label for="mobile">Mobile</label>
+                        <div class="input-box">
+                            <input type="text" id="email_address" name="mobile" value="{{ user.mobile }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for='gender'>Gender</label>
+                        <div class="input-box">
+                            <label>Male </label>
+                            <input type="radio" id="email_address" name="gender" value='m' disabled {% if user.gender == 'm' %}checked{% endif%}/>
+                            <br/>
+                            <label>Female </label>
+                            <input type="radio" id="email_address" name="gender" value='f' disabled {% if user.gender == 'f' %}checked{% endif%}/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="education" class="required">Education</label>
+                        <div class="input-box">
+                                    
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="fieldset">
+            <h2 class="legend">Login Information</h2>
+            <ul class="form-list">
+                <li>
+                    <label for="username" class="required"><em>*</em>Username</label>
+                    <div class="input-box">
+                        
+                    </div>
+                </li>
+                <li>
+                <label for="username" class="required"><em>*</em>Current password</label>
+                <div class="input-box">
+                        
+                    </div>
+                </li>
+
+            </ul>
+            <div id="window-overlay" class="window-overlay" style="display:none;"></div>
+            <div id="remember-me-popup" class="remember-me-popup" style="display:none;">
+                <div class="remember-me-popup-head">
+                    <h3>What's this?</h3>
+                    <a href="#" class="remember-me-popup-close" title="Close">Close</a>
+                </div>
+                <div class="remember-me-popup-body">
+                    <p>Checking &quot;Remember Me&quot; will let you access your shopping cart on this computer when you are logged out</p>
+                    <div class="remember-me-popup-close-button a-right">
+                        <a href="#" class="remember-me-popup-close button" title="Close"><span>Close</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons-set">
+            <p class="required">* Required Fields</p>
+            {% if not app.request.server.get('HTTP_REFERER') is null %}
+                <p class="back-link"><a href="{{app.request.server.get('HTTP_REFERER') }}" class="back-link"><small>&laquo; </small>Back</a></p>
+            {% endif %}
+
+            
+            <div>
+                <button type="submit" title="Submit" class="button" value="" ><span><span>{{ 'profile.edit.submit'|trans }}</span></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+</div>

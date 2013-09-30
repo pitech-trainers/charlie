@@ -7,3 +7,7 @@ category:
   requirements:
         _method:  GET
         id: \d+
+        
+cart:
+  pattern: cart
+  defaults: { _controller: BookshopBookshopBundle:Cart:index}

@@ -1,8 +1,49 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<div class="account-create">
+    <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+        <div class="fieldset">
+            <h2 class="legend">Forgot password</h2>
 
-<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
-    </div>
-</form>
+            <div>
+                <form id="login-form" action="" method="post">
+                    <fieldset>
+                        <h4>Reset password</h4>
+                        <p>Please enter your new password below:</p>
+                        
+                        <ul class="form-list">
+                            {% set pClass = '' %}
+                            {% if form_errors(form.plainPassword.first) %}
+                                {% set pClass = pClass~'validation-failed ' %}
+                            {% endif %}
+                            <li>
+                                <label for="username" class="required"><em>*</em>{{ 'form.new_password'|trans }}</label><br/>
+                                {{ form_widget(form.plainPassword.first, {'attr': {'class' : pClass~'input-text required-entry'} }) }}
+                            </li>
+                            <li>
+                                <label for="username" class="required"><em>*</em>{{ 'form.new_password_confirmation'|trans }}</label><br/>
+                                {{ form_widget(form.plainPassword.second, {'attr': {'class' : pClass~'input-text required-entry'}}) }}
+                            </li>
+                            <li>
+                                {% if form_errors(form.plainPassword.first) %}
+                                    <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.plainPassword.first) }}</div>
+                                {% endif %}
+                                {% if form_errors(form) %}
+                                    <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form) }}</div>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+            <div>
+                <div class="buttons-set">
+                    {{ form_rest(form) }}
+                    <button type="submit" class="button" ><span><span>{{ 'resetting.reset.submit'|trans }}</span></span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="buttons-set">
+    <p class="back-link"><a href="{{path('fos_user_security_login')}}" class="back-link"><small>&laquo; </small>Back</a></p>
+</div>

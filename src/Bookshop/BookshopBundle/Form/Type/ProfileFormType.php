@@ -1,13 +1,13 @@
 <?php
 
-// src/Bookshop/BookshopBundle/Form/Type/RegistrationFormType.php
+// src/Bookshop/BookshopBundle/Form/Type/ProfileFormType.php
 
 namespace Bookshop\BookshopBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 
-class RegistrationFormType extends BaseType {
+class ProfileFormType extends BaseType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
@@ -42,7 +42,7 @@ class RegistrationFormType extends BaseType {
     }
 
     public function getName() {
-        return 'bookshop_user_registration';
+        return 'bookshop_user_profile';
     }
 
 }

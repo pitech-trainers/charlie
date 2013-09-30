@@ -21,9 +21,7 @@
                     <p>If you have an account with us, please log in.</p>
                     <ul class="form-list">
                         <li>
-                        {% if error %}
-                            <div>{{ error|trans }}</div>
-                        {% endif %}
+                        
                         </li>
                             
                         <li>
@@ -42,7 +40,11 @@
                         </li>
                         <li>
                             <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-                            &nbsp;<input type="checkbox" id="remember_me" name="_remember_me" value="on" />                            
+                            &nbsp;<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                            {% if error %}
+                                <div class="validation-advice" id="advice-required-entry-email">{{ error|trans }}</div>
+                            {% endif %}
+                            
                         </li>
                     </ul>
                     <p class="required">* Required Fields</p>

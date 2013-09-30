@@ -6,7 +6,8 @@
 {% endblock %}
 {% block body_text %}
 {% autoescape false %}
-{{ 'registration.email.message'|trans({'%username%': user.username, 
+{{ 'registration.email.message'|trans({'%first_name%': user.firstName, 
+                                       '%last_name%': user.lastName, 
                                        '%confirmationUrl%': confirmationUrl},
                                        'BookshopBundle') }}
 {% endautoescape %}

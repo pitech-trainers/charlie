@@ -78,3 +78,9 @@ fos_user:
         confirmation:
             enabled:    true
             template: BookshopBookshopBundle:Registration:email.txt.twig
+    resetting:
+        email:
+            template: BookshopBookshopBundle:Resetting:email.txt.twig
+    profile:
+        form:
+            type: bookshop_user_profile

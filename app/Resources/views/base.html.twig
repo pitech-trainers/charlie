@@ -24,7 +24,7 @@
                                 </div>
                             </form>
 
-                            <p class="welcome-msg">Default welcome msg! </p>
+                            <p class="welcome-msg">logged in as <strong>{{ app.user ? app.user.username : 'Anonymous' }}</strong></p>
                             {{ knp_menu_render('BookshopBookshopBundle:Builder:linksMenu', {'template': 'BookshopBookshopBundle:Menu:links_menu.html.twig'}) }}
                         </div>
                     </div>
@@ -36,33 +36,29 @@
                     {{ knp_menu_render('BookshopBookshopBundle:Builder:categoryMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
                     </div>
             {% endblock %}
+                    {% block layout%}
                     <div class="main-container col3-layout">
                         <div class="main">
                             {% block body%}
 
-                                {% block leftsidebar%}
+                                
                                 <div class="col-wrapper">
-                                    <div class="col-left sidebar"></div>
+                                    <div class="col-left sidebar">{% block leftsidebar%}{%endblock leftsidebar%}</div>
+                                    {% block content%}{%endblock content%}
                                 </div>
-                                {%endblock leftsidebar%}
+                                
 
-                                {%block rightsidebar%}
+                                
                                 <div class="col-right sidebar">
-
-                                        <div class="block block-cart">
-                                            <div class="block-title">
-                                                <strong><span>My Cart</span></strong>
-                                            </div>
-                                            <div class="block-content">
-                                                <p class="empty">You have no items in your shopping cart.</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                {%endblock rightsidebar%}   
+                                        {%block rightsidebar%}
+                                        {{ render(controller('BookshopBookshopBundle:Cart:index')) }}
+                                        {%endblock rightsidebar%}
+                                </div>
+                                   
                             {%endblock body%}
                             </div>
                         </div>
+                        {%endblock layout%}
                         <div class="footer-container">
                             <div class="footer">
                                 <ul>
