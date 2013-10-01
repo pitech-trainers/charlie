@@ -15,3 +15,11 @@ cart:
 profile:
   pattern: profile/min
   defaults: { _controller: BookshopBookshopBundle:Profile:showMinim}
+  
+dashboard_index:
+  pattern: dashboard/
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:index}
+dashboard_billing_address_show:
+  pattern: dashboard/billingAddress
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:billingAddressShow}
+  
