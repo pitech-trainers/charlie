@@ -3,24 +3,32 @@
 <div class="fos_user_user_show">
     <div class="account-create">
     <div class="page-title">
-        <h1>Create an Account</h1>
+        <h1>{{ 'profile.show.title'|trans({}, 'BookshopBundle') }}</h1>
     </div>
         
     <form action="{{ path('fos_user_profile_edit') }}" method="POST" id="form-validate" class="fos_user_profile_edit">
     
         <div class="fieldset">
-            <h2 class="legend">Personal Information</h2>
+            <!-- <h2 class="legend">Account information</h2> -->
             <ul class="form-list">
+                <li>
+                    <div class="field">
+                        <label for="username" class="required"><em>*</em>{{ 'profile.show.username'|trans }}</label>
+                        <div class="input-box">
+                            <input type="text" id="username" name="username" value="{{ user.username }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
+                        </div>
+                    </div>
+                </li>
                 <li class="fields">
                     <div class="customer-name">
                         <div class="field name-firstname">
-                            <label for="firstname" class="required"><em>*</em>First Name</label>
+                            <label for="firstname" class="required"><em>*</em>{{ 'profile.show.first_name'|trans({},'BookshopBundle') }}</label>
                             <div class="input-box">
                                 <input type="text" id="firstname" name="firstname" value="{{ user.firstName }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
                             </div>
                         </div>
                         <div class="field name-lastname">
-                            <label for="lastname" class="required"><em>*</em>Last Name</label>
+                            <label for="lastname" class="required"><em>*</em>{{ 'profile.show.last_name'|trans({},'BookshopBundle') }}</label>
                             <div class="input-box">
                                 <input type="text" id="lastname" name="firstname" value="{{ user.lastName }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
                             </div>
@@ -29,14 +37,14 @@
                 </li>
                 <li>
                     <div class="field">
-                        <label for="email_address" class="required"><em>*</em>Email Address</label>
+                        <label for="email_address" class="required"><em>*</em>{{ 'profile.show.email'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
                             <input type="text" id="email_address" name="firstname" value="{{ user.email }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
                         </div>
                     </div>
                     <div class="field">
 
-                        <label for="mobile">Mobile</label>
+                        <label for="mobile">{{ 'profile.show.mobile'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
                             <input type="text" id="email_address" name="mobile" value="{{ user.mobile }}" title="First Name" maxlength="255" class="input-text required-entry" disabled/>
                         </div>
@@ -44,55 +52,31 @@
                 </li>
                 <li>
                     <div class="field">
-                        <label for='gender'>Gender</label>
+                        <label for='gender'>{{ 'profile.show.gender.label'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
-                            <label>Male </label>
+                            <label>{{ 'profile.show.gender.male'|trans({},'BookshopBundle') }} </label>
                             <input type="radio" id="email_address" name="gender" value='m' disabled {% if user.gender == 'm' %}checked{% endif%}/>
                             <br/>
-                            <label>Female </label>
+                            <label>{{ 'profile.show.gender.female'|trans({},'BookshopBundle') }} </label>
                             <input type="radio" id="email_address" name="gender" value='f' disabled {% if user.gender == 'f' %}checked{% endif%}/>
                         </div>
                     </div>
                     <div class="field">
-                        <label for="education" class="required">Education</label>
+                        <label for="education" class="required">{{ 'profile.show.education'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
-                                    
+                            <select disabled>
+                                <option value="0">-- Choose one --</option>
+                                <option value="1">Under graduate</option>
+                                <option value="2">Graduate</option>
+                                <option value="3">University</option>
+                                <option value="4">Post university</option>
+                            </select>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="fieldset">
-            <h2 class="legend">Login Information</h2>
-            <ul class="form-list">
-                <li>
-                    <label for="username" class="required"><em>*</em>Username</label>
-                    <div class="input-box">
-                        
-                    </div>
-                </li>
-                <li>
-                <label for="username" class="required"><em>*</em>Current password</label>
-                <div class="input-box">
-                        
-                    </div>
-                </li>
-
-            </ul>
-            <div id="window-overlay" class="window-overlay" style="display:none;"></div>
-            <div id="remember-me-popup" class="remember-me-popup" style="display:none;">
-                <div class="remember-me-popup-head">
-                    <h3>What's this?</h3>
-                    <a href="#" class="remember-me-popup-close" title="Close">Close</a>
-                </div>
-                <div class="remember-me-popup-body">
-                    <p>Checking &quot;Remember Me&quot; will let you access your shopping cart on this computer when you are logged out</p>
-                    <div class="remember-me-popup-close-button a-right">
-                        <a href="#" class="remember-me-popup-close button" title="Close"><span>Close</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="buttons-set">
             <p class="required">* Required Fields</p>
@@ -100,16 +84,14 @@
                 <p class="back-link"><a href="{{app.request.server.get('HTTP_REFERER') }}" class="back-link"><small>&laquo; </small>Back</a></p>
             {% endif %}
 
-            
             <div>
-                <button type="submit" title="Submit" class="button" value="" ><span><span>{{ 'profile.edit.submit'|trans }}</span></span></button>
+                <a href="{{ path('fos_user_profile_edit') }}">
+                    <button type="button" title="{{ 'profile.edit.label'|trans({}, 'BookshopBundle') }}" class="button">
+                        <span><span>{{ 'profile.edit.label'|trans({}, 'BookshopBundle') }}</span></span>
+                    </button>
+                </a>
             </div>
         </div>
     </form>
 </div>
-    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
 </div>

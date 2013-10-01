@@ -1,18 +1,44 @@
 {% trans_default_domain 'FOSUserBundle' %}
 <div class="account-create">
     <div class="page-title">
-        <h1>Create an Account</h1>
+        <h1>{{ 'profile.edit.title'|trans({},'BookshopBundle') }}</h1>
     </div>
         
     <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" id="form-validate" class="fos_user_profile_edit">
     
         <div class="fieldset">
-            <h2 class="legend">Personal Information</h2>
+            
             <ul class="form-list">
+                <li>
+                    <div class="field">
+                        <label for="username" class="required"><em>*</em>{{ 'profile.show.username'|trans({},'BookshopBundle') }}</label>
+                        <div class="input-box">
+                            {% set u_class = '' %}
+                            {% if form_errors(form.username) %} {% set u_class = u_class~'validation-failed ' %}
+                            {% endif %}
+                            {{ form_widget(form.username, {'attr': {'class': u_class~'input-text required-entry'} }) }}
+                            {% if form_errors(form.username) %}
+                            <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.username) }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="username" class="required"><em>*</em>{{ 'profile.edit.current_password'|trans({},'BookshopBundle') }}</label>
+                        <div class="input-box">
+                                {% set u_class = '' %}
+                                {% if form_errors(form.current_password) %} {% set u_class = u_class~'validation-failed ' %}
+                                {% endif %}
+                                {{ form_widget(form.current_password, {'attr': {'class': u_class~'input-text required-entry'} }) }}
+                                {% if form_errors(form.current_password) %}
+                                <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.username) }}</div>
+                                {% endif %}
+                        </div>
+                    </div>
+                </li>
                 <li class="fields">
                     <div class="customer-name">
                         <div class="field name-firstname">
-                            <label for="firstname" class="required"><em>*</em>First Name</label>
+                            <label for="firstname" class="required"><em>*</em>{{ 'profile.show.first_name'|trans({},'BookshopBundle') }}</label>
                             <div class="input-box">
                                 {% set firstNClass = '' %}
                                 {% if form_errors(form.first_name) %} 
@@ -27,7 +53,7 @@
                             </div>
                         </div>
                         <div class="field name-lastname">
-                            <label for="lastname" class="required"><em>*</em>Last Name</label>
+                            <label for="lastname" class="required"><em>*</em>{{ 'profile.show.last_name'|trans({},'BookshopBundle') }}</label>
                             <div class="input-box">
                                 {% set lastNClass = '' %}
                                 {% if form_errors(form.last_name) %} 
@@ -43,7 +69,7 @@
                 </li>
                 <li>
                     <div class="field">
-                        <label for="email_address" class="required"><em>*</em>Email Address</label>
+                        <label for="email_address" class="required"><em>*</em>{{ 'profile.show.email'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
                             {% set e_class = '' %}
                             {% if form_errors(form.email) %} 
@@ -57,7 +83,7 @@
                     </div>
                     <div class="field">
 
-                        <label for="mobile">Mobile</label>
+                        <label for="mobile">{{ 'profile.show.mobile'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
                             {% set m_class = '' %}
                             {% if form_errors(form.mobile) %} {% set m_class = m_class~'validation-failed ' %}
@@ -71,17 +97,22 @@
                 </li>
                 <li>
                     <div class="field">
-                        <label>Gender</label>
+                        <label>{{ 'profile.show.gender.label'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
                             {% for child in form.gender %}
-                                {{ form_label(child) }}
+                                {% if loop.index == 1 %}
+                                    <label>{{ 'profile.show.gender.male'|trans({},'BookshopBundle') }} </label>
+                                {% endif %}
+                                {% if loop.index == 2 %}
+                                    <label>{{ 'profile.show.gender.female'|trans({},'BookshopBundle') }} </label>
+                                {% endif %}
                                 {{ form_widget(child) }}
                                 <br/>
                             {% endfor %}
                         </div>
                     </div>
                     <div class="field">
-                        <label for="education" class="required">Education</label>
+                        <label for="education" class="required">{{ 'profile.show.education'|trans({},'BookshopBundle') }}</label>
                         <div class="input-box">
                                     {{ form_widget(form.education) }}
                         </div>
@@ -89,49 +120,7 @@
                 </li>
             </ul>
         </div>
-        <div class="fieldset">
-            <h2 class="legend">Login Information</h2>
-            <ul class="form-list">
-                <li>
-                    <label for="username" class="required"><em>*</em>Username</label>
-                    <div class="input-box">
-                        {% set u_class = '' %}
-                        {% if form_errors(form.username) %} {% set u_class = u_class~'validation-failed ' %}
-                        {% endif %}
-                        {{ form_widget(form.username, {'attr': {'class': u_class~'input-text required-entry'} }) }}
-                        {% if form_errors(form.username) %}
-                        <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.username) }}</div>
-                        {% endif %}
-                    </div>
-                </li>
-                <li>
-                <label for="username" class="required"><em>*</em>Current password</label>
-                <div class="input-box">
-                        {% set u_class = '' %}
-                        {% if form_errors(form.current_password) %} {% set u_class = u_class~'validation-failed ' %}
-                        {% endif %}
-                        {{ form_widget(form.current_password, {'attr': {'class': u_class~'input-text required-entry'} }) }}
-                        {% if form_errors(form.current_password) %}
-                        <div class="validation-advice" id="advice-required-entry-email" style="">{{ form_errors(form.username) }}</div>
-                        {% endif %}
-                    </div>
-                </li>
-
-            </ul>
-            <div id="window-overlay" class="window-overlay" style="display:none;"></div>
-            <div id="remember-me-popup" class="remember-me-popup" style="display:none;">
-                <div class="remember-me-popup-head">
-                    <h3>What's this?</h3>
-                    <a href="#" class="remember-me-popup-close" title="Close">Close</a>
-                </div>
-                <div class="remember-me-popup-body">
-                    <p>Checking &quot;Remember Me&quot; will let you access your shopping cart on this computer when you are logged out</p>
-                    <div class="remember-me-popup-close-button a-right">
-                        <a href="#" class="remember-me-popup-close button" title="Close"><span>Close</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="buttons-set">
             <p class="required">* Required Fields</p>
@@ -141,7 +130,7 @@
 
             {{ form_rest(form) }}
             <div>
-                <button type="submit" title="Submit" class="button" value="" ><span><span>{{ 'profile.edit.submit'|trans }}</span></span></button>
+                <button type="submit" title="Submit" class="button" ><span><span>{{ 'profile.edit.submit'|trans }}</span></span></button>
             </div>
         </div>
     </form>

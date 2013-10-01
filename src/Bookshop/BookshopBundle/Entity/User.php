@@ -28,7 +28,7 @@ class User extends BaseUser
      * 
      * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
      * @Assert\Regex(
-     *     pattern="/^[A-Za-z]+$/",
+     *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
      *     match=true,
      *     message="The name contains leters only."
@@ -43,7 +43,7 @@ class User extends BaseUser
      * 
      * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
      * @Assert\Regex(
-     *     pattern="/^[A-Za-z]+$/",
+     *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
      *     match=true,
      *     message="The name contains leters only."

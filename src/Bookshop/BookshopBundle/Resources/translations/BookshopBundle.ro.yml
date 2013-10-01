@@ -45,3 +45,21 @@ resetting:
 
             Toate cele bune,
             Echipa
+            
+profile:
+    show:
+        title:      Informațiile contului
+        first_name: "Prenume :"
+        last_name:  "Nume :"
+        email:      "Email :"
+        mobile:     "Mobil :"
+        gender:
+          label:      "Gen :"
+          male:       "Bărbătesc"
+          female:     "Feminin"
+        education:  "Educație :"
+        username:   "Nume de utilizator :"
+    edit:
+        label:    Modifică
+        title:    Modificare cont
+        current_password: "Parola curentă :"
