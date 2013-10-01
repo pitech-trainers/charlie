@@ -1,9 +1,5 @@
 {% extends "BookshopBookshopBundle::layout.html.twig"  %}
 {% block body %}
-{% for product in lastProducts %} 
-
-
- {% endfor %}
 <div class="col-main">
     <div class="box best-selling">
 
@@ -14,22 +10,22 @@
                     {% if loop.index % 4 == 1 %}
                     <tr class="odd">
                         <td>
-                            <a href="#">
-                                <img width="95" alt="" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
+                            <a href="{{path('product',{'id':product.id})}}">
+                                <img width="95" alt="{{product.title}}" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
                             </a>
                             <div class="product-description">
-                                <p><a href="#">{{product.title}}</a></p>
+                                <p><a href="{{path('product',{'id':product.id})}}">{{product.title}}</a></p>
                                 <p>See all <a href="{{ path('category',{'id':product.category.id}) }}">{{product.category.name}}</a></p>
                             </div>
                         </td>
                     {% endif %}
                     {% if loop.index%4 == 2 %}
                         <td>
-                            <a href="#">
-                                <img width="95" alt="" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
+                            <a href="{{path('product',{'id':product.id})}}">
+                                <img width="95" alt="{{product.title}}" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
                             </a>
                             <div class="product-description">
-                                <p><a href="#">{{product.title}}</a></p>
+                                <p><a href="{{path('product',{'id':product.id})}}">{{product.title}}</a></p>
                                 <p>See all <a href="{{ path('category',{'id':product.category.id}) }}">{{product.category.name}}</a></p>
                             </div>
                         </td>
@@ -38,22 +34,22 @@
                 {% if loop.index%4 == 3 %}
                     <tr class="even">
                         <td>
-                            <a href="#">
-                                <img width="95" alt="" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
+                            <a href="{{path('product',{'id':product.id})}}">
+                                <img width="95" alt="{{product.title}}" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
                             </a>
                             <div class="product-description">
-                                <p><a href="#">{{product.title}}</a></p>
+                                <p><a href="{{path('product',{'id':product.id})}}">{{product.title}}</a></p>
                                 <p>See all <a href="{{ path('category',{'id':product.category.id}) }}">{{product.category.name}}</a></p>
                             </div>
                         </td>
                     {% endif %}
                     {% if loop.index%4 == 0 %}
                         <td>
-                            <a href="#">
-                                <img width="95" alt="" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
+                            <a href="{{path('product',{'id':product.id})}}">
+                                <img width="95" alt="{{product.title}}" src="{%if product.image.path!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}" class="product-img">
                             </a>
                             <div class="product-description">
-                                <p><a href="#">{{product.title}}</a></p>
+                                <p><a href="{{path('product',{'id':product.id})}}">{{product.title}}</a></p>
                                 <p>See all <a href="{{ path('category',{'id':product.category.id}) }}">{{product.category.name}}</a></p>
                             </div>
                         </td>
