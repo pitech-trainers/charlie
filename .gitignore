@@ -11,8 +11,4 @@ web/bundles/*
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
-<<<<<<< HEAD
 nbproject/private
-=======
-nbproject/private/
->>>>>>> 692302a71fe59e9862021a47bbd4ee13e98addfc
