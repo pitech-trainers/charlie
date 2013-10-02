@@ -1,6 +1,9 @@
-
-{{ billing_address.firstName }}<br/>
-{{ billing_address.lastName }}<br/>
-{{ billing_address.email }}<br/>
-{{ billing_address.address }} {{ billing_address.city }}<br/>
-{{ billing_address.country }}<br/>
+<h4>Billing Address</h4>
+<address>
+    {{ billing_address.firstName }}<br/>
+    {{ billing_address.lastName }}<br/>
+    {{ billing_address.email }}<br/>
+    {{ billing_address.address }} {{ billing_address.city }}<br/>
+    {{ billing_address.country }}<br/>
+</address>
+<a href="{{path('dashboard_billing_addr_preedit')}}">Edit Billing Address</a>

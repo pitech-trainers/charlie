@@ -76,23 +76,10 @@
                     </div>
                     <div class="box-content">
                         <div class="col-1">
-                            <h4>Billing Address</h4>
-                            <address>
-                                {{ render(controller('BookshopBookshopBundle:Dashboard:billingAddressShow')) }}
-                            </address>
-                            <a href="#">Edit Address</a>
+                            {{ render(controller('BookshopBookshopBundle:Dashboard:billingAddressShow')) }}
                         </div>
                         <div class="col-2">
-                            <h4>Shipping Address</h4>
-                            <address>
-                                John Doe<br />
-                                asd<br />
-                                asd,  Alaska, asd<br />
-                                United States<br />
-                                T: 321312
-                                <br />
-                                <a href="#">Edit Address</a>
-                            </address>
+                            {{ render(controller('BookshopBookshopBundle:Dashboard:shippingAddressShow')) }}
                         </div>
                     </div>
                 </div>
