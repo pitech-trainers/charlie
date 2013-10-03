@@ -4,20 +4,14 @@ namespace Bookshop\BookshopBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CategoryController extends Controller {
+class SearchController extends Controller {
 
-    public function categoryAction($id) {
-        $em = $this->getDoctrine()->getManager();
+    public function searchAction() {
 
-        $category = $em->getRepository('BookshopBookshopBundle:Category')->getCategory($id);
-
-//        $prods = $em->getRepository('BookshopBookshopBundle:Product')->getProducts($id);
-//        if (!$prods) {
-//            throw $this->createNotFoundException('Unable to find products in this Category.');
-//        }
-
+        $string = $_GET['q'];
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql = "SELECT a FROM BookshopBookshopBundle:Product a WHERE a.active=1 and a.category=" . $id;
+        $categs = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
+        $dql = "Select a from BookshopBookshopBundle:Product a where a.active = 1 and a.title like '%" . $string . "%' ";
         if (isset($_GET['stock']))
             switch ($_GET['stock']) {
                 case '1':
@@ -26,6 +20,11 @@ class CategoryController extends Controller {
                 case '0':
                     $dql .= ' and a.stock=0';
             }
+        if (isset($_GET['category'])) {
+            if (ctype_digit($_GET['category'])) {
+                $dql .= ' and a.category = ' . $_GET['category'];
+            }
+        }
         if (isset($_GET['pricerange'])) {
             switch ($_GET['pricerange']) {
                 case '1':
@@ -39,7 +38,6 @@ class CategoryController extends Controller {
                     break;
             }
         }
-
         $query = $em->createQuery($dql);
 
         if (isset($_GET['sort']))
@@ -53,15 +51,20 @@ class CategoryController extends Controller {
             if (($_GET['direction'] != 'asc') && ($_GET['direction'] != 'desc'))
                 $_GET['direction'] = 'asc';
 
+
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
+        $products = $paginator->paginate(
                 $query, $this->get('request')->query->get('page', 1)/* page number */, 9/* limit per page */
         );
 
-        return $this->render('BookshopBookshopBundle:Default:category.html.twig', array(
-                    'products' => $pagination,
-                    'category' => $category[0]
+
+
+        return $this->render('BookshopBookshopBundle:Default:search.html.twig', array(
+                    'products' => $products,
+                    'string' => $string,
+                    'categories' => $categs
         ));
     }
 
 }
+
