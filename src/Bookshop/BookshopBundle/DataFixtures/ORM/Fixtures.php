@@ -40,7 +40,7 @@ class Fixtures extends AbstractFixture implements OrderedFixtureInterface {
 //        $prod5->setCategory($manager->merge($this->getReference("categ-4")));
 //        $manager->persist($prod5);
         
-        $manager->flush();
+        $manager->flush($objects);
     }
     
     public function getOrder()

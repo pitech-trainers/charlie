@@ -38,4 +38,17 @@ dashboard_billing_addr_edit:
   defaults: { _controller: BookshopBookshopBundle:Dashboard:billingAddressEdit}
   requirements:
     _method: POST
-        
+    
+dashboard_shipping_addr_preedit:
+  pattern: dashboard/shippingAddress/preedit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:shippingAddressPreEdit}
+  
+dashboard_shipping_addr_new_edit:
+  pattern: dashboard/shippingAddress/edit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:shippingAddressEdit}
+  
+dashboard_shipping_addr_edit:
+  pattern: dashboard/shippingAddress/edit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:shippingAddressEdit}
+  requirements:
+    _method: POST
