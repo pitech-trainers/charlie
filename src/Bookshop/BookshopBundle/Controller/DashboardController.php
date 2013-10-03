@@ -5,7 +5,7 @@ namespace Bookshop\BookshopBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bookshop\BookshopBundle\Entity\User;
 use Bookshop\BookshopBundle\Entity\Address;
-use Bookshop\BookshopBundle\Form\Type\BillingAddressFormType;
+use Bookshop\BookshopBundle\Form\Type\AddressFormType;
 
 class DashboardController extends Controller {
 
@@ -40,9 +40,12 @@ class DashboardController extends Controller {
     public function billingAddressEditAction() {
         $user = new User();
         $user = $this->get('security.context')->getToken()->getUser();
-        $billingAddress = $user->getBillingAddress();
+        $billingAddress = new Address();
+        if (!is_null($user->getBillingAddress())) {
+            $billingAddress = $user->getBillingAddress();
+        }
 
-        $form = $this->createForm(new BillingAddressFormType(), $billingAddress);
+        $form = $this->createForm(new AddressFormType(), $billingAddress);
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
@@ -51,8 +54,19 @@ class DashboardController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()
                     ->getManager();
+            if ($billingAddress->getId() == $user->getShippingAddress()->getId() && !is_null($user->getBillingAddress())) {
+
+                $newBillingAddress = new Address();
+                $newBillingAddress->copy($billingAddress);
+                $billingAddress = $newBillingAddress;
+            }
+
             $em->persist($billingAddress);
-            $em->flush();
+            $em->flush($billingAddress);
+
+            $user->setBillingAddress($billingAddress);
+            $em->persist($user);
+            $em->flush($user);
 
             return $this->redirect($this->generateUrl('dashboard_index'));
         }
@@ -63,11 +77,23 @@ class DashboardController extends Controller {
     public function billingAddressPreEditAction() {
         $user = new User();
         $user = $this->get('security.context')->getToken()->getUser();
-        $billingAddress = $user->getBillingAddress();
-
-        $form = $this->createForm(new BillingAddressFormType(), $billingAddress);
+        $billingAddress = new Address();
+        if (!is_null($user->getBillingAddress())) {
+            $billingAddress = $user->getBillingAddress();
+        }
 
         return $this->render('BookshopBookshopBundle:Dashboard:billingAddrPreEdit.html.twig', array('billing_address' => $billingAddress));
     }
+    
+//    public function shippingAddressPreEditAction() {
+//        $user = new User();
+//        $user = $this->get('security.context')->getToken()->getUser();
+//        $shippingAddress = new Address();
+//        if (!is_null($user->getShippingAddresss())) {
+//            $shippingAddress = $user->getShippingAddresss();
+//        }
+//
+//        return $this->render('BookshopBookshopBundle:Dashboard:shippingAddrPreEdit.html.twig', array('shipping_address' => $shippingAddress));
+//    }
 
 }

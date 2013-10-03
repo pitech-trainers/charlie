@@ -1,6 +1,7 @@
 <?php
 
 namespace Bookshop\BookshopBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,45 +26,65 @@ class Address
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * 
+     * @Assert\NotBlank(message="Please enter your address.")
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255)
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     * 
+     * @Assert\NotBlank(message="Please enter your city.")
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255)
+     * @ORM\Column(name="country", type="string", length=255, nullable=true)
+     * 
+     * @Assert\NotBlank(message="Please enter your country.")
      */
     private $country;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
+     * 
+     * @Assert\NotBlank(message="Please enter your first_name.")
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=255)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
+     * 
+     * @Assert\NotBlank(message="Please enter your last name.")
      */
     private $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * 
+     * @Assert\NotBlank(message="Please enter your email.")
      */
     private $email;
 
 
+    public function copy(Address $address){
+        $this->setAddress($address->getAddress());
+        $this->setCity($address->getCity());
+        $this->setCountry($address->getCountry());
+        $this->setEmail($address->getEmail());
+        $this->setFirstName($address->getFirstName());
+        $this->setLastName($address->getLastName());
+    }
     /**
      * Get id
      *

@@ -77,6 +77,7 @@ address:
     country:    "Țară :"
   edit:
     label:      Modifică
+  save:       Salvează
     title:
       billing:    Modificare adresă prestabilită de facturare
       shipping:   Modificare adresă prestabilită de livrare

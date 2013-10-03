@@ -76,6 +76,7 @@ address:
     country:    "Country"
   edit:
     label:      Edit
+    save:       Save
     title:
       billing: Edit default billing address
       shipping: Edit default shipping address
