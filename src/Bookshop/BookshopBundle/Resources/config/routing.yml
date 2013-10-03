@@ -19,4 +19,8 @@ search:
   defaults: { _controller: BookshopBookshopBundle:Search:search}
   requirements:
     _method: GET
+
+checkout:
+  pattern: checkout/billing
+  defaults: { _controller: BookshopBookshopBundle:Checkout:billing}
         
