@@ -24,51 +24,35 @@
                                 </div>
                             </form>
 
-                            <p class="welcome-msg">Default welcome msg! </p>
 
-                            <ul class="links">
-                                <li class="first" ><a href="dashboard.html" title="My Account" >My Account</a></li>
-                                <li ><a href="cart.html" title="My Cart" class="top-link-cart">My Cart</a></li>
-                                <li class="last" ><a href="{{ path('checkout') }}" title="Checkout" class="top-link-checkout">Checkout</a></li>
-                            </ul>
-
+                            <p class="welcome-msg">Hello <strong>{{ app.user ? app.user.firstname: 'Anonymous' }}</strong></p>
+                            {{ knp_menu_render('BookshopBookshopBundle:Builder:linksMenu', {'template': 'BookshopBookshopBundle:Menu:links_menu.html.twig'}) }}
                         </div>
                     </div>
                 </div>
-            {% block navigation%}
+            {% block navigation %}
                 <div class="nav-container">
                     {{ knp_menu_render('BookshopBookshopBundle:Builder:mainMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
                     </div>
             {% endblock%}
-                    {% block collayout %}
+            {% block collayout %}
                     <div class="main-container col3-layout">
                         <div class="main">
-                            <div class="col-wrapper">
 
-                                    {% block body%}
-                                    {%endblock%}
-
-                                {% block leftsidebar%}<div class="col-left sidebar"></div>{%endblock%}
-
+                            {% block body%}
+                            {% endblock%}
+                            {% block leftsidebar%}
+                            <div class="col-left sidebar"></div>
+                            {%endblock%}
+                        </div>
+                            {%block rightsidebar%}
+                        <div class="col-right sidebar">
+                                        {{ render(controller('BookshopBookshopBundle:Cart:index')) }}
                             </div>
-                           {%block rightsidebar%}
-                            <div class="col-right sidebar">
-                                {% block cart %}   
-                                    <div class="block block-cart">
-                                        <div class="block-title">
-                                            <strong><span>My Cart</span></strong>
-                                        </div>
-                                        <div class="block-content">
-                                            <p class="empty">You have no items in your shopping cart.</p>
-                                        </div>
-                                    </div>
-                                        {%endblock%}
-
-                                </div>
-                                {% endblock %}
-                            </div>
+                            {%endblock rightsidebar%}
                         </div>
                 {% endblock %}
+                {% block footer %}
                         <div class="footer-container">
                             <div class="footer">
                                 <ul>
@@ -85,6 +69,7 @@
                                 </ul>
                             </div>
                         </div>
+                {% endblock %}
                     </div>
                 </div>
             </body>

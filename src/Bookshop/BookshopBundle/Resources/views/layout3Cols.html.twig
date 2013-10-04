@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{%block layout%}
+<div class="main-container col3-layout">
+    <div class="main">
+        <div class="col-wrapper">
+
+            {% block body %}
+              {% block fos_user_content %}
+                {% endblock %}
+            {% endblock body %}
+        </div>
+    </div>
+</div>
+{%endblock layout%}

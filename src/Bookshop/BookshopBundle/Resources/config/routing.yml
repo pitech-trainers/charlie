@@ -8,6 +8,7 @@ category:
   requirements:
         _method:  GET
         id: \d+
+
 product:
   pattern: product/{id}
   defaults: { _controller: BookshopBookshopBundle:Product:product}
@@ -24,3 +25,11 @@ checkout:
   pattern: checkout/billing
   defaults: { _controller: BookshopBookshopBundle:Checkout:billing}
         
+        
+cart:
+  pattern: cart
+  defaults: { _controller: BookshopBookshopBundle:Cart:index}
+
+profile:
+  pattern: profile/min
+  defaults: { _controller: BookshopBookshopBundle:Profile:showMinim}

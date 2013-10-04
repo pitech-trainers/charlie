@@ -1,4 +1,4 @@
-{% extends '::base.html.twig'%}
+{% extends 'BookshopBookshopBundle::layout.html.twig'%}
 {% block body%}
 <div class="breadcrumbs">
     <ul>
@@ -263,7 +263,7 @@
                 {% endif %}
                     {% if not(('pricerange' in app.request.requesturi) and ('stock' in app.request.requesturi) and ('category' in app.request.requesturi)) %}<p class="block-subtitle">Shopping Options</p>{% endif %}
                                     <dl id="narrow-by-list">
-                    {% if not('pricerange' in app.request.requesturi) %}
+                                    {% if not('category' in app.request.requesturi) %}
                                             <dt>Category</dt>
                                             <dd>
                                                 <ol>
@@ -287,6 +287,8 @@
                                                 {% endfor %}
                                                         </ol>
                                                     </dd>
+                                    {% endif %}
+                                    {% if not('pricerange' in app.request.requesturi) %}
                                                     <dt>Price</dt>
                                                     <dd>
                                                         <ol>
