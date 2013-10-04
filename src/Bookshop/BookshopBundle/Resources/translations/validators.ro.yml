@@ -1,0 +1,12 @@
+user.name.not_blank: Introduceți numele vă rog.
+user.mobile.not_blank: Introduceți numărul de telefon vă rog.
+user.mobile.regex2:  Nr.ul de mobil trebuie sa conțină 10 sau 12 caractere.
+user.mobile.regex1: Acest număr nu este valid.
+
+address.address.not_blank: Introduceți adresa vă rog.
+address.city.not_blank: Introduceți orașul vă rog.
+address.country.not_blank: Introduceți țara vă rog.
+address.first_name.not_blank: Introduceți prenumele vă rog.
+address.last_name.not_blank: Introduceți numele vă rog.
+address.email.not_blank: Introduceți emailul vă rog.
+address.email.not_valid: Această adresă de mail nu este validă.
