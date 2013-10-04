@@ -29,36 +29,22 @@
                         </div>
                     </div>
                 </div>
-            {% block navigation %}
 
-
-                <div class="nav-container">
-                    {{ knp_menu_render('BookshopBookshopBundle:Builder:categoryMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
+                {% block navigation%}
+                    <div class="nav-container">
+                    {{ knp_menu_render('BookshopBookshopBundle:Builder:mainMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
                     </div>
-            {% endblock %}
-                    {% block layout%}
-                    <div class="main-container col3-layout">
-                        <div class="main">
-                            {% block body%}
+                {% endblock%}
+                    
+                {% block collayout %}
+                <div class="main-container col3-layout">
+                    <div class="main">
+                        {% block body%} {% endblock %}
 
                                 
-                                <div class="col-wrapper">
-                                    <div class="col-left sidebar">{% block leftsidebar%}{%endblock leftsidebar%}</div>
-                                    {% block content%}{%endblock content%}
-                                </div>
-                                
-
-                                
-                                <div class="col-right sidebar">
-                                        {%block rightsidebar%}
-                                        {{ render(controller('BookshopBookshopBundle:Cart:index')) }}
-                                        {%endblock rightsidebar%}
-                                </div>
-                                   
-                            {%endblock body%}
                             </div>
                         </div>
-                        {%endblock layout%}
+                {% endblock %}
                         <div class="footer-container">
                             <div class="footer">
                                 <ul>

@@ -1,0 +1,132 @@
+{% extends "BookshopBookshopBundle::layout.html.twig"%}
+{% block collayout %} <div class="main-container col2-right-layout"> 
+    <div class="main">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home">
+                    <a href="{{ path('bookshop_bookshop_homepage') }}" title="Go to Home Page">Home</a>
+                    <span>/ </span>
+                </li>
+                <li class="category35">
+                    <a href="{{ path('category',{'id':product.category.id}) }}" title="Go to Home Page">{{product.category.name}}</a>
+                    <span>/ </span>
+                </li>
+                <li class="category35">
+                    <strong>{{product.title}}</strong>
+                </li>
+            </ul>
+        </div>
+
+
+{% block body %}
+
+
+
+{#   <div id="messages_product_view">
+        <ul class="messages">
+            <li class="success-msg">
+                <ul>
+                    <li><span>Ottoman was added to your shopping cart.</span></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+#}
+        <div class="col-main">
+            <div class="product-view">
+                <div class="product-essential">
+                    <form action="" method="post" id="product_addtocart_form">
+                        <div class="product-shop">
+                            <div class="product-name">
+                                <h1>{{ product.title }}</h1>
+                            </div>
+                            <div class="short-description">
+                                <h2>Quick Overview</h2>
+                                <div class="std">{{ product.shortdescription }}</div>
+                            </div>
+                            <p class="availability in-stock">Availability: <span>{% if(product.stock>0) %} In stock {% else %} Not available {% endif %}</span></p>
+                            <div class="price-box">
+                                <span class="regular-price" id="product-price-MyProductID">
+                                    <span class="price">{{ product.price }} US$</span>
+                                </span>
+                            </div>
+                            {% if product.stock>0 %}
+                            <div class="add-to-box">
+                                <div class="add-to-cart">
+                                    <label for="qty">Qty:</label>
+                                    <input type="text" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="input-text qty" />
+                                    <button type="button" title="Add to Cart" class="button btn-cart" ><span><span>Add to Cart</span></span></button>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="add-to-box">
+                                <div class="add-to-cart">
+                                    <label for="qty">Product not available</label>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <div class="product-img-box">
+                            <p class="product-image product-image-zoom">
+                                <img id="image" src="{% if product.image.path!=null %}{{asset([product.image.path,product.image.filename]|join)}}{% endif %}" alt="{{ product.title }}" title="{{ product.title }}" />
+                            </p>
+                        </div>
+
+                        <div class="clearer"></div>
+                    </form>
+
+                </div>
+
+                <div class="product-collateral">
+                    <div class="box-collateral box-description">
+                        <h2>Details</h2>
+                        <div class="std">
+               {{ product.description }}
+                            </div>
+                        </div>
+                        <p><a href="{{path('category',{'id':product.category.id})}}"><span>&laquo; Back to list</span></a></p>
+                        <div class="box-collateral box-up-sell">
+                            <h2>You may also be interested in the following product(s)</h2>
+                            <table class="products-grid" id="upsell-product-table">
+                                <tr>
+                    {% for relatedproduct in relatedproducts %}
+                                        <td>
+                                            <a href="{{path('product',{'id':relatedproduct.id})}}" title="{{ relatedproduct.title }}" class="product-image"><img src="{% if relatedproduct.image.path!=null %}{{asset([relatedproduct.image.path,relatedproduct.image.filename]|join)}}{% endif %}" width="125" height="125" alt="Red Furniture Set" /></a>
+                                            <h3 class="product-name"><a href="{{path('product',{'id':relatedproduct.id})}}" title="{{ relatedproduct.title }}t">{{ relatedproduct.title }}</a></h3>
+
+
+                                            <div class="price-box">
+                                                <p class="minimal-price">
+                                                    <span class="price-label">Starting at:</span>
+                                                    <span class="price" id="product-minimal-price-54-upsell">{{ relatedproduct.price }} US$</span>
+                                                </p>
+                                            </div>
+                                        </td>
+                            {% endfor %}
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endblock %}
+        {% block cart %}
+                <div class="col-right sidebar">
+                                    {%block rightsidebar%}
+                        <div class="block block-cart">
+                            <div class="block-title">
+                                <strong><span>My Cart</span></strong>
+                            </div>
+                            <div class="block-content">
+                                <p class="empty">You have no items in your shopping cart.</p>
+                            </div>
+                        </div>
+        {%endblock%}
+
+                    </div>
+  {% endblock %}
+                </div>
+            </div>
+{% endblock %}
+

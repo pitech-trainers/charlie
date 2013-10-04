@@ -6,11 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Category
- * @ORM\Table(name="categories")
- * @ORM\Entity
+ *
+ * @ORM\Table(name = "categories")
+ * @ORM\Entity(repositoryClass="Bookshop\BookshopBundle\Entity\CategoryRepository")
  */
-class Category
-{
+class Category {
+
     /**
      * @var integer
      *
@@ -27,14 +28,17 @@ class Category
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     */
+    protected $products;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -44,10 +48,9 @@ class Category
      * @param string $name
      * @return Category
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -56,8 +59,45 @@ class Category
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add products
+     *
+     * @param \Bookshop\BookshopBundle\Entity\Product $products
+     * @return Category
+     */
+    public function addProduct(\Bookshop\BookshopBundle\Entity\Product $products) {
+        $this->products[] = $products;
+
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param \Bookshop\BookshopBundle\Entity\Product $products
+     */
+    public function removeProduct(\Bookshop\BookshopBundle\Entity\Product $products) {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts() {
+        return $this->products;
+    }
+
 }
