@@ -14,3 +14,11 @@ product:
   requirements:
         _method:  GET
         id: \d+
+        
+cart:
+  pattern: cart
+  defaults: { _controller: BookshopBookshopBundle:Cart:index}
+
+profile:
+  pattern: profile/min
+  defaults: { _controller: BookshopBookshopBundle:Profile:showMinim}
