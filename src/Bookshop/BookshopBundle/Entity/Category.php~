@@ -7,11 +7,19 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Category
  *
+<<<<<<< HEAD
+ * @ORM\Table(name = "categories")
+ * @ORM\Entity(repositoryClass="Bookshop\BookshopBundle\Entity\CategoryRepository")
+ */
+class Category {
+
+=======
  * @ORM\Table()
  * @ORM\Entity
  */
 class Category
 {
+>>>>>>> 692302a71fe59e9862021a47bbd4ee13e98addfc
     /**
      * @var integer
      *
@@ -28,14 +36,25 @@ class Category
      */
     private $name;
 
+<<<<<<< HEAD
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     */
+    protected $products;
+=======
+>>>>>>> 692302a71fe59e9862021a47bbd4ee13e98addfc
 
     /**
      * Get id
      *
      * @return integer 
      */
+<<<<<<< HEAD
+    public function getId() {
+=======
     public function getId()
     {
+>>>>>>> 692302a71fe59e9862021a47bbd4ee13e98addfc
         return $this->id;
     }
 
@@ -45,10 +64,16 @@ class Category
      * @param string $name
      * @return Category
      */
+<<<<<<< HEAD
+    public function setName($name) {
+        $this->name = $name;
+
+=======
     public function setName($name)
     {
         $this->name = $name;
     
+>>>>>>> 692302a71fe59e9862021a47bbd4ee13e98addfc
         return $this;
     }
 
@@ -57,8 +82,53 @@ class Category
      *
      * @return string 
      */
+<<<<<<< HEAD
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add products
+     *
+     * @param \Bookshop\BookshopBundle\Entity\Product $products
+     * @return Category
+     */
+    public function addProduct(\Bookshop\BookshopBundle\Entity\Product $products) {
+        $this->products[] = $products;
+
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param \Bookshop\BookshopBundle\Entity\Product $products
+     */
+    public function removeProduct(\Bookshop\BookshopBundle\Entity\Product $products) {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts() {
+        return $this->products;
+    }
+
+}
+=======
     public function getName()
     {
         return $this->name;
     }
 }
+>>>>>>> 692302a71fe59e9862021a47bbd4ee13e98addfc

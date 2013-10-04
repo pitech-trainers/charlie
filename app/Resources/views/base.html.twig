@@ -36,12 +36,11 @@
                     </div>
                 </div>
             {% block navigation%}
-
-
                 <div class="nav-container">
-                    {{ knp_menu_render('BookshopBookshopBundle:Builder:categoryMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
+                    {{ knp_menu_render('BookshopBookshopBundle:Builder:mainMenu', {'template': 'BookshopBookshopBundle:Menu:knp_menu.html.twig'}) }}
                     </div>
             {% endblock%}
+                    {% block collayout %}
                     <div class="main-container col3-layout">
                         <div class="main">
                             <div class="col-wrapper">
@@ -49,11 +48,12 @@
                                     {% block body%}
                                     {%endblock%}
 
-                                <div class="col-left sidebar">{% block leftsidebar%}{%endblock%}</div>
+                                {% block leftsidebar%}<div class="col-left sidebar"></div>{%endblock%}
 
                             </div>
+                           {%block rightsidebar%}
                             <div class="col-right sidebar">
-                                    {%block rightsidebar%}
+                                {% block cart %}   
                                     <div class="block block-cart">
                                         <div class="block-title">
                                             <strong><span>My Cart</span></strong>
@@ -65,8 +65,10 @@
                                         {%endblock%}
 
                                 </div>
+                                {% endblock %}
                             </div>
                         </div>
+                {% endblock %}
                         <div class="footer-container">
                             <div class="footer">
                                 <ul>
