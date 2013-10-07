@@ -1,0 +1,11 @@
+<h4>Billing Address</h4>
+<address>
+    {% if not billing_address is null %}
+    {{ billing_address.firstName }}<br/>
+    {{ billing_address.lastName }}<br/>
+    {{ billing_address.email }}<br/>
+    {{ billing_address.address }} {{ billing_address.city }}<br/>
+    {{ billing_address.country }}<br/>
+    {%  endif %}
+</address>
+<a href="{{path('dashboard_billing_addr_preedit')}}">Edit Billing Address</a>

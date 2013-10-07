@@ -1,0 +1,10 @@
+{% extends "BookshopBookshopBundle::dashboardLayout.html.twig" %}
+
+{% block fos_user_content %}
+<div class="account-create">
+    <div class="page-title">
+        <h1>{{ 'address.show.title.billing'|trans({}, 'BookshopBundle') }}</h1>
+    </div>
+    {% include 'BookshopBookshopBundle:Dashboard:billingAddressForm.html.twig' with { 'form': form } %}
+</div>
+{% endblock %}

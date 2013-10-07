@@ -90,17 +90,19 @@ class User extends BaseUser
     
     /**
      * @var string
-     *
-     * @ORM\Column(name="billing_address_id", type="integer", nullable=true)
+     * 
+     * @ORM\OneToOne(targetEntity="Address")
+     * @ORM\JoinColumn(name="billing_address_id", referencedColumnName="id")
      */
-    protected $billing_address_id;
+    protected $billing_address;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="shipping_address_id", type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity="Address")
+     * @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id")
      */
-    protected $shipping_address_id;
+    protected $shipping_address;
 
     public function __construct()
     {
@@ -233,49 +235,50 @@ class User extends BaseUser
         return $this->education;
     }
 
+
     /**
-     * Set billing_address_id
+     * Set billing_address
      *
-     * @param integer $billingAddressId
+     * @param \Bookshop\BookshopBundle\Entity\Address $billingAddress
      * @return User
      */
-    public function setBillingAddressId($billingAddressId)
+    public function setBillingAddress(\Bookshop\BookshopBundle\Entity\Address $billingAddress = null)
     {
-        $this->billing_address_id = $billingAddressId;
+        $this->billing_address = $billingAddress;
     
         return $this;
     }
 
     /**
-     * Get billing_address_id
+     * Get billing_address
      *
-     * @return integer 
+     * @return \Bookshop\BookshopBundle\Entity\Address 
      */
-    public function getBillingAddressId()
+    public function getBillingAddress()
     {
-        return $this->billing_address_id;
+        return $this->billing_address;
     }
 
     /**
-     * Set shipping_address_id
+     * Set shipping_address
      *
-     * @param integer $shippingAddressId
+     * @param \Bookshop\BookshopBundle\Entity\Address $shippingAddress
      * @return User
      */
-    public function setShippingAddressId($shippingAddressId)
+    public function setShippingAddress(\Bookshop\BookshopBundle\Entity\Address $shippingAddress = null)
     {
-        $this->shipping_address_id = $shippingAddressId;
+        $this->shipping_address = $shippingAddress;
     
         return $this;
     }
 
     /**
-     * Get shipping_address_id
+     * Get shipping_address
      *
-     * @return integer 
+     * @return \Bookshop\BookshopBundle\Entity\Address 
      */
-    public function getShippingAddressId()
+    public function getShippingAddress()
     {
-        return $this->shipping_address_id;
+        return $this->shipping_address;
     }
 }
