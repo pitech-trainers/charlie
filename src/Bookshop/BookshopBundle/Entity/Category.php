@@ -3,6 +3,8 @@
 namespace Bookshop\BookshopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Category
@@ -10,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name = "categories")
  * @ORM\Entity(repositoryClass="Bookshop\BookshopBundle\Entity\CategoryRepository")
  */
-class Category {
+class Category implements Translatable
+{
 
     /**
      * @var integer
@@ -24,6 +27,7 @@ class Category {
     /**
      * @var string
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;

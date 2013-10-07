@@ -63,3 +63,21 @@ profile:
         label:    Modifică
         title:    Modificare cont
         current_password: "Parola curentă :"
+
+address:
+  show:
+    title:
+      billing:    Adresa de facturare
+      shipping:   Adresa de livrare
+    first_name: "Prenume :"
+    last_name:  "Name :"
+    email:      "Email :"
+    address:    "Adresa :"
+    city:       "Localitate :"
+    country:    "Țară :"
+  edit:
+    label:      Modifică
+    save:       Salvează
+    title:
+      billing:    Modificare adresă prestabilită de facturare
+      shipping:   Modificare adresă prestabilită de livrare
