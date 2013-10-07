@@ -19,7 +19,7 @@ class Builder extends ContainerAware {
             // authenticated REMEMBERED, FULLY will imply REMEMBERED (NON anonymous)
             $myAccountTrans = $myTrans->trans('menu.my.account', array() ,'BookshopBundle');
             $menu->addChild($myAccountTrans, array(
-                'route' => 'fos_user_profile_show'
+                'route' => 'dashboard_index'
             ));
             
             $myCartTrans = $myTrans->trans('menu.my.cart', array() ,'BookshopBundle');
