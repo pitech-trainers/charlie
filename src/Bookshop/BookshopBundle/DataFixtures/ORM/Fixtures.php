@@ -1,10 +1,11 @@
 <?php
 
-namespace Acme\DemoBundle\DataFixtures\ORM;
+namespace Bookshop\BookshopBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Bookshop\BookshopBundle\Entity\Category;
 
 class Fixtures extends AbstractFixture implements OrderedFixtureInterface {
     
@@ -14,6 +15,17 @@ class Fixtures extends AbstractFixture implements OrderedFixtureInterface {
         
         $persister = new \Nelmio\Alice\ORM\Doctrine($manager);
         $persister->persist($objects);
+        
+        $categ1 = new Category();
+        $categ1->setName("Art");
+        $manager->persist($categ1);
+        $manager->flush();
+        
+        $categ1->setName("Artă");
+        $categ1->setTranslatableLocale('ro');
+        $manager->persist($categ1);
+        $manager->flush();
+        
         
 //        $prod1 = new Product();
 //        $prod1->setName("portocale")->setPrice(2)->setDescription("portocale de vanzare");
