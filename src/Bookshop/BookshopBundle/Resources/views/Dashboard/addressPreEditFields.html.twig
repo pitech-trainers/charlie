@@ -1,0 +1,48 @@
+<ul class="form-list">
+    <li class="fields">
+        <div class="customer-name">
+            <div class="field name-firstname">
+                <label for="firstname" class="required"><em>*</em>{{ 'address.show.first_name'|trans({},'BookshopBundle') }}</label>
+                <div class="input-box">
+                    <input type="text" id="firstname" name="firstname" value="{{ address.firstName }}" title="{{ 'address.show.first_name'|trans({},'BookshopBundle') }}" maxlength="255" class="input-text required-entry" disabled/>
+                </div>
+            </div>
+            <div class="field name-lastname">
+                <label for="lastname" class="required"><em>*</em>{{ 'address.show.last_name'|trans({},'BookshopBundle') }}</label>
+                <div class="input-box">
+                    <input type="text" id="lastname" name="firstname" value="{{ address.lastName }}" title="{{ 'address.show.last_name'|trans({},'BookshopBundle') }}" maxlength="255" class="input-text required-entry" disabled/>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="field">
+            <label for="email_address" class="required"><em>*</em>{{ 'address.show.email'|trans({},'BookshopBundle') }}</label>
+            <div class="input-box">
+                <input type="text" id="email_address" name="firstname" value="{{ address.email }}" title="{{ 'address.show.email'|trans({},'BookshopBundle') }}" maxlength="255" class="input-text required-entry" disabled/>
+            </div>
+        </div>
+        <div class="field">
+
+            <label for="address">{{ 'address.show.address'|trans({},'BookshopBundle') }}</label>
+            <div class="input-box">
+                <input type="text" id="email_address" name="address" value="{{ address.address }}" title="{{ 'address.show.adderss'|trans({},'BookshopBundle') }}" maxlength="255" class="input-text required-entry" disabled/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="field">
+            <label for="city" class="required"><em>*</em>{{ 'address.show.city'|trans({},'BookshopBundle') }}</label>
+            <div class="input-box">
+                <input type="text" id="email_address" name="city" value="{{ address.city }}" title="{{ 'address.show.city'|trans({},'BookshopBundle') }}" maxlength="255" class="input-text required-entry" disabled/>
+            </div>
+        </div>
+        <div class="field">
+
+            <label for="country">{{ 'address.show.country'|trans({},'BookshopBundle') }}</label>
+            <div class="input-box">
+                <input type="text" id="email_address" name="country" value="{{ address.country }}" title="{{ 'address.show.country'|trans({},'BookshopBundle') }}" maxlength="255" class="input-text required-entry" disabled/>
+            </div>
+        </div>
+    </li>
+</ul>

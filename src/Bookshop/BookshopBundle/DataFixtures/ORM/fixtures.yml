@@ -1,0 +1,30 @@
+Bookshop\BookshopBundle\Entity\Address:
+    address1:
+      address: Plopilor 67  
+      city: Cluj Napoca 
+      country: Romania
+      firstName: Marius
+      lastName: Zaharie
+      email: mzaharie+1@pitechnologies.com
+    address2:
+      address: Mehedinti 13
+      city: Cluj Napoca 
+      country: Romania
+      firstName: Marius
+      lastName: Zaharie
+      email: mzaharie+1@pitechnologies.com
+    address3:
+      address: Siretului 10  
+      city: Suceava 
+      country: Romania
+      firstName: Marius Petru
+      lastName: Butucel
+      email: mzaharie+1@pitechnologies.com
+    address4:
+      address: Plopilor 67  
+      city: Cluj Napoca 
+      country: Romania
+      firstName: Marius
+      lastName: Zaharie
+      email: mzaharie+1@pitechnologies.com
+        
