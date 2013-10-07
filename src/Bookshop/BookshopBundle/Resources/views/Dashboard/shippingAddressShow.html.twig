@@ -1,9 +1,11 @@
-<h4>Shipping Address</h4>
+<h4>{{ 'address.show.title.shipping'|trans({},'BookshopBundle') }}</h4>
 <address>
-{{ shipping_address.firstName }}<br/>
-{{ shipping_address.lastName }}<br/>
-{{ shipping_address.email }}<br/>
-{{ shipping_address.address }} {{ shipping_address.city }}<br/>
-{{ shipping_address.country }}<br/>
+    {% if not shipping_address is null %}
+    {{ shipping_address.firstName }}<br/>
+    {{ shipping_address.lastName }}<br/>
+    {{ shipping_address.email }}<br/>
+    {{ shipping_address.address }} {{ shipping_address.city }}<br/>
+    {{ shipping_address.country }}<br/>
+    {% endif %}
 </address>
-<a href="">Edit Shipping Address</a>
+<a href="{{path('dashboard_shipping_addr_preedit')}}">{{ 'address.edit.title.shipping'|trans({},'BookshopBundle') }}</a>

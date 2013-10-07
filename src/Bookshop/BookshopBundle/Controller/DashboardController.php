@@ -54,11 +54,11 @@ class DashboardController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()
                     ->getManager();
-            if ($billingAddress->getId() == $user->getShippingAddress()->getId() && !is_null($user->getBillingAddress())) {
+            if (!is_null($user->getShippingAddress() && $billingAddress->getId() == $user->getShippingAddress()->getId())) {
 
-                $newBillingAddress = new Address();
-                $newBillingAddress->copy($billingAddress);
-                $billingAddress = $newBillingAddress;
+                $newAddress = new Address();
+                $newAddress->copy($billingAddress);
+                $billingAddress = $newAddress;
             }
 
             $em->persist($billingAddress);
@@ -85,15 +85,52 @@ class DashboardController extends Controller {
         return $this->render('BookshopBookshopBundle:Dashboard:billingAddrPreEdit.html.twig', array('billing_address' => $billingAddress));
     }
     
-//    public function shippingAddressPreEditAction() {
-//        $user = new User();
-//        $user = $this->get('security.context')->getToken()->getUser();
-//        $shippingAddress = new Address();
-//        if (!is_null($user->getShippingAddresss())) {
-//            $shippingAddress = $user->getShippingAddresss();
-//        }
-//
-//        return $this->render('BookshopBookshopBundle:Dashboard:shippingAddrPreEdit.html.twig', array('shipping_address' => $shippingAddress));
-//    }
+    public function shippingAddressEditAction() {
+        $user = new User();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $shippingAddress = new Address();
+        if (!is_null($user->getShippingAddress())) {
+            $shippingAddress = $user->getShippingAddress();
+        }
+
+        $form = $this->createForm(new AddressFormType(), $shippingAddress);
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+        }
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()
+                    ->getManager();
+            if ($shippingAddress->getId() == $user->getBillingAddress()->getId() && !is_null($user->getBillingAddress())) {
+
+                $newAddress = new Address();
+                $newAddress->copy($shippingAddress);
+                $shippingAddress = $newAddress;
+            }
+
+            $em->persist($shippingAddress);
+            $em->flush($shippingAddress);
+
+            $user->setShippingAddress($shippingAddress);
+            $em->persist($user);
+            $em->flush($user);
+
+            return $this->redirect($this->generateUrl('dashboard_index'));
+        }
+
+        return $this->render('BookshopBookshopBundle:Dashboard:shippingAddressEdit.html.twig', array('form' => $form->createView()));
+    }
+    
+    public function shippingAddressPreEditAction() {
+        $user = new User();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $shippingAddress = new Address();
+        if (!is_null($user->getShippingAddress())) {
+            $shippingAddress = $user->getShippingAddress();
+        }
+
+        return $this->render('BookshopBookshopBundle:Dashboard:shippingAddrPreEdit.html.twig', array('shipping_address' => $shippingAddress));
+    }
 
 }
