@@ -4,8 +4,13 @@ namespace Bookshop\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
-{
+/**
+ * Description of UserAdminController
+ *
+ * @author mzaharie
+ */
+class UserAdminController extends Controller{
+    
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -20,3 +25,5 @@ class DefaultController extends Controller
         return $this->render('BookshopAdminBundle:Default:index.html.twig', array('users' => $pagination));
     }
 }
+
+?>

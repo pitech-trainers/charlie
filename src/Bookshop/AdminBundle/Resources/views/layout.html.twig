@@ -1,0 +1,38 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block body%}
+    <body id="login-bg"> 
+
+        <!-- Start: login-holder -->
+        <div id="login-holder">
+
+            <div class="clear"></div>
+
+            <!--  start loginbox ................................................................................. -->
+            <div id="loginbox">
+
+                <!--  start login-inner -->
+                <div id="login-inner">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th>Username</th>
+                            <td><input type="text"  class="login-inp" /></td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <td><input type="password" value="" class="login-inp" /></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input type="button" class="submit-login"  /></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--  end login-inner -->
+                <div class="clear"></div>
+            </div>
+            <!--  end loginbox -->
+        </div>
+        <!-- End: login-holder -->
+    </body>
+{% endblock %}

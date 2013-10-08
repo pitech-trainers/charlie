@@ -1,1 +1,5 @@
-Hello {{ name }}!
+Hello !
+{{ users.getTotalItemCount }}<br/>
+{% for user in  users %}
+        {{ user.username }}<br/>
+{% endfor %}
