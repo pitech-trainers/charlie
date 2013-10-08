@@ -23,15 +23,14 @@ class Cart {
 
     /**
      * @var integer
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="carts")
-     * @ORM\JoinColumn(name="user_Id", referencedColumnName="id")
+     * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date", type="string",length=255)
      */
     private $date;
 
@@ -48,7 +47,7 @@ class Cart {
      * @ORM\Column(name="total", type="decimal")
      */
     private $total;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="CartItems", mappedBy="cartId")
      */

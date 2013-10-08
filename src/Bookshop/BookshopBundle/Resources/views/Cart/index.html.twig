@@ -4,9 +4,9 @@
     </div>
     <div class="block-content">
         <div class="summary">
-            <p class="amount">There are <a href="cart.html">2 items</a> in your cart.</p>
+            <p class="amount">There are <a href="cart.html">{{ items|length }} items</a> in your cart.</p>
             <p class="subtotal">
-                <span class="label">Cart Subtotal:</span> <span class="price">299,98 US$</span>
+                <span class="label">Cart Subtotal:</span> <span class="price">{{ cart.total }} US$</span>
             </p>
         </div>
 
@@ -17,33 +17,22 @@
         <p class="block-subtitle">Recently added item(s)</p>
 
         <ol id="cart-sidebar" class="mini-products-list">
-
-            <li class="item">
-                <a href="#" title="Ottoman" class="product-image">
-                    <img src="images/couchlarge_2.jpg" width="50" height="50" alt="Ottoman" />
-                </a>
-                <div class="product-details">
-                    <a href="#" title="Remove This Item" class="btn-remove">Remove This Item</a>
-                    <a href="#" title="Edit item" class="btn-edit">Edit item</a>
-                    <p class="product-name"><a href="#">Ottoman</a></p>
-                    <strong>1</strong> x
-                    <span class="price">199,99 US$</span>
-                </div>
-            </li>
-
-            <li class="item">
-                <a href="#" title="Chair" class="product-image">
-                    <img src="images/couchlarge_2.jpg" width="50" height="50" alt="Chair" />
-                </a>
-                <div class="product-details">
-                    <a href="#" title="Remove This Item" class="btn-remove">Remove This Item</a>
-                    <a href="#" title="Edit item" class="btn-edit">Edit item</a>
-                    <p class="product-name"><a href="#">Chair</a></p>
-                    <strong>1</strong> x
-                    <span class="price">99,99 US$</span>
-                </div>
-            </li>
-        </ol>
-
+        {% if (items|length>0) %}
+            {% for i in 0..items|length %}
+                <li class="item">
+                    <a href="#" title="Ottoman" class="product-image">
+                        <img src="images/couchlarge_2.jpg" width="50" height="50" alt="Ottoman" />
+                    </a>
+                    <div class="product-details">
+                        <a href="#" title="Remove This Item" class="btn-remove">Remove This Item</a>
+                        <a href="#" title="Edit item" class="btn-edit">Edit item</a>
+                        <p class="product-name"><a href="#">{{items[i].title}}</a></p>
+                        <strong>1</strong> x
+                        <span class="price">{{items[i].price}} US$</span>
+                    </div>
+                </li>
+            {% endfor %}
+        {% endif %}
+            </ol>
+        </div>
     </div>
-</div>
