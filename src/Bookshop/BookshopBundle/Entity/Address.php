@@ -27,7 +27,7 @@ class Address
      *
      * @ORM\Column(name="address", type="string", length=255)
      * 
-     * @Assert\NotBlank(message="Please enter your address.")
+     * @Assert\NotBlank(message="address.address.not_blank")
      */
     private $address;
 
@@ -36,7 +36,7 @@ class Address
      *
      * @ORM\Column(name="city", type="string", length=255, nullable=true)
      * 
-     * @Assert\NotBlank(message="Please enter your city.")
+     * @Assert\NotBlank(message="address.city.not_blank")
      */
     private $city;
 
@@ -45,7 +45,7 @@ class Address
      *
      * @ORM\Column(name="country", type="string", length=255, nullable=true)
      * 
-     * @Assert\NotBlank(message="Please enter your country.")
+     * @Assert\NotBlank(message="address.country.not_blank")
      */
     private $country;
 
@@ -54,7 +54,7 @@ class Address
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      * 
-     * @Assert\NotBlank(message="Please enter your first_name.")
+     * @Assert\NotBlank(message="address.first_name.not_blank")
      */
     private $firstName;
 
@@ -63,7 +63,7 @@ class Address
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      * 
-     * @Assert\NotBlank(message="Please enter your last name.")
+     * @Assert\NotBlank(message="address.last_name.not_blank")
      */
     private $lastName;
 
@@ -72,7 +72,14 @@ class Address
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      * 
-     * @Assert\NotBlank(message="Please enter your email.")
+     * @Assert\NotBlank(message="address.email.not_blank")
+     *
+     * @Assert\Regex(
+     *     pattern="/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/",
+     *     htmlPattern="*",
+     *     match=true,
+     *     message="address.email.not_valid"
+     * )
      */
     private $email;
 
@@ -231,5 +238,9 @@ class Address
     public function getEmail()
     {
         return $this->email;
+    }
+    
+    public function __toString(){
+        return $this->firstName." ".$this->lastName." ".$this->address." ".$this->email ;
     }
 }

@@ -59,4 +59,31 @@ class Builder extends ContainerAware {
         return $menu;
     }
 
+    public function dashboardMenu(FactoryInterface $factory, array $options) {
+        $menu = $factory->createItem('root');
+        $myTrans = $this->container->get('translator');
+
+        $dashHomeTrans = $myTrans->trans('menu.dashboard.home', array(), 'BookshopBundle');
+        $menu->addChild($dashHomeTrans, array(
+            'route' => 'dashboard_index'
+        ));
+        $accInfoTrans = $myTrans->trans('menu.dashboard.account_info', array(), 'BookshopBundle');
+        $menu->addChild($accInfoTrans, array(
+            'route' => 'fos_user_profile_show'
+        ));
+        $myOrdersTrans = $myTrans->trans('menu.dashboard.account_orders', array(), 'BookshopBundle');
+        $menu->addChild($myOrdersTrans, array(
+            'route' => 'dashboard_index'  // not existing feature
+        ));
+        $billingTrans = $myTrans->trans('menu.dashboard.address.billing', array(), 'BookshopBundle');
+        $menu->addChild($billingTrans, array(
+            'route' => 'dashboard_billing_addr_preedit'  // not existing feature
+        ));
+        $shippingTrans = $myTrans->trans('menu.dashboard.address.shipping', array(), 'BookshopBundle');
+        $menu->addChild($shippingTrans, array(
+            'route' => 'dashboard_shipping_addr_preedit'  // not existing feature
+        ));
+        return $menu;
+    }
+
 }

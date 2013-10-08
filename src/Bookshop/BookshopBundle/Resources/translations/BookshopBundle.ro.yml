@@ -5,6 +5,22 @@ menu:
     my:
       cart: Cartul meu
       account: Contul meu
+    dashboard:
+      home:           Tablou de bord
+      account_info:   Informații cont
+      account_orders: Comenzile mele
+      address:
+        billing:    Adresa de facturare
+        shipping:  Adresa de livrare
+
+dashboard:
+  menu_title: Countul meu
+  title: Tabloul meu de bord
+  greeting: Salutări, %fullname% !
+  info: |
+        Din tabloul tău de bord poți vedea un instantaneu al activității 
+        tale pe cont și mai poți modifica informațiile contului tău.
+        Selecteza un link de mai jos pentru a vedea sau modifica informațiile.
 
 registration:
     check_email: Un email a fost trimis către %email%. Conține un link de activare pe care trebuie să îl accesezi pentru a-ți activa contul.
@@ -65,6 +81,7 @@ profile:
         current_password: "Parola curentă :"
 
 address:
+  label_book: Agendă adrese
   show:
     title:
       billing:    Adresa de facturare

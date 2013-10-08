@@ -1,4 +1,4 @@
-<h4>Billing Address</h4>
+<h4>{{ 'address.show.title.billing'|trans({},'BookshopBundle') }}</h4>
 <address>
     {% if not billing_address is null %}
     {{ billing_address.firstName }}<br/>
@@ -8,4 +8,4 @@
     {{ billing_address.country }}<br/>
     {%  endif %}
 </address>
-<a href="{{path('dashboard_billing_addr_preedit')}}">Edit Billing Address</a>
+<a href="{{path('dashboard_billing_addr_preedit')}}">{{ 'address.edit.title.billing'|trans({},'BookshopBundle') }}</a>
