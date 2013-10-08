@@ -17,8 +17,8 @@
         <p class="block-subtitle">Recently added item(s)</p>
 
         <ol id="cart-sidebar" class="mini-products-list">
-        {% if (items|length>0) %}
-            {% for i in 0..items|length %}
+            {% for i in 0..2 %}
+                {% if items[i] is defined %}
                 <li class="item">
                     <a href="#" title="Ottoman" class="product-image">
                         <img src="images/couchlarge_2.jpg" width="50" height="50" alt="Ottoman" />
@@ -31,8 +31,8 @@
                         <span class="price">{{items[i].price}} US$</span>
                     </div>
                 </li>
+                {% endif %}
             {% endfor %}
-        {% endif %}
             </ol>
         </div>
     </div>
