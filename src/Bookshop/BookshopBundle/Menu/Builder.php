@@ -46,12 +46,7 @@ class Builder extends ContainerAware {
 
     public function mainMenu(FactoryInterface $factory, array $options) {
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $cat = $em->getRepository('BookshopBookshopBundle:Category')->find(17);
-        
 //        var_dump($em->getRepository('Gedmo\Translatable\Entity\Translation')->findTranslations($cat));
-        
-        $myTrans = $this->container->get('translator');
-
         $categs = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
 
         $menu = $factory->createItem('root');

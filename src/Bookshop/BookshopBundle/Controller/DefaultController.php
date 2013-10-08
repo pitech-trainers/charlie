@@ -9,9 +9,6 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        
-        var_dump($this->getRequest()->getLocale());
-        
         $lastprod = $em->getRepository('BookshopBookshopBundle:Product')->getLast(6);
          if (!$lastprod) {
             throw $this->createNotFoundException('Unable to find last products.');
