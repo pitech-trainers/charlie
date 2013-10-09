@@ -50,9 +50,13 @@
                 </div>
                     {%if product.stock>0%}
                 <div class="actions">
-                    <button type="button" title="Add to Cart" class="button btn-cart" >
-                        <span><span>Add to Cart</span></span>
-                    </button>
+                    <form action="{{path('addproduct')}}" method="post">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="productid" value="{{product.id}}">
+                        <button type="submit" title="Add to Cart" class="button btn-cart" >
+                            <span><span>Add to Cart</span></span>
+                        </button>
+                    </form>
                 </div>
                     {% else %}
                 <div class="actions">
@@ -79,9 +83,13 @@
 
                    {%if product.stock>0%}
                 <div class="actions">
-                    <button type="button" title="Add to Cart" class="button btn-cart" >
-                        <span><span>Add to Cart</span></span>
-                    </button>
+                    <form action="{{path('addproduct')}}" method="post">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="productid" value="{{product.id}}">
+                        <button type="submit" title="Add to Cart" class="button btn-cart" >
+                            <span><span>Add to Cart</span></span>
+                        </button>
+                    </form>
                 </div>
                     {% else %}
                 <div class="actions">
@@ -107,9 +115,13 @@
                 </div>
                     {%if product.stock>0%}
                 <div class="actions">
-                    <button type="button" title="Add to Cart" class="button btn-cart" >
-                        <span><span>Add to Cart</span></span>
-                    </button>
+                    <form action="{{path('addproduct')}}" method="post">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="productid" value="{{product.id}}">
+                        <button type="submit" title="Add to Cart" class="button btn-cart" >
+                            <span><span>Add to Cart</span></span>
+                        </button>
+                    </form>
                 </div>
                     {% else %}
                 <div class="actions">

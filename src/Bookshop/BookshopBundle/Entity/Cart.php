@@ -44,7 +44,7 @@ class Cart {
     /**
      * @var float
      *
-     * @ORM\Column(name="total", type="decimal")
+     * @ORM\Column(name="total", type="decimal", precision=10, scale=2)
      */
     private $total;
 

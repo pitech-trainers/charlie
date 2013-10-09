@@ -18,7 +18,18 @@ class CartItemsRepository extends EntityRepository {
                 ->setParameter('cartid', $cartid)
                 ->addOrderBy('i.id', 'desc');
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()
+                        ->getResult();
+    }
+
+    public function getCartItem($productid,$cartid) {
+        $qb = $this->createQueryBuilder('p')
+                ->select('p')->where('p.cartId = :cartid and p.productId = :productid')
+                ->setParameter('cartid', $cartid)
+                ->setParameter('productid', $productid);
+
+        return $qb->getQuery()
+                        ->getResult();
     }
 
 }

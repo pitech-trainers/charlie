@@ -29,7 +29,8 @@ class CartItems {
     private $cartId;
 
     /**
-     * @ORM\OneToOne(targetEntity="Product")
+     * @var integer
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="cartitems")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $productId;
@@ -51,7 +52,7 @@ class CartItems {
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="decimal")
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
      */
     private $price;
 

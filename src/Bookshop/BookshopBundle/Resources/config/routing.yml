@@ -25,11 +25,42 @@ checkout:
   pattern: checkout/billing
   defaults: { _controller: BookshopBookshopBundle:Checkout:billing}
         
+mycart:
+  pattern: mycart
+  defaults: { _controller: BookshopBookshopBundle:Cart:mycart}
         
 cart:
   pattern: cart
   defaults: { _controller: BookshopBookshopBundle:Cart:index}
 
+updatecart:
+  pattern: updatecart/
+  defaults: { _controller: BookshopBookshopBundle:Cart:updatecart}
+  requirements:
+    method: post
+    
+
+emtpycart:
+  pattern: emptycart/{cartid}
+  defaults: { _controller: BookshopBookshopBundle:Cart:emptycart}
+  requirements:
+        _method:  GET
+        id: \d+
+
+deleteproduct:
+  pattern: deleteproduct/{id}{cartid}
+  defaults: { _controller: BookshopBookshopBundle:Cart:deleteproduct}
+  requirements:
+    _method: GET
+    id: \d+
+
+addproduct:
+  pattern: addproduct/
+  defaults: { _controller: BookshopBookshopBundle:Cart:addproduct}
+  requirements:
+        _method:  post
+
 profile:
   pattern: profile/min
   defaults: { _controller: BookshopBookshopBundle:Profile:showMinim}
+

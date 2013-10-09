@@ -33,7 +33,7 @@ class Builder extends ContainerAware {
 
             $myCartTrans = $myTrans->trans('menu.my.cart', array(), 'BookshopBundle');
             $menu->addChild($myCartTrans, array(
-                'route' => 'bookshop_bookshop_homepage'
+                'route' => 'mycart'
             ));
 
             $logoutTrans = $myTrans->trans('layout.logout', array(), 'FOSUserBundle');
@@ -46,7 +46,7 @@ class Builder extends ContainerAware {
 
             $myCartTrans = $myTrans->trans('menu.my.cart', array(), 'BookshopBundle');
             $menu->addChild($myCartTrans, array(
-                'route' => 'bookshop_bookshop_homepage'
+                'route' => 'mycart'
             ));
 
             $loginTrans = $myTrans->trans('layout.login', array(), 'FOSUserBundle');
