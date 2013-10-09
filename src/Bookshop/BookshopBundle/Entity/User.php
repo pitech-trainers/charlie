@@ -26,12 +26,13 @@ class User extends BaseUser
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      * 
-     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile"})
+     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile", "Edit"})
      * @Assert\Regex(
      *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
      *     match=true,
-     *     message="The name contains leters only."
+     *     message="The name contains leters only.",
+     *     groups={"Registration", "Profile", "Edit"}
      * )
      */
     protected $first_name;
@@ -41,12 +42,13 @@ class User extends BaseUser
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
      * 
-     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile"})
+     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile", "Edit"})
      * @Assert\Regex(
      *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
      *     match=true,
-     *     message="The name contains leters only."
+     *     message="The name contains leters only.",
+     *     groups={"Registration", "Profile", "Edit"}
      * )
      */
     protected $last_name;

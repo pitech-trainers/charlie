@@ -47,7 +47,7 @@
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.enabled }}</td>
                                 <td class="options-width">
-                                    <a href="" title="Edit" class="icon-1 info-tooltip"></a>
+                                    <a href="{{path('bookshop_admin_user_new_edit', {userID : user.id})}}" title="Edit" class="icon-1 info-tooltip"></a>
                                     {% if user.enabled == 1 %}
                                     <a href="{{path('bookshop_admin_user_disable', {userID : user.id})}}" title="Deactivate" class="icon-2 info-tooltip"></a>
                                     {% else %}
