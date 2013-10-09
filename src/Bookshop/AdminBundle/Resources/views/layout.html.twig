@@ -1,38 +1,47 @@
 {% extends '::admin_base.html.twig' %}
 
-{% block body%}
-    <body id="login-bg"> 
-
-        <!-- Start: login-holder -->
-        <div id="login-holder">
-
-            <div class="clear"></div>
-
-            <!--  start loginbox ................................................................................. -->
-            <div id="loginbox">
-
-                <!--  start login-inner -->
-                <div id="login-inner">
-                    <table border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <th>Username</th>
-                            <td><input type="text"  class="login-inp" /></td>
-                        </tr>
-                        <tr>
-                            <th>Password</th>
-                            <td><input type="password" value="" class="login-inp" /></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><input type="button" class="submit-login"  /></td>
-                        </tr>
-                    </table>
+{% block navigation%}
+<div class="table">
+        <ul class="{% if app.request.get('_route') in ['bookshop_admin_user_list'] %}current{% else %}select{% endif %}">
+            <li>
+                <a href="{{path('bookshop_admin_user_list')}}"><b>Users</b></a>
+                <div class="select_sub show">
+                    <ul class="sub">
+                        <li><a href="">Add User</a></li>
+                        <li><a href="{{path('bookshop_admin_user_list')}}">List Users</a></li>
+                    </ul>
                 </div>
-                <!--  end login-inner -->
-                <div class="clear"></div>
-            </div>
-            <!--  end loginbox -->
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        <ul class="select"><li><a href="#nogo"><b>Products</b></a>
+                <div class="select_sub">
+                    <ul class="sub">
+                        <li><a href="cpanel.php?link=product/addproduct.php">Add Product</a></li>
+                        <li><a href="cpanel.php?link=product/productlist.php">List Products</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        <ul class="select"><li><a href="#nogo"><b>Orders</b></a>
+                <div class="select_sub">
+                    <ul class="sub">
+                        <li><a href="cpanel.php?link=order/orderlist.php">List Orders</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+        <div class="clear"></div>
         </div>
-        <!-- End: login-holder -->
-    </body>
+        <div class="clear"></div>
+{% endblock %}
+
+{% block body%}
 {% endblock %}

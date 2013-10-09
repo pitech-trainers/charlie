@@ -1,3 +1,18 @@
 bookshop_admin_homepage:
-    pattern:  /hello/{name}
+    pattern:  /
     defaults: { _controller: BookshopAdminBundle:Default:index }
+bookshop_admin_user_list:
+    pattern:  /user
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:index }
+bookshop_admin_user_enable:
+    pattern:  /user/enable/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:enable }
+    requirements:
+        _method:  GET
+        userID: \d+
+bookshop_admin_user_disable:
+    pattern:  /user/disbale/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:disable }
+    requirements:
+        _method:  GET
+        userID: \d+
