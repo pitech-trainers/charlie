@@ -21,6 +21,7 @@ class ProductAdminController extends Controller {
         if (isset($_GET['category']) && strlen($_GET['category'])) {
             $filter.= " AND c.id = " . $_GET['category'];
         }
+
         if (isset($_GET['stock']))
             switch ($_GET['stock']) {
                 case 'on':
