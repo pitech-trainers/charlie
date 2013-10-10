@@ -31,4 +31,14 @@ class CartRepository extends EntityRepository {
         $qb->getQuery()->execute();
     }
 
+    public function getCartbyId($cartid) {
+        $qb = $this->createQueryBuilder('c')
+                ->select('c')
+                ->where('c.id = :cartid')
+                ->setParameter('cartid', $cartid);
+
+        return $qb->getQuery()
+                        ->getResult();
+    }
+
 }

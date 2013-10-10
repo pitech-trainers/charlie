@@ -24,65 +24,77 @@ class CartController extends Controller {
     }
 
     public function updatecartAction() {
-        $em = $this->getDoctrine()->getManager();
-        $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($_POST['cartid']);
-        $success = 1;
-        foreach ($_POST['qty'] as $key => $value)
-            foreach ($cartitems as $cartitem)
-                if ($cartitem->getID() == $key)
-                    if ($value <= $cartitems[0]->getProductID()->getStock()) {
-                        if ($value > 0) {
-                            $cartitem->setQuantity($value);
-                            $em->persist($cartitem);
+        if ($this->match($cartid) == 1) {
+            $em = $this->getDoctrine()->getManager();
+            $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($_POST['cartid']);
+            $success = 1;
+            foreach ($_POST['qty'] as $key => $value)
+                foreach ($cartitems as $cartitem)
+                    if ($cartitem->getID() == $key)
+                        if ($value <= $cartitems[0]->getProductID()->getStock()) {
+                            if ($value > 0) {
+                                $cartitem->setQuantity($value);
+                                $em->persist($cartitem);
+                            } else {
+                                $this->deleteproductAction($cartitem->getID(), $_POST['cartid']);
+                            }
                         } else {
-                            $this->deleteproductAction($cartitem->getID(), $_POST['cartid']);
+                            $success = 0;
                         }
-                    } else {
-                        $success = 0;
-                    }
-        $em->flush();
-        if ($success == 0)
-            $this->getRequest()->getSession()->getFlashBag()->add('error', 'Some values were not updated');
-        else
-            $this->getRequest()->getSession()->getFlashBag()->add('success', 'Cart has been updated');
-        $this->updateTotalCart($_POST['cartid']);
-        $referer = $this->getRequest()->headers->get('referer');
-
-        return $this->redirect($referer);
+            $em->flush();
+            if ($success == 0)
+                $this->getRequest()->getSession()->getFlashBag()->add('error', 'Some values were not updated');
+            else
+                $this->getRequest()->getSession()->getFlashBag()->add('success', 'Cart has been updated');
+            $this->updateTotalCart($_POST['cartid']);
+            $referer = $this->getRequest()->headers->get('referer');
+            return $this->redirect($referer);
+        } else {
+            return $this->render('BookshopBookshopBundle:Error:Error.html.twig');
+        }
     }
 
     public function deleteproductAction($id, $cartid) {
-        $em = $this->getDoctrine()->getManager();
-        $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
-        if (!(empty($cartitems))) {
-            foreach ($cartitems as $cartitem) {
-                if ($cartitem->getId() == $id) {
+        if ($this->match($cartid) == 1) {
+            $em = $this->getDoctrine()->getManager();
+            $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCartbyId($cartid);
+            $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
+            if (!(empty($cartitems))) {
+                foreach ($cartitems as $cartitem) {
+                    if ($cartitem->getId() == $id) {
+                        $em->remove($cartitem);
+                        $em->flush();
+                    }
+                }
+            }
+            $this->updateTotalCart($cartid);
+            $this->getRequest()->getSession()->getFlashBag()->add('success', 'Product deleted');
+            $referer = $this->getRequest()->headers->get('referer');
+            return $this->redirect($referer);
+        } else {
+            return $this->render('BookshopBookshopBundle:Error:Error.html.twig');
+        }
+    }
+
+    public function emptycartAction($cartid) {
+        if ($this->match($cartid) == 1) {
+            $em = $this->getDoctrine()->getManager();
+            $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCartbyId($cartid);
+            $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
+            if (!(empty($cartitems))) {
+                foreach ($cartitems as $cartitem) {
                     $em->remove($cartitem);
                     $em->flush();
                 }
             }
+            $this->updateTotalCart($cartid);
+            $this->getRequest()->getSession()->getFlashBag()->add('success', 'Cart is now empty');
+            $referer = $this->getRequest()->headers->get('referer');
+
+            return $this->redirect($referer);
+        } else {
+            return $this->render('BookshopBookshopBundle:Error:Error.html.twig');
         }
-        $this->updateTotalCart($cartid);
-        $this->getRequest()->getSession()->getFlashBag()->add('success', 'Product deleted');
-        $referer = $this->getRequest()->headers->get('referer');
-
-        return $this->redirect($referer);
-    }
-
-    public function emptycartAction($cartid) {
-        $em = $this->getDoctrine()->getManager();
-        $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
-        if (!(empty($cartitems))) {
-            foreach ($cartitems as $cartitem) {
-                $em->remove($cartitem);
-                $em->flush();
-            }
-        }
-        $this->updateTotalCart($cartid);
-        $this->getRequest()->getSession()->getFlashBag()->add('success', 'Cart is now empty');
-        $referer = $this->getRequest()->headers->get('referer');
-
-        return $this->redirect($referer);
     }
 
     public function addproductAction() {
@@ -168,21 +180,39 @@ class CartController extends Controller {
     }
 
     private function updateTotalCart($cartid) {
+        if ($this->match($cartid) == 1) {
+            if (is_null($this->getUser()))
+                $userid = 0;
+            else
+                $userid = $this->getUser()->getID();
+            $em = $this->getDoctrine()->getManager();
+            $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
+            $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
+
+            $cart[0]->setTotal(0.00);
+
+            foreach ($cartitems as $item) {
+                $cart[0]->setTotal($item->getQuantity() * $item->getPrice() + $cart[0]->getTotal());
+            }
+            $em->persist($cart[0]);
+            $em->flush();
+        } else {
+            return $this->render('BookshopBookshopBundle:Error:Error.html.twig');
+        }
+    }
+
+    private function match($cartid) {
         if (is_null($this->getUser()))
             $userid = 0;
         else
             $userid = $this->getUser()->getID();
         $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
-        $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
-
-        $cart[0]->setTotal(0.00);
-
-        foreach ($cartitems as $item) {
-            $cart[0]->setTotal($item->getQuantity() * $item->getPrice() + $cart[0]->getTotal());
+        $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCartbyId($cartid);
+        if ($userid != $cart[0]->getUserID()) {
+            return 0;
+        } else {
+            return 1;
         }
-        $em->persist($cart[0]);
-        $em->flush();
     }
 
 }
