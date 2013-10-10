@@ -123,17 +123,13 @@ class CartController extends Controller {
         $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
 
         if (sizeof($cart) == 0) {
-            if ($userid != 0)
-                $this->checkcart();
-            else {
-                $cartmodel = new \Bookshop\BookshopBundle\Entity\Cart;
-                $cartmodel->setUserId($userid);
-                $cartmodel->setDate(date('Y-m-d'));
-                $cartmodel->setTotal(0);
-                $cartmodel->setActive(1);
-                $em->persist($cartmodel);
-                $em->flush();
-            }
+            $cartmodel = new \Bookshop\BookshopBundle\Entity\Cart;
+            $cartmodel->setUserId($userid);
+            $cartmodel->setDate(date('Y-m-d'));
+            $cartmodel->setTotal(0);
+            $cartmodel->setActive(1);
+            $em->persist($cartmodel);
+            $em->flush();
             $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         }
         $cartid = $cart[0]->getId();
@@ -163,19 +159,6 @@ class CartController extends Controller {
         }
         $em->persist($cart[0]);
         $em->flush();
-    }
-
-    public function checkcart() {
-        $userid = $this->getUser()->getID();
-        $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
-
-        if (empty($cart)) {
-            $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart(0);
-            $cart[0]->setUserId($userid);
-            $em->persist($cart[0]);
-            $em->flush();
-        }
     }
 
 }
