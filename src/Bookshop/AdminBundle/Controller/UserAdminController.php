@@ -54,8 +54,8 @@ class UserAdminController extends Controller
         $form = $this->createForm(
                                     new UserEditFormType(), 
                                     $user,
-                                    array('validation_groups' => array('Edit')
-                                 ));
+                                    array('validation_groups' => array('Edit'))
+                                  );
         
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {

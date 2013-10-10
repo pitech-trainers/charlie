@@ -25,3 +25,7 @@ bookshop_admin_user_edit:
     defaults: { _controller: BookshopAdminBundle:UserAdmin:edit }
     requirements:
       _method: POST
+      
+bookshop_admin_product_list:
+    pattern:  /product
+    defaults: { _controller: BookshopAdminBundle:ProductAdmin:index }
