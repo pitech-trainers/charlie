@@ -4,6 +4,8 @@ namespace Bookshop\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Bookshop\AdminBundle\Form\Type\ProductAddFormType;
+use Bookshop\BookshopBundle\Entity\Product;
 
 /**
  * Description of UserAdminController
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class ProductAdminController extends Controller {
 
     public function indexAction() {
-        
+
         $filter = "";
         if (isset($_GET['title'])) {
             $filter.= " AND p.title like '%" . $_GET['title'] . "%'";
@@ -27,8 +29,7 @@ class ProductAdminController extends Controller {
                 case 'on':
                     $filter .= ' and p.stock>0';
                     break;
-            }
-        else{
+            } else {
             if (isset($_GET['title']) || isset($_GET['category'])) {
                 $filter .= ' and p.stock>=0';
             }
@@ -38,19 +39,43 @@ class ProductAdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
         $count = $em
-                ->createQuery('SELECT COUNT(p) FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE p.active=1'.$filter)
+                ->createQuery('SELECT COUNT(p) FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE p.active=1' . $filter)
                 ->getSingleScalarResult();
         $dql = "SELECT p FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE p.active=1";
         $dql.=$filter;
 
         $query = $em->createQuery($dql)->setHint('knp_paginator.count', $count);
-        
+
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
                 $query, $this->get('request')->query->get('page', 1)/* page number */, 10/* limit per page */, array('distinct' => false)
         );
         return $this->render('BookshopAdminBundle:ProductAdmin:index.html.twig', array('products' => $pagination, 'categories' => $categories));
+    }
+
+    public function addAction() {
+        $em = $this->getDoctrine()->getManager();
+        $product = new Product();
+        $form = $this->createForm(new ProductAddFormType(), $product);
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+        }
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $product->setAuthor(1);
+            $product->setIsbn("123423io45i34o5u");
+            $product->setYear("1970");
+            $product->setActive(1);
+            $em->persist($product);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl("bookshop_admin_product_list"));
+        }
+
+
+        return $this->render('BookshopAdminBundle:ProductAdmin:add.html.twig', array('form' => $form->createView()));
     }
 
 }
