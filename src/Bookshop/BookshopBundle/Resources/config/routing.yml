@@ -48,11 +48,12 @@ emtpycart:
         id: \d+
 
 deleteproduct:
-  pattern: deleteproduct/{id}{cartid}
+  pattern: deleteproduct/{id}/{cartid}
   defaults: { _controller: BookshopBookshopBundle:Cart:deleteproduct}
   requirements:
     _method: GET
     id: \d+
+    cartid: \d+
 
 addproduct:
   pattern: addproduct/

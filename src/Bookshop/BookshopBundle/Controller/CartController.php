@@ -26,13 +26,25 @@ class CartController extends Controller {
     public function updatecartAction() {
         $em = $this->getDoctrine()->getManager();
         $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($_POST['cartid']);
+        $success = 1;
         foreach ($_POST['qty'] as $key => $value)
             foreach ($cartitems as $cartitem)
-                if ($cartitem->getID() == $key && $value <= $cartitems[0]->getProductID()->getStock()) {
-                    $cartitem->setQuantity($value);
-                    $em->persist($cartitem);
-                }
+                if ($cartitem->getID() == $key)
+                    if ($value <= $cartitems[0]->getProductID()->getStock()) {
+                        if ($value > 0) {
+                            $cartitem->setQuantity($value);
+                            $em->persist($cartitem);
+                        } else {
+                            $this->deleteproductAction($cartitem->getID(), $_POST['cartid']);
+                        }
+                    } else {
+                        $success = 0;
+                    }
         $em->flush();
+        if ($success == 0)
+            $this->getRequest()->getSession()->getFlashBag()->add('error', 'Some values were not updated');
+        else
+            $this->getRequest()->getSession()->getFlashBag()->add('success', 'Cart has been updated');
         $this->updateTotalCart($_POST['cartid']);
         $referer = $this->getRequest()->headers->get('referer');
 
@@ -51,6 +63,7 @@ class CartController extends Controller {
             }
         }
         $this->updateTotalCart($cartid);
+        $this->getRequest()->getSession()->getFlashBag()->add('success', 'Product deleted');
         $referer = $this->getRequest()->headers->get('referer');
 
         return $this->redirect($referer);
@@ -66,6 +79,7 @@ class CartController extends Controller {
             }
         }
         $this->updateTotalCart($cartid);
+        $this->getRequest()->getSession()->getFlashBag()->add('success', 'Cart is now empty');
         $referer = $this->getRequest()->headers->get('referer');
 
         return $this->redirect($referer);
@@ -87,6 +101,7 @@ class CartController extends Controller {
         $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         $product = $em->getRepository('BookshopBookshopBundle:Product')->retrieveProduct($productid);
         $existitem = $em->getRepository('BookshopBookshopBundle:CartItems')->getCartItem($productid, $cart[0]->getId());
+        $success = 1;
         if (empty($existitem[0])) {
             if ($quantity <= $product[0]->getStock()) {
                 $cartitem = new \Bookshop\BookshopBundle\Entity\CartItems;
@@ -97,6 +112,8 @@ class CartController extends Controller {
                 $cartitem->setCartId($cart[0]);
                 $em->persist($cartitem);
                 $em->flush();
+            } else {
+                $success = 0;
             }
         } else {
             if ($quantity + $existitem[0]->getQuantity() <= $product[0]->getStock()) {
@@ -104,8 +121,15 @@ class CartController extends Controller {
                 $em->persist($cart[0]);
                 $em->persist($existitem[0]);
                 $em->flush();
+            } else {
+                $success = 0;
             }
         }
+        if ($success == 0)
+            $this->getRequest()->getSession()->getFlashBag()->add('error', "We don't have the quantity you requested");
+        else
+            $this->getRequest()->getSession()->getFlashBag()->add('success', 'Product was successfully added');
+        $this->updateTotalCart($cart[0]->getId());
         $this->updateTotalCart($cart[0]->getId());
         $referer = $this->getRequest()->headers->get('referer');
 
