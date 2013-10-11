@@ -14,16 +14,17 @@ class ProductAddFormType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
         // add your custom field
-        $builder->add('title');
-        $builder->add('category');
-        $builder->add('description');
-        $builder->add('shortdescription');
-        $builder->add('price');
-        $builder->add('stock');
-        $builder->add('file');
-        $builder->add('author');
-        $builder->add('isbn');
-        $builder->add('year');
+        $builder->add('title')
+                ->add('category','entity',array('class' => 'BookshopBookshopBundle:Category', 'required' => false))
+                ->add('description','text',array('required' => false))
+                ->add('shortdescription','text',array('required' => false))
+                ->add('price')
+                ->add('stock')
+                ->add('file')
+                ->add('author')
+                ->add('isbn')
+                ->add('year')
+                ;
         
 //        $builder->add('billing_address_id');
 //        $builder->add('shipping_address_id');

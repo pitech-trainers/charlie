@@ -1,0 +1,6 @@
+product.add.title.not_blank: Introduceți titlul vă rog.
+product.add.category.not_blank: Alegeți categoria vă rog.
+product.add.price.not_blank: Introduceți prețul vă rog.
+product.add.author.not_blank: Alegeți un author vă rog.
+product.isbn.regex: Acesta nu este un ISBN-10/ISBN-13 valid
+product.year.regex: Un an valid este intre 1000 și 2999.

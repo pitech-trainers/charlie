@@ -27,6 +27,7 @@ class Product {
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank(message="product.add.title.not_blank", groups={"Add", "Edit"})
      */
     private $title;
 
@@ -35,6 +36,7 @@ class Product {
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      * @ORM\JoinColumn(name="category", referencedColumnName="id")
      * 
+     * @Assert\NotBlank(message="product.add.category.not_blank", groups={"Add", "Edit"})
      */
     private $category;
 
@@ -42,6 +44,8 @@ class Product {
      * @var float
      *
      * @ORM\Column(name="price", type="float")
+     * 
+     * @Assert\NotBlank(message="product.add.price.not_blank", groups={"Add", "Edit"})
      */
     private $price;
 
@@ -50,6 +54,8 @@ class Product {
      *
      * @ORM\ManyToOne(targetEntity="Author")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="product.add.author.not_blank", groups={"Add", "Edit"})
      */
     private $author;
 
@@ -58,11 +64,11 @@ class Product {
      *
      * @ORM\Column(name="isbn", type="integer")
      * @Assert\Regex(
-     *     pattern="/^\d{13}$/",
+     *     pattern="/^\d{10,13}$/",
      *     htmlPattern="*",
      *     match=true,
-     *     message="product.add.isbn",
-     *     groups={"Add"}
+     *     message="product.isbn.regex",
+     *     groups={"Add","Edit"}
      * )
      */
     private $isbn;
@@ -71,20 +77,27 @@ class Product {
      * @var integer
      *
      * @ORM\Column(name="year", type="integer")
+     * @Assert\Regex(
+     *     pattern="/^[12]\d{3}$/",
+     *     htmlPattern="*",
+     *     match=true,
+     *     message="product.year.regex",
+     *     groups={"Add","Edit"}
+     * )
      */
     private $year;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=5000)
+     * @ORM\Column(name="description", type="string", length=5000, nullable=true)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="shortdescription", type="string", length=500)
+     * @ORM\Column(name="shortdescription", type="string", length=500, nullable=true)
      */
     private $shortdescription;
 
@@ -109,7 +122,11 @@ class Product {
     private $image;
 
     /**
-     * @Assert\File(maxSize="6000000", groups={"Add"})
+     * @Assert\File(maxSize = "1M",
+     *              mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff"},
+     *              maxSizeMessage = "The maxmimum allowed file size is 1MB.",
+     *              mimeTypesMessage = "Only the filetypes image are allowed.", 
+     *              groups={"Add","Edit"})
      */
     private $file;
 
@@ -385,12 +402,12 @@ class Product {
         // sanitize it at least to avoid any security issues
         // move takes the target directory and then the
         // target filename to move to
+        $filename = $this->getImage()->getFilename();
+        
         $this->getFile()->move(
-                $this->getUploadRootDir(), $this->getFile()->getClientOriginalName()
+                $this->getUploadRootDir(), 
+                $filename
         );
-
-        // set the path property to the filename where you've saved the file
-        $this->path = $this->getFile()->getClientOriginalName();
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
