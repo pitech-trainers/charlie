@@ -48,7 +48,8 @@ class Product {
     /**
      * @var integer
      *
-     * @ORM\Column(name="author", type="integer")
+     * @ORM\ManyToOne(targetEntity="Author")
+     * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
     private $author;
 
@@ -56,6 +57,13 @@ class Product {
      * @var integer
      *
      * @ORM\Column(name="isbn", type="integer")
+     * @Assert\Regex(
+     *     pattern="/^\d{13}$/",
+     *     htmlPattern="*",
+     *     match=true,
+     *     message="product.add.isbn",
+     *     groups={"Add"}
+     * )
      */
     private $isbn;
 
@@ -101,7 +109,7 @@ class Product {
     private $image;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="6000000", groups={"Add"})
      */
     private $file;
 
@@ -393,7 +401,7 @@ class Product {
     }
 
     public function getWebPath() {
-        return null === $this->path ? null : $this->getUploadDir() . '/' . $this->image->getPath();;
+        return null === $this->image->getPath() ? null : $this->getUploadDir() . '/' . $this->image->getPath();;
     }
 
     protected function getUploadRootDir() {
@@ -405,7 +413,7 @@ class Product {
     protected function getUploadDir() {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/images';
+        return 'bundles/bookshopbookshop/public/image/';
     }
 
 }

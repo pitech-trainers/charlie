@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Bookshop\AdminBundle\Form\Type\ProductAddFormType;
 use Bookshop\BookshopBundle\Entity\Product;
+use Bookshop\BookshopBundle\Entity\Image;
 
 /**
  * Description of UserAdminController
@@ -57,19 +58,38 @@ class ProductAdminController extends Controller {
     public function addAction() {
         $em = $this->getDoctrine()->getManager();
         $product = new Product();
-        $form = $this->createForm(new ProductAddFormType(), $product);
+        $form = $this->createForm(new ProductAddFormType(), $product, array('validation_groups' => array('Add')));
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
         }
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $product->setAuthor(1);
-            $product->setIsbn("123423io45i34o5u");
-            $product->setYear("1970");
             $product->setActive(1);
+            
+            $image = new Image();
+            $image->setPath("bundles/bookshopbookshop/public/image/");
+            if($product->getFile()){
+            $image->setFilename($product->getFile()->getClientOriginalName());}
+            else{
+            $image->setFilename('defalut.jpg'); 
+            }
+            $em->persist($product);
+            $em->flush($product);
+            
+            $image->setProductid($product->getId());
+            
+            $em->persist($image);
+            $em->flush($image);
+            $product->setImage($image);
+            
+            $product->upload();
+            
             $em->persist($product);
             $em->flush();
+            
+            
+            
+            
 
             return $this->redirect($this->generateUrl("bookshop_admin_product_list"));
         }

@@ -89,6 +89,36 @@
                                         {% endif %}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th valign="top">Author:</th>
+                                    <td>{{ form_widget(form.author, {'attr': {'class': 'inp-form'} }) }}</td>
+                                    <td>
+                                        {% if form_errors(form.author) %}
+                                        <div class="error-left"></div>
+                                        <div class="error-inner">{{ form_errors(form.author) }}</div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th valign="top">Isbn:</th>
+                                    <td>{{ form_widget(form.isbn, {'attr': {'class': 'inp-form'} }) }}</td>
+                                    <td>
+                                        {% if form_errors(form.isbn) %}
+                                        <div class="error-left"></div>
+                                        <div class="error-inner">{{ form_errors(form.isbn) }}</div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th valign="top">Year:</th>
+                                    <td>{{ form_widget(form.year, {'attr': {'class': 'inp-form'} }) }}</td>
+                                    <td>
+                                        {% if form_errors(form.year) %}
+                                        <div class="error-left"></div>
+                                        <div class="error-inner">{{ form_errors(form.year) }}</div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
                                 {{ form_rest(form) }}
                                 <tr>
                                     <th>&nbsp;</th>

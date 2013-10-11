@@ -21,6 +21,9 @@ class ProductAddFormType extends AbstractType{
         $builder->add('price');
         $builder->add('stock');
         $builder->add('file');
+        $builder->add('author');
+        $builder->add('isbn');
+        $builder->add('year');
         
 //        $builder->add('billing_address_id');
 //        $builder->add('shipping_address_id');
