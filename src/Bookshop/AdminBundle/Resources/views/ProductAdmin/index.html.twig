@@ -83,9 +83,12 @@
                                 <td>{{product.price}}</td>
                                 <td>{{product.stock}}</td>
                                 <td class="options-width">
-                                    <a href="" title="Edit" class="icon-1 info-tooltip"></a>
-                                    <a href="" title="Delete" class="icon-2 info-tooltip"></a>
-                                    <a href="" title="Activate" class="icon-5 info-tooltip"></a>
+                                    <a href="{{path('bookshop_admin_product_new_edit',{'id': product.id})}}" title="Edit" class="icon-1 info-tooltip"></a>
+                                    {% if product.active == 1 %}
+                                    <a href="{{path('bookshop_admin_product_delete',{'id': product.id})}}" title="Delete" class="icon-2 info-tooltip"></a>
+                                    {% else %}
+                                    <a href="{{path('bookshop_admin_product_undelete',{'id': product.id})}}" title="Undelete" class="icon-5 info-tooltip"></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}
