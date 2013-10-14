@@ -40,9 +40,9 @@ class ProductAdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
         $count = $em
-                ->createQuery('SELECT COUNT(p) FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE p.active=1' . $filter)
+                ->createQuery('SELECT COUNT(p) FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE 1=1' . $filter)
                 ->getSingleScalarResult();
-        $dql = "SELECT p FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE p.active=1";
+        $dql = "SELECT p FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE 1=1";
         $dql.=$filter;
 
         $query = $em->createQuery($dql)->setHint('knp_paginator.count', $count);
@@ -93,6 +93,38 @@ class ProductAdminController extends Controller {
             return $this->redirect($this->generateUrl("bookshop_admin_product_list"));
         }
         return $this->render('BookshopAdminBundle:ProductAdmin:add.html.twig', array('form' => $form->createView()));
+    }
+    
+    public function deleteAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $product = new Product();
+        $product = $em->getRepository('BookshopBookshopBundle:Product')->find($id);
+        if(!$product){
+            throw $this->createNotFoundException('Unable to find this product.');
+        }
+        
+        $product->setActive(0);
+        $em->persist($product);
+        $em->flush($product);
+        
+        $url = $this->getRequest()->headers->get("referer");
+        return new RedirectResponse($url);
+    }
+    
+    public function undeleteAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $product = new Product();
+        $product = $em->getRepository('BookshopBookshopBundle:Product')->find($id);
+        if(!$product){
+            throw $this->createNotFoundException('Unable to find this product.');
+        }
+        
+        $product->setActive(1);
+        $em->persist($product);
+        $em->flush($product);
+        
+        $url = $this->getRequest()->headers->get("referer");
+        return new RedirectResponse($url);
     }
 
 }

@@ -32,3 +32,9 @@ bookshop_admin_product_list:
 bookshop_admin_product_add:
     pattern:  /product/add
     defaults: { _controller: BookshopAdminBundle:ProductAdmin:add }
+bookshop_admin_product_delete:
+  pattern:  /product/delete/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:delete }
+bookshop_admin_product_undelete:
+  pattern:  /product/undelete/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:undelete }
