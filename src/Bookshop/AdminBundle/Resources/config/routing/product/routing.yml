@@ -1,0 +1,20 @@
+bookshop_admin_product_list:
+    pattern:  /
+    defaults: { _controller: BookshopAdminBundle:ProductAdmin:index }
+bookshop_admin_product_add:
+    pattern:  /add
+    defaults: { _controller: BookshopAdminBundle:ProductAdmin:add }
+bookshop_admin_product_delete:
+  pattern:  /delete/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:delete }
+bookshop_admin_product_undelete:
+  pattern:  /undelete/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:undelete }
+bookshop_admin_product_new_edit:
+  pattern:  /edit/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:edit }
+bookshop_admin_product_edit:
+  pattern:  /edit/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:edit }
+  requirements:
+      _method: POST
