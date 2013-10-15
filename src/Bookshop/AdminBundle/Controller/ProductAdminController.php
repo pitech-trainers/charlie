@@ -16,27 +16,8 @@ use Bookshop\BookshopBundle\Entity\Image;
 class ProductAdminController extends Controller {
 
     public function indexAction() {
-
-        $filter = "";
-        if (isset($_GET['title'])) {
-            $filter.= " AND p.title like '%" . $_GET['title'] . "%'";
-        }
-        if (isset($_GET['category']) && strlen($_GET['category'])) {
-            $filter.= " AND c.id = " . $_GET['category'];
-        }
-
-        if (isset($_GET['stock']))
-            switch ($_GET['stock']) {
-                case 'on':
-                    $filter .= ' and p.stock>0';
-                    break;
-            } else {
-            if (isset($_GET['title']) || isset($_GET['category'])) {
-                $filter .= ' and p.stock>=0';
-            }
-        }
-
-
+        $filter = $this->createSqlFilter();
+        
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
         $count = $em
@@ -172,6 +153,29 @@ class ProductAdminController extends Controller {
         
         $url = $this->getRequest()->headers->get("referer");
         return new RedirectResponse($url);
+    }
+    
+    private function createSqlFilter(){
+        $filter = "";
+        if (isset($_GET['title'])) {
+            $filter.= " AND p.title like '%" . $_GET['title'] . "%'";
+        }
+        if (isset($_GET['category']) && strlen($_GET['category'])>0) {
+            $filter.= " AND c.id = " . $_GET['category'];
+        }
+
+        if (isset($_GET['stock']))
+            switch ($_GET['stock']) {
+                case 'on':
+                    $filter .= ' and p.stock>0';
+                    break;
+            } else {
+            if (isset($_GET['title']) || isset($_GET['category'])) {
+                $filter .= ' and p.stock>=0';
+            }
+        }
+        
+        return $filter;
     }
 
 }

@@ -50,3 +50,6 @@ bookshop_admin_product_edit:
 bookshop_admin_order_list:
   pattern:  /order
   defaults: { _controller: BookshopAdminBundle:OrderAdmin:index }
+bookshop_admin_order_set_status:
+  pattern:  /order/{id}/{stateId}
+  defaults: { _controller: BookshopAdminBundle:OrderAdmin:setState }

@@ -22,26 +22,33 @@
 
                 <div class="filter-product">
                     <!-- start filter form -->
+                    <form action="{{ path('bookshop_admin_order_list') }}" method='GET'>
                     <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                         <tr>
                             <th valign="top">Username:</th>
-                            <td><input type="text" class="inp-form" /></td>
+                            <td><input type="text" name="username" class="inp-form" value="{% if 'username' in app.request.requesturi %}{{ app.request.query.all['username']}}{% endif %}"/></td>
                             <td></td>
                         </tr>
                         <tr>
                             <th valign="top">Status:</th>
                             <td>	
-                                <select>
-                                    <option value="">All</option>
+                                <select name="state">
+                                    <option value="" >All</option>
+                                    {% for state in states %}
+                                    <option value="{{ state.id }}" {% if 'state' in app.request.requesturi and app.request.query.all['state'] == state.id %} selected {% endif %}>{{ state.name }}</option>
+                                    {%  endfor %}
                                 </select>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <th valign="top">Created at:</th>
-                            <td>	
-                                <select>
-                                    <option value="">1 day ago</option>
+                            <td>
+                                {% set date_filters ={'all': 'All', 'day': '1 day ago', 'month': '1 month ago', 'year': '1 year ago'} %}
+                                <select name="created">
+                                    {% for key,value in date_filters %}
+                                    <option value="{{key}}" {% if 'created' in app.request.requesturi and app.request.query.all['created'] == key %} selected {% endif %}>{{value}}</option>   
+                                    {% endfor %}
                                 </select>
                             </td>
                             <td></td>
@@ -49,12 +56,13 @@
                         <tr>
                             <th>&nbsp;</th>
                             <td valign="top">
-                                <input type="button" value="" class="form-submit" />
-                                <input type="reset" value="" class="form-reset"  />
+                                <input type="submit" value="" class="form-submit" />
+                                <a href="{{ path('bookshop_admin_order_list') }}"><button type="button" value="" class="form-reset"  ></button></a>
                             </td>
                             <td></td>
                         </tr>
                     </table>
+                    </form>
                     <!--  end filter form  -->
                 </div>
                 <!--  start table-content  -->
@@ -67,9 +75,9 @@
                                 <th class="table-header-repeat line-left minwidth-1">{{ knp_pagination_sortable(orders, 'orders.user.first_name'|trans({},'BookshopBookshopBundle'), 'u.first_name') }}</th>
                                 <th class="table-header-repeat line-left minwidth-1">{{ knp_pagination_sortable(orders, 'orders.user.last_name'|trans({},'BookshopBookshopBundle'), 'u.last_name') }}</th>
                                 <th class="table-header-repeat line-left minwidth-1">{{ knp_pagination_sortable(orders, 'orders.state.label'|trans({},'BookshopBookshopBundle'), 's.name') }}</th>
-                                <th class="table-header-repeat line-left"><a href="">{{ knp_pagination_sortable(orders, 'orders.date'|trans({},'BookshopBookshopBundle'), 'o.date') }}</a></th>
-                                <th class="table-header-repeat line-left"><a href="">{{ knp_pagination_sortable(orders, 'orders.total'|trans({},'BookshopBookshopBundle'), 'o.total') }}</a></th>
-                                <th class="table-header-options line-left"><a href="">Options</a></th>
+                                <th class="table-header-repeat line-left">{{ knp_pagination_sortable(orders, 'orders.date'|trans({},'BookshopBookshopBundle'), 'o.date') }}</th>
+                                <th class="table-header-repeat line-left">{{ knp_pagination_sortable(orders, 'orders.total'|trans({},'BookshopBookshopBundle'), 'o.total') }}</th>
+                                <th class="table-header-options line-left"><a href>Options</a></th>
                             </tr>
                             {% for order in  orders %}
                             <tr {% if loop.index is odd %}{% else %}class="alternate-row"{% endif %}>
@@ -80,9 +88,16 @@
                                 <td>{{order.date|date('Y-m-d H:i:s')}}</td>
                                 <td>{{order.total}}</td>
                                 <td class="options-width">
-                                    <select>
-                                        <option value="">Status</option>
-                                    </select>
+                                    {% if order.state.id == 1%}
+                                        <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[1].id})}}" title="{{states[1].name}}" >{{states[1].name}}</a>
+                                        <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[2].id})}}" title="{{states[2].name}}" >{{states[2].name}}</a>
+                                    {% elseif order.state.id == 2 %}
+                                        <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[2].id})}}" title="{{states[2].name}}" >{{states[2].name}}</a>
+                                        <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[3].id})}}" title="{{states[3].name}}" >{{states[3].name}}</a>
+                                    {% elseif order.state.id == 3 %}
+                                        <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[3].id})}}" title="{{states[3].name}}" >{{states[3].name}}</a>
+                                        <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[4].id})}}" title="{{states[4].name}}" >{{states[4].name}}</a>
+                                    {% endif %}
                                     <a href="" title="View" class="icon-1 info-tooltip"></a>
                                     <a href="" title="Delete" class="icon-2 info-tooltip"></a>
                                 </td>
