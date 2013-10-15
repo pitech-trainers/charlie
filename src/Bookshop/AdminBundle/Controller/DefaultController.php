@@ -10,4 +10,10 @@ class DefaultController extends Controller
     {
         return $this->render('BookshopAdminBundle:Default:index.html.twig', array());
     }
+    
+    public function setLocaleAction($locale='ro'){  // needs route define
+        $url = $this->getRequest()->headers->get("referer");
+        $url.="&_locale=$locale"; //???
+        return new RedirectResponse($url);
+    }
 }

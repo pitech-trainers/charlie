@@ -3,8 +3,8 @@ bookshop_admin_homepage:
     defaults: { _controller: BookshopAdminBundle:Default:index }
 
 bookshop_admin_user:
-  resource: "@BookshopAdminBundle/Resources/config/routing/user/routing.yml"
-  prefix: /user
+  resource:   "@BookshopAdminBundle/Resources/config/routing/user/routing.yml"
+  prefix:     /user
 
 bookshop_admin_product:
   resource: "@BookshopAdminBundle/Resources/config/routing/product/routing.yml"
