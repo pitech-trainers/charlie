@@ -1,4 +1,5 @@
 <?php
+
 // src/Bookshop\BookshopBundle\Entity/User.php
 
 namespace Bookshop\BookshopBundle\Entity;
@@ -11,16 +12,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
-{
+class User extends BaseUser {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
-    
+
     /**
      * @var string
      *
@@ -35,7 +35,7 @@ class User extends BaseUser
      * )
      */
     protected $first_name;
-    
+
     /**
      * @var string
      *
@@ -50,7 +50,7 @@ class User extends BaseUser
      * )
      */
     protected $last_name;
-    
+
     /**
      * @var string
      *
@@ -73,21 +73,21 @@ class User extends BaseUser
      * 
      */
     protected $mobile;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=1, nullable=true)
      */
     protected $gender;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="education", type="string", length=1, nullable=true)
      */
     protected $education;
-    
+
     /**
      * @var string
      * 
@@ -95,7 +95,7 @@ class User extends BaseUser
      * @ORM\JoinColumn(name="billing_address_id", referencedColumnName="id")
      */
     protected $billing_address;
-    
+
     /**
      * @var string
      *
@@ -104,8 +104,7 @@ class User extends BaseUser
      */
     protected $shipping_address;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         // your own logic
     }
@@ -115,8 +114,7 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -126,10 +124,9 @@ class User extends BaseUser
      * @param string $firstName
      * @return User
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->first_name = $firstName;
-    
+
         return $this;
     }
 
@@ -138,8 +135,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->first_name;
     }
 
@@ -149,10 +145,8 @@ class User extends BaseUser
      * @param string $lastName
      * @return User
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->last_name = $lastName;
-    
         return $this;
     }
 
@@ -161,8 +155,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->last_name;
     }
 
@@ -172,10 +165,8 @@ class User extends BaseUser
      * @param string $mobile
      * @return User
      */
-    public function setMobile($mobile)
-    {
+    public function setMobile($mobile) {
         $this->mobile = $mobile;
-    
         return $this;
     }
 
@@ -184,8 +175,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getMobile()
-    {
+    public function getMobile() {
         return $this->mobile;
     }
 
@@ -195,10 +185,8 @@ class User extends BaseUser
      * @param string $gender
      * @return User
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
-    
         return $this;
     }
 
@@ -207,8 +195,7 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -218,10 +205,8 @@ class User extends BaseUser
      * @param string $education
      * @return User
      */
-    public function setEducation($education)
-    {
+    public function setEducation($education) {
         $this->education = $education;
-    
         return $this;
     }
 
@@ -230,11 +215,9 @@ class User extends BaseUser
      *
      * @return string 
      */
-    public function getEducation()
-    {
+    public function getEducation() {
         return $this->education;
     }
-
 
     /**
      * Set billing_address
@@ -242,10 +225,8 @@ class User extends BaseUser
      * @param \Bookshop\BookshopBundle\Entity\Address $billingAddress
      * @return User
      */
-    public function setBillingAddress(\Bookshop\BookshopBundle\Entity\Address $billingAddress = null)
-    {
+    public function setBillingAddress(\Bookshop\BookshopBundle\Entity\Address $billingAddress = null) {
         $this->billing_address = $billingAddress;
-    
         return $this;
     }
 
@@ -254,8 +235,7 @@ class User extends BaseUser
      *
      * @return \Bookshop\BookshopBundle\Entity\Address 
      */
-    public function getBillingAddress()
-    {
+    public function getBillingAddress() {
         return $this->billing_address;
     }
 
@@ -265,10 +245,8 @@ class User extends BaseUser
      * @param \Bookshop\BookshopBundle\Entity\Address $shippingAddress
      * @return User
      */
-    public function setShippingAddress(\Bookshop\BookshopBundle\Entity\Address $shippingAddress = null)
-    {
+    public function setShippingAddress(\Bookshop\BookshopBundle\Entity\Address $shippingAddress = null) {
         $this->shipping_address = $shippingAddress;
-    
         return $this;
     }
 
@@ -277,8 +255,8 @@ class User extends BaseUser
      *
      * @return \Bookshop\BookshopBundle\Entity\Address 
      */
-    public function getShippingAddress()
-    {
+    public function getShippingAddress() {
         return $this->shipping_address;
     }
+
 }
