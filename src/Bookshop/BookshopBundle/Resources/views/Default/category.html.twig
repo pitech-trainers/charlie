@@ -182,6 +182,25 @@
 
 {% endblock%}
 {% block body%}
+
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <ul class="messages">
+        <li class="success-msg">
+            <ul>
+                <div>{{ flashMessage }}</div>
+            </ul>
+        </li>
+    </ul>
+{% endfor %}
+{% for flashMessage1 in app.session.flashbag.get('error') %}
+    <ul class="messages">
+        <li class="error-msg">
+            <ul>
+                <div>{{ flashMessage1 }}</div>
+            </ul>
+        </li>
+    </ul>
+{% endfor %}
                                                           <div class="breadcrumbs">
                                                               <ul>
                                                                   <li class="home">
@@ -232,9 +251,13 @@
                                                                           </div>
                     {%if product.stock>0%}
                                                                           <div class="actions">
-                                                                              <button type="button" title="Add to Cart" class="button btn-cart" >
-                                                                                  <span><span>Add to Cart</span></span>
-                                                                              </button>
+                                                                              <form action="{{path('addproduct')}}" method="post">
+                                                                                  <input type="hidden" name="quantity" value="1">
+                                                                                  <input type="hidden" name="productid" value="{{product.id}}">
+                                                                                  <button type="submit" title="Add to Cart" class="button btn-cart" >
+                                                                                      <span><span>Add to Cart</span></span>
+                                                                                  </button>
+                                                                              </form>
                                                                           </div>
                     {% else %}
                                                                           <div class="actions">
@@ -246,7 +269,9 @@
                 {% if loop.index % 3 == 2 %}
                                                                       <li class="item">
                                                                           <a href="{{path('product',{'id':product.id})}}" title=" {{product.title}}" class="product-image">
-                                                                              <img src="{%if product.image!=null%}{{asset(['/bundles/bookshopbookshop/',product.image.path,product.image.filename]|join)}}{%endif%}" width="135" height="135" alt=" {{product.title}}" />
+                                                                              
+                                                                              <img src="{%if product.image!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}"
+                                                                                   width="135" height="135" alt="{{product.title}}" />
                                                                           </a>
 
                                                                           <h2 class="product-name">
@@ -261,9 +286,13 @@
 
                    {%if product.stock>0%}
                                                                           <div class="actions">
-                                                                              <button type="button" title="Add to Cart" class="button btn-cart" >
-                                                                                  <span><span>Add to Cart</span></span>
-                                                                              </button>
+                                                                              <form action="{{path('addproduct')}}" method="post">
+                                                                                  <input type="hidden" name="quantity" value="1">
+                                                                                  <input type="hidden" name="productid" value="{{product.id}}">
+                                                                                  <button type="submit" title="Add to Cart" class="button btn-cart" >
+                                                                                      <span><span>Add to Cart</span></span>
+                                                                                  </button>
+                                                                              </form>
                                                                           </div>
                     {% else %}
                                                                           <div class="actions">
@@ -275,7 +304,9 @@
                {% if loop.index % 3 == 0 %}
                                                                       <li class="item">
                                                                           <a href="{{path('product',{'id':product.id})}}" title="{{product.title}}" class="product-image">
-                                                                              <img src="{%if product.image!=null%}{{asset(['/bundles/bookshopbookshop/',product.image.path,product.image.filename]|join)}}{%endif%}"" width="135" height="135" alt="{{product.title}}" />
+                                                                              
+                                                                              <img src="{%if product.image!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}"
+                                                                                   width="135" height="135" alt="{{product.title}}" />
                                                                           </a>
                                                                           <h2 class="product-name">
                                                                               <a href="{{path('product',{'id':product.id})}}" title="{{product.title}}">{{product.title}}</a>
@@ -288,9 +319,13 @@
                                                                           </div>
                     {%if product.stock>0%}
                                                                           <div class="actions">
-                                                                              <button type="button" title="Add to Cart" class="button btn-cart" >
-                                                                                  <span><span>Add to Cart</span></span>
-                                                                              </button>
+                                                                              <form action="{{path('addproduct')}}" method="post">
+                                                                                  <input type="hidden" name="quantity" value="1">
+                                                                                  <input type="hidden" name="productid" value="{{product.id}}">
+                                                                                  <button type="submit" title="Add to Cart" class="button btn-cart" >
+                                                                                      <span><span>Add to Cart</span></span>
+                                                                                  </button>
+                                                                              </form>
                                                                           </div>
                     {% else %}
                                                                           <div class="actions">

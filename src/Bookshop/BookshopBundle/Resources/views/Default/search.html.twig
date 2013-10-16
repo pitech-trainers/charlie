@@ -1,5 +1,23 @@
-{% extends '::base.html.twig'%}
+{% extends 'BookshopBookshopBundle::layout.html.twig'%}
 {% block body%}
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <ul class="messages">
+        <li class="success-msg">
+            <ul>
+                <div>{{ flashMessage }}</div>
+            </ul>
+        </li>
+    </ul>
+{% endfor %}
+{% for flashMessage1 in app.session.flashbag.get('error') %}
+    <ul class="messages">
+        <li class="error-msg">
+            <ul>
+                <div>{{ flashMessage1 }}</div>
+            </ul>
+        </li>
+    </ul>
+{% endfor %}
 <div class="breadcrumbs">
     <ul>
         <li class="home">
@@ -50,9 +68,13 @@
                 </div>
                     {%if product.stock>0%}
                 <div class="actions">
-                    <button type="button" title="Add to Cart" class="button btn-cart" >
-                        <span><span>Add to Cart</span></span>
-                    </button>
+                    <form action="{{path('addproduct')}}" method="post">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="productid" value="{{product.id}}">
+                        <button type="submit" title="Add to Cart" class="button btn-cart" >
+                            <span><span>Add to Cart</span></span>
+                        </button>
+                    </form>
                 </div>
                     {% else %}
                 <div class="actions">
@@ -79,9 +101,13 @@
 
                    {%if product.stock>0%}
                 <div class="actions">
-                    <button type="button" title="Add to Cart" class="button btn-cart" >
-                        <span><span>Add to Cart</span></span>
-                    </button>
+                    <form action="{{path('addproduct')}}" method="post">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="productid" value="{{product.id}}">
+                        <button type="submit" title="Add to Cart" class="button btn-cart" >
+                            <span><span>Add to Cart</span></span>
+                        </button>
+                    </form>
                 </div>
                     {% else %}
                 <div class="actions">
@@ -107,9 +133,13 @@
                 </div>
                     {%if product.stock>0%}
                 <div class="actions">
-                    <button type="button" title="Add to Cart" class="button btn-cart" >
-                        <span><span>Add to Cart</span></span>
-                    </button>
+                    <form action="{{path('addproduct')}}" method="post">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="productid" value="{{product.id}}">
+                        <button type="submit" title="Add to Cart" class="button btn-cart" >
+                            <span><span>Add to Cart</span></span>
+                        </button>
+                    </form>
                 </div>
                     {% else %}
                 <div class="actions">
@@ -157,7 +187,7 @@
                 <ol>
                     {%if 'category' in app.request.requesturi %} 
                         <li>
-                                <span class="label">Category:</span> <span class="value"> 
+                            <span class="label">Category:</span> <span class="value"> 
                             {% set arr = ({}) %}
                             {% for request,value in app.request.query.all %}
                                 {% if (request)!='category' %}
@@ -171,8 +201,8 @@
                                     {% endfor %}
                                 {% endif %}
                             {%endfor%}
-                                    </span>
-                                    <a class="btn-remove" href="
+                                </span>
+                                <a class="btn-remove" href="
                                        {% set arr = ({}) %}
                                        {% for request,value in app.request.query.all %}
                                             {% if (request)!='category' %}
@@ -188,18 +218,18 @@
                                             {% endif %}
                                         {% endfor %}
                                         {{parameters}}
-                                       " title="Remove This Item">Remove This Item</a> 
-                                    </li>
+                                   " title="Remove This Item">Remove This Item</a> 
+                                </li>
                     {% endif %}
 
                     {%if 'pricerange' in app.request.requesturi %} 
-                                    <li>
-                                        <span class="label">Price:</span> <span class="value">
+                                <li>
+                                    <span class="label">Price:</span> <span class="value">
                              {% if 'pricerange=1' in app.request.requesturi %} 0,00 US$ - 49,99 US$ 
                              {% elseif 'pricerange=2' in app.request.requesturi %} 50,00 US$ - 99,99 US$
                              {% else %} 100,00 US$ and above {% endif %}
-                                            </span>
-                                            <a class="btn-remove" href="
+                                        </span>
+                                        <a class="btn-remove" href="
                                        {% set arr = ({}) %}
                                        {% for request,value in app.request.query.all %}
                                             {% if (request)!='pricerange' %}
@@ -215,13 +245,13 @@
                                             {% endif %}
                                         {% endfor %}
                                         {{parameters}}
-                                               " title="Remove This Item">Remove This Item</a> 
-                                            </li>
+                                           " title="Remove This Item">Remove This Item</a> 
+                                        </li>
                     {% endif %}
                     {%if 'stock' in app.request.requesturi %} 
-                                            <li>
-                                                <span class="label">Stock:</span> <span class="value"> {%if 'stock=1' in app.request.requesturi %} Available {% else %} Soon {% endif %} </span>
-                                                <a class="btn-remove" href="
+                                        <li>
+                                            <span class="label">Stock:</span> <span class="value"> {%if 'stock=1' in app.request.requesturi %} Available {% else %} Soon {% endif %} </span>
+                                            <a class="btn-remove" href="
                                        {% set arr = ({}) %}
                                        {% for request,value in app.request.query.all %}
                                             {% if (request)!='stock' %}
@@ -237,13 +267,13 @@
                                             {% endif %}
                                         {% endfor %}
                                         {{parameters}}
-                                                   " title="Remove This Item">Remove This Item</a> 
-                                                </li>
+                                               " title="Remove This Item">Remove This Item</a> 
+                                            </li>
                     {% endif %}
-                                            </ol>
-                                        </div>
+                                        </ol>
+                                    </div>
                 {% if ('pricerange' in app.request.requesturi) or ('stock' in app.request.requesturi) or ('category' in app.request.requesturi) %}
-                                        <div class="actions"><a href="
+                                    <div class="actions"><a href="
                             {% set arr = ({}) %}
                             {% for request,value in app.request.query.all %}
                                 {% if (request)!='pricerange' and (request)!='stock' and (request)!='category' %}
@@ -259,16 +289,16 @@
                                 {% endif %}
                             {% endfor %}
                             {{parameters}}
-                                                                ">Clear All</a></div>
+                                                            ">Clear All</a></div>
                 {% endif %}
                     {% if not(('pricerange' in app.request.requesturi) and ('stock' in app.request.requesturi) and ('category' in app.request.requesturi)) %}<p class="block-subtitle">Shopping Options</p>{% endif %}
-                                        <dl id="narrow-by-list">
-                    {% if not('pricerange' in app.request.requesturi) %}
-                                                <dt>Category</dt>
-                                                <dd>
-                                                    <ol>
+                                    <dl id="narrow-by-list">
+                                    {% if not('category' in app.request.requesturi) %}
+                                            <dt>Category</dt>
+                                            <dd>
+                                                <ol>
                                                 {% for category in categories %}
-                                                            <li><a href="
+                                                        <li><a href="
                                                         {% set arr = ({}) %}
                                                         {% for request,value in app.request.query.all %}
                                                             {% set arr = arr|merge({(request): value}) %} 
@@ -283,14 +313,16 @@
                                                             {% endif %}
                                                         {% endfor %}
                                                         {{parameters}}
-                                                                   ">{{ category.name }}</a></li>
+                                                               ">{{ category.name }}</a></li>
                                                 {% endfor %}
-                                                            </ol>
-                                                        </dd>
-                                                        <dt>Price</dt>
-                                                        <dd>
-                                                            <ol>
-                                                                <li><a href="
+                                                        </ol>
+                                                    </dd>
+                                    {% endif %}
+                                    {% if not('pricerange' in app.request.requesturi) %}
+                                                    <dt>Price</dt>
+                                                    <dd>
+                                                        <ol>
+                                                            <li><a href="
                                             {% set arr = ({}) %}
                                             {% for request,value in app.request.query.all %}
                                                 {% set arr = arr|merge({(request): value}) %} 
@@ -305,8 +337,8 @@
                                                 {% endif %}
                                             {% endfor %}
                                             {{parameters}}
-                                                                       "><span class="price">0,00 US$</span> - <span class="price">49,99 US$</span></a></li>
-                                                                       <li><a href="
+                                                                   "><span class="price">0,00 US$</span> - <span class="price">49,99 US$</span></a></li>
+                                                                   <li><a href="
                                             {% set arr = ({}) %}
                                             {% for request,value in app.request.query.all %}
                                                     {% set arr = arr|merge({(request): value}) %} 
@@ -321,8 +353,8 @@
                                                 {% endif %}
                                             {% endfor %}
                                             {{parameters}}
-                                                                              "><span class="price">50,00 US$</span> - <span class="price">99,99 US$</span></a></li>
-                                                                              <li><a href="
+                                                                          "><span class="price">50,00 US$</span> - <span class="price">99,99 US$</span></a></li>
+                                                                          <li><a href="
                                             {% set arr = ({}) %}
                                             {% for request,value in app.request.query.all %}
                                                     {% set arr = arr|merge({(request): value}) %} 
@@ -337,15 +369,15 @@
                                                 {% endif %}
                                             {% endfor %}
                                             {{parameters}}
-                                                                                     "><span class="price">100,00 US$</span> and above</a></li>
-                                                                                  </ol>
-                                                                              </dd>
+                                                                                 "><span class="price">100,00 US$</span> and above</a></li>
+                                                                              </ol>
+                                                                          </dd>
                     {% endif %}
                     {% if not('stock' in app.request.requesturi) %}
-                                                                              <dt>Stock</dt>
-                                                                              <dd>
-                                                                                  <ol>
-                                                                                      <li><a href="
+                                                                          <dt>Stock</dt>
+                                                                          <dd>
+                                                                              <ol>
+                                                                                  <li><a href="
                                             {% set arr = ({}) %}
                                             {% for request,value in app.request.query.all %}
                                                     {% set arr = arr|merge({(request): value}) %} 
@@ -360,8 +392,8 @@
                                                 {% endif %}
                                             {% endfor %}
                                             {{parameters}}
-                                                                                             ">Available</a></li>
-                                                                                             <li><a href="
+                                                                                         ">Available</a></li>
+                                                                                         <li><a href="
                                             {% set arr = ({}) %}
                                             {% for request,value in app.request.query.all %}
                                                     {% set arr = arr|merge({(request): value}) %} 
@@ -376,14 +408,14 @@
                                                 {% endif %}
                                             {% endfor %}
                                             {{parameters}}
-                                                                                                    ">Soon</a></li>
-                                                                                                 </ol>
-                                                                                             </dd>
+                                                                                                ">Soon</a></li>
+                                                                                             </ol>
+                                                                                         </dd>
                     {% endif %}
-                                                                                          </dl>
-                                                                                      </div>
+                                                                                      </dl>
                                                                                   </div>
                                                                               </div>
+                                                                          </div>
 
 {% endblock%}
 
