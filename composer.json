@@ -28,7 +28,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "knplabs/knp-paginator-bundle": "dev-master",
         "gedmo/doctrine-extensions": "2.3.*@dev",
-        "stof/doctrine-extensions-bundle": "dev-master"
+        "stof/doctrine-extensions-bundle": "dev-master",
+        "lunetics/locale-bundle": "2.2.*"
     },
     "scripts": {
         "post-install-cmd": [
