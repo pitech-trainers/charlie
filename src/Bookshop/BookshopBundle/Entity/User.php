@@ -90,22 +90,19 @@ class User extends BaseUser {
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="billing_address_id", type="integer", nullable=true)
+     * 
+     * @ORM\OneToOne(targetEntity="Address")
+     * @ORM\JoinColumn(name="billing_address_id", referencedColumnName="id")
      */
-    protected $billing_address_id;
+    protected $billing_address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="shipping_address_id", type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity="Address")
+     * @ORM\JoinColumn(name="shipping_address_id", referencedColumnName="id")
      */
-    protected $shipping_address_id;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Cart", mappedBy="userId")
-     */
-    protected $carts;
+    protected $shipping_address;
 
     public function __construct() {
         parent::__construct();
@@ -150,7 +147,6 @@ class User extends BaseUser {
      */
     public function setLastName($lastName) {
         $this->last_name = $lastName;
-
         return $this;
     }
 
@@ -171,7 +167,6 @@ class User extends BaseUser {
      */
     public function setMobile($mobile) {
         $this->mobile = $mobile;
-
         return $this;
     }
 
@@ -192,7 +187,6 @@ class User extends BaseUser {
      */
     public function setGender($gender) {
         $this->gender = $gender;
-
         return $this;
     }
 
@@ -213,7 +207,6 @@ class User extends BaseUser {
      */
     public function setEducation($education) {
         $this->education = $education;
-
         return $this;
     }
 
@@ -227,45 +220,43 @@ class User extends BaseUser {
     }
 
     /**
-     * Set billing_address_id
+     * Set billing_address
      *
-     * @param integer $billingAddressId
+     * @param \Bookshop\BookshopBundle\Entity\Address $billingAddress
      * @return User
      */
-    public function setBillingAddressId($billingAddressId) {
-        $this->billing_address_id = $billingAddressId;
-
+    public function setBillingAddress(\Bookshop\BookshopBundle\Entity\Address $billingAddress = null) {
+        $this->billing_address = $billingAddress;
         return $this;
     }
 
     /**
-     * Get billing_address_id
+     * Get billing_address
      *
-     * @return integer 
+     * @return \Bookshop\BookshopBundle\Entity\Address 
      */
-    public function getBillingAddressId() {
-        return $this->billing_address_id;
+    public function getBillingAddress() {
+        return $this->billing_address;
     }
 
     /**
-     * Set shipping_address_id
+     * Set shipping_address
      *
-     * @param integer $shippingAddressId
+     * @param \Bookshop\BookshopBundle\Entity\Address $shippingAddress
      * @return User
      */
-    public function setShippingAddressId($shippingAddressId) {
-        $this->shipping_address_id = $shippingAddressId;
-
+    public function setShippingAddress(\Bookshop\BookshopBundle\Entity\Address $shippingAddress = null) {
+        $this->shipping_address = $shippingAddress;
         return $this;
     }
 
     /**
-     * Get shipping_address_id
+     * Get shipping_address
      *
-     * @return integer 
+     * @return \Bookshop\BookshopBundle\Entity\Address 
      */
-    public function getShippingAddressId() {
-        return $this->shipping_address_id;
+    public function getShippingAddress() {
+        return $this->shipping_address;
     }
 
 }

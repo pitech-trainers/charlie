@@ -4,12 +4,11 @@
     <div class="main">
         <div class="col-wrapper">
             {% block body %}
-             
+
             {% endblock %}
                 {% block leftsidebar %}
                 {{ parent() }}
                 {% endblock %}
-
             </div>
             {% block rightsidebar %}
                 {{ parent() }}

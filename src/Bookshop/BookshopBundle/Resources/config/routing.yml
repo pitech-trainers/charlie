@@ -56,10 +56,6 @@ addproduct:
   requirements:
         _method: post
 
-profile:
-  pattern: profile/min
-  defaults: { _controller: BookshopBookshopBundle:Profile:showMinim}
-
 checkout:
   pattern: checkout/index
   defaults: { _controller: BookshopBookshopBundle:Checkout:index}
@@ -67,3 +63,44 @@ checkout:
 billing:
   pattern: checkout/billing
   defaults: { _controller: BookshopBookshopBundle:Checkout:billing}
+
+profile:
+  pattern: profile/min
+  defaults: { _controller: BookshopBookshopBundle:Profile:showMinim}
+  
+dashboard_index:
+  pattern: dashboard/
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:index}
+
+
+dashboard_billing_address_show:
+  pattern: dashboard/billingAddress
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:billingAddressShow}
+
+dashboard_billing_addr_preedit:
+  pattern: dashboard/billingAddress/preedit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:billingAddressPreEdit}
+  
+dashboard_billing_addr_new_edit:
+  pattern: dashboard/billingAddress/edit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:billingAddressEdit}
+  
+dashboard_billing_addr_edit:
+  pattern: dashboard/billingAddress/edit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:billingAddressEdit}
+  requirements:
+    _method: POST
+    
+dashboard_shipping_addr_preedit:
+  pattern: dashboard/shippingAddress/preedit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:shippingAddressPreEdit}
+  
+dashboard_shipping_addr_new_edit:
+  pattern: dashboard/shippingAddress/edit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:shippingAddressEdit}
+  
+dashboard_shipping_addr_edit:
+  pattern: dashboard/shippingAddress/edit
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:shippingAddressEdit}
+  requirements:
+    _method: POST

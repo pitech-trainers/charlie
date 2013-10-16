@@ -63,5 +63,20 @@ profile:
         title:    Edit account
         current_password: "Current password :"
         
-
-          
+address:
+  show:
+    title:
+      billing: Billing address
+      shipping: Shipping address
+    first_name: "First name :"
+    last_name:  "Last name :"
+    email:      "Email :"
+    address:    "Address :"
+    city:       "City :"
+    country:    "Country"
+  edit:
+    label:      Edit
+    save:       Save
+    title:
+      billing: Edit default billing address
+      shipping: Edit default shipping address

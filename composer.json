@@ -25,7 +25,9 @@
         "nelmio/alice": "1.5.*@dev",
         "knplabs/knp-menu": "dev-master",
         "knplabs/knp-menu-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "nelmio/alice": "1.5.*@dev",
+        "gedmo/doctrine-extensions": "2.3.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

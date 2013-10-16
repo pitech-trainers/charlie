@@ -4,6 +4,7 @@
 <div class="main-container col2-left-layout">
     <div class="main">
     {% block body%}
+
             <div class="col-main">
         {% block fos_user_content %}
         {% endblock %}
@@ -29,7 +30,6 @@
                     <!-- render cart -->
             {{ render(controller('BookshopBookshopBundle:Cart:index')) }}
                 </div>
-
 
         {% endblock leftsidebar%}
 

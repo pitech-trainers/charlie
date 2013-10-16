@@ -1,0 +1,34 @@
+{% extends "BookshopBookshopBundle::dashboardLayout.html.twig" %}
+{% block fos_user_content %}
+<div class="account-create">
+    <div class="page-title">
+        <h1>{{ 'address.show.title.shipping'|trans({}, 'BookshopBundle') }}</h1>
+    </div>
+        
+    <form action="#" method="POST" id="form-validate" class="fos_user_profile_edit">
+    
+        <div class="fieldset">
+            <h2 class="legend">{{ 'address.edit.title.shipping'|trans({}, 'BookshopBundle') }}</h2>
+            
+            {% include 'BookshopBookshopBundle:Dashboard:addressPreEditFields.html.twig' with { 'address': shipping_address } %}
+            
+        </div>
+        
+
+        <div class="buttons-set">
+            <p class="required">* Required Fields</p>
+            {% if not app.request.server.get('HTTP_REFERER') is null %}
+                <p class="back-link"><a href="{{app.request.server.get('HTTP_REFERER') }}" class="back-link"><small>&laquo; </small>Back</a></p>
+            {% endif %}
+
+            <div>
+                <a href="{{ path('dashboard_shipping_addr_new_edit') }}">
+                    <button type="button" title="{{ 'address.edit.label'|trans({}, 'BookshopBundle') }}" class="button">
+                        <span><span>{{ 'address.edit.label'|trans({}, 'BookshopBundle') }}</span></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
