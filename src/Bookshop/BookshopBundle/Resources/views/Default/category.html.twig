@@ -246,7 +246,7 @@
                 {% if loop.index % 3 == 2 %}
                                                                       <li class="item">
                                                                           <a href="{{path('product',{'id':product.id})}}" title=" {{product.title}}" class="product-image">
-                                                                              <img src="{%if product.image!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}"" width="135" height="135" alt=" {{product.title}}" />
+                                                                              <img src="{%if product.image!=null%}{{asset(['/bundles/bookshopbookshop/',product.image.path,product.image.filename]|join)}}{%endif%}" width="135" height="135" alt=" {{product.title}}" />
                                                                           </a>
 
                                                                           <h2 class="product-name">
@@ -275,9 +275,8 @@
                {% if loop.index % 3 == 0 %}
                                                                       <li class="item">
                                                                           <a href="{{path('product',{'id':product.id})}}" title="{{product.title}}" class="product-image">
-                                                                              <img src="{%if product.image!=null%}{{asset([product.image.path,product.image.filename]|join)}}{%endif%}"" width="135" height="135" alt="{{product.title}}" />
+                                                                              <img src="{%if product.image!=null%}{{asset(['/bundles/bookshopbookshop/',product.image.path,product.image.filename]|join)}}{%endif%}"" width="135" height="135" alt="{{product.title}}" />
                                                                           </a>
-
                                                                           <h2 class="product-name">
                                                                               <a href="{{path('product',{'id':product.id})}}" title="{{product.title}}">{{product.title}}</a>
                                                                           </h2>

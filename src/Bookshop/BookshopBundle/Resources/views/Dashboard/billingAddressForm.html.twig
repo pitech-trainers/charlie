@@ -1,0 +1,25 @@
+<form action="{{ path('dashboard_billing_addr_edit') }}" method="POST" id="form-validate" class="fos_user_profile_edit">
+    <div class="fieldset">
+        <h2 class="legend">{{ 'address.edit.title.billing'|trans({}, 'BookshopBundle') }}</h2>
+        
+        {% include 'BookshopBookshopBundle:Dashboard:addressFormFields.html.twig' with { 'form': form } %}
+        
+    </div>
+
+
+    <div class="buttons-set">
+        <p class="required">* Required Fields</p>
+            {% if not app.request.server.get('HTTP_REFERER') is null %}
+        <p class="back-link"><a href="{{app.request.server.get('HTTP_REFERER') }}" class="back-link"><small>&laquo; </small>Back</a></p>
+            {% endif %}
+
+        {{ form_rest(form) }}
+
+        <div>
+            <button type="submit" title="{{ 'address.edit.save'|trans({}, 'BookshopBundle') }}" class="button" value="" >
+                <span><span>{{ 'address.edit.save'|trans({}, 'BookshopBundle') }}</span></span>
+            </button>
+
+        </div>
+    </div>
+</form>

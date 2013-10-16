@@ -1,4 +1,16 @@
 {% extends '::base.html.twig' %}
 
-{% block sidebar %}
-{% endblock %}
+{%block collayout%}
+<div class="main-container col3-layout">
+    <div class="main">
+        {% block fos_user_content %}
+        <div class="col-wrapper">
+            {% block leftsidebar%}{% endblock %}
+                {% block body %}
+                {% endblock body %}
+            
+        </div>
+        {% endblock %}
+    </div>
+</div>
+{%endblock %}
