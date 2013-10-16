@@ -14,6 +14,12 @@ product:
   requirements:
         _method:  GET
         id: \d+
+search:
+  pattern: search/
+  defaults: { _controller: BookshopBookshopBundle:Search:search}
+  requirements:
+    _method: GET
+        
 cart:
   pattern: cart
   defaults: { _controller: BookshopBookshopBundle:Cart:index}
