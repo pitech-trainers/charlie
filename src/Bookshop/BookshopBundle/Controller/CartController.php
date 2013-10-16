@@ -24,24 +24,26 @@ class CartController extends Controller {
     }
 
     public function updatecartAction() {
-        if ($this->match($cartid) == 1) {
+        if ($this->match($_POST['cartid']) == 1) {
             $em = $this->getDoctrine()->getManager();
             $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($_POST['cartid']);
             $success = 1;
-            foreach ($_POST['qty'] as $key => $value)
-                foreach ($cartitems as $cartitem)
-                    if ($cartitem->getID() == $key)
-                        if ($value <= $cartitems[0]->getProductID()->getStock()) {
-                            if ($value > 0) {
-                                $cartitem->setQuantity($value);
-                                $em->persist($cartitem);
+            if (isset($_POST['qty'])) {
+                foreach ($_POST['qty'] as $key => $value)
+                    foreach ($cartitems as $cartitem)
+                        if ($cartitem->getID() == $key)
+                            if ($value <= $cartitems[0]->getProductID()->getStock()) {
+                                if ($value > 0) {
+                                    $cartitem->setQuantity($value);
+                                    $em->persist($cartitem);
+                                } else {
+                                    $this->deleteproductAction($cartitem->getID(), $_POST['cartid']);
+                                }
                             } else {
-                                $this->deleteproductAction($cartitem->getID(), $_POST['cartid']);
+                                $success = 0;
                             }
-                        } else {
-                            $success = 0;
-                        }
-            $em->flush();
+                $em->flush();
+            }
             if ($success == 0)
                 $this->getRequest()->getSession()->getFlashBag()->add('error', 'Some values were not updated');
             else
