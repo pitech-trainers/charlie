@@ -50,7 +50,8 @@ class BookshopOrder
     /**
      * @var string
      *
-     * @ORM\Column(name="cart", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="Cart")
+     * @ORM\JoinColumn(name="cart_id", referencedColumnName="id")
      */
     private $cart;
 
