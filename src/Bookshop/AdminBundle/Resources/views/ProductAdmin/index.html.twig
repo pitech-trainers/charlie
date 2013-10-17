@@ -22,18 +22,24 @@
 
                 <div class="filter-product">
                     <!-- start filter form -->
+                    <form action="{{ path('bookshop_admin_product_list') }}" method='GET'>
                     <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                         <tr>
-                            <th valign="top">Product name:</th>
-                            <td><input type="text" class="inp-form" /></td>
+                            <th valign="top">Product title:</th>
+                            <td><input type="text" name="title" class="inp-form" value="{% if 'title' in app.request.requesturi %}{{ app.request.query.all['title']}}{% endif %}"/></td>
                             <td></td>
                         </tr>
                         <tr>
                             <th valign="top">Category:</th>
                             <td>	
-                                <select>
+                                <select name="category">
+                                    <option value="">All</option>
                                     {% for category in categories%}
-                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    {% if 'category' in app.request.requesturi and app.request.query.all['category'] == category.id %}
+                                    <option value="{{category.id}}" selected>{{category.name}}</option>
+                                    {% else %} 
+                                    <option value="{{category.id}}">{{category.name}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </td>
@@ -41,18 +47,19 @@
                         </tr>
                         <tr>
                             <th valign="top">Stock:</th>
-                            <td><input type="checkbox" class="inp-form" /></td>
+                            <td><input type="checkbox" name="stock" class="inp-form" {% if 'stock' in app.request.requesturi %}checked{% endif%}/></td>
                             <td></td>
                         </tr>
                         <tr>
                             <th>&nbsp;</th>
                             <td valign="top">
-                                <input type="button" value="" class="form-submit" />
-                                <input type="reset" value="" class="form-reset"  />
+                                <input type="submit" value="" class="form-submit" />
+                        <a href="{{ path('bookshop_admin_product_list') }}"><butoon type="button" value="" class="form-reset"></butoon></a>
                             </td>
                             <td></td>
                         </tr>
                     </table>
+                    </form>
                     <!--  end filter form  -->
                 </div>
                 <!--  start table-content  -->
