@@ -1,0 +1,47 @@
+{% extends '::admin_base.html.twig' %}
+
+{% block navigation%}
+<div class="table">
+        <ul class="{% if app.request.get('_route') in ['bookshop_admin_user_list'] %}current{% else %}select{% endif %}">
+            <li>
+                <a href="{{path('bookshop_admin_user_list')}}"><b>Users</b></a>
+                <div class="select_sub show">
+                    <ul class="sub">
+                        <li><a href="">Add User</a></li>
+                        <li><a href="{{path('bookshop_admin_user_list')}}">List Users</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        <ul class="select"><li><a href="#nogo"><b>Products</b></a>
+                <div class="select_sub">
+                    <ul class="sub">
+                        <li><a href="cpanel.php?link=product/addproduct.php">Add Product</a></li>
+                        <li><a href="cpanel.php?link=product/productlist.php">List Products</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        <ul class="select"><li><a href="#nogo"><b>Orders</b></a>
+                <div class="select_sub">
+                    <ul class="sub">
+                        <li><a href="cpanel.php?link=order/orderlist.php">List Orders</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+        <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+{% endblock %}
+
+{% block body%}
+{% endblock %}
