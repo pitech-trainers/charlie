@@ -4,8 +4,8 @@ namespace Bookshop\BookshopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Tool\Wrapper\EntityWrapper;
 use Gedmo\Translatable\Translatable;
-
 /**
  * Category
  *
@@ -36,6 +36,13 @@ class Category implements Translatable
      * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
      */
     protected $products;
+    
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     /**
      * Get id
@@ -102,6 +109,11 @@ class Category implements Translatable
      */
     public function getProducts() {
         return $this->products;
+    }
+    
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 
 }
