@@ -109,3 +109,20 @@ stof_doctrine_extensions:
     orm:
         default: 
             translatable: true
+
+lunetics_locale:
+  allowed_locales:
+    - en
+    - ro
+  guessing_order:
+    - query
+    - router
+    - session
+    - cookie
+    - browser
+  switcher:
+    show_current_locale: false
+  switcher:
+    template: BookshopBookshopBundle:LocaleSwitcher:switcher.html.twig
+    
+    

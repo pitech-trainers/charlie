@@ -2,7 +2,7 @@
 
 {% block navigation%}
 <div class="table">
-        <ul class="{% if app.request.get('_route') in ['bookshop_admin_user_list'] %}current{% else %}select{% endif %}">
+        <ul class="{% if app.request.get('_route') in ['bookshop_admin_user_list','bookshop_admin_user_new_edit','bookshop_admin_user_edit'] %}current{% else %}select{% endif %}">
             <li>
                 <a href="{{path('bookshop_admin_user_list')}}"><b>Users</b></a>
                 <div class="select_sub show">
@@ -16,7 +16,7 @@
 
         <div class="nav-divider">&nbsp;</div>
 
-        <ul class="{% if app.request.get('_route') in ['bookshop_admin_product_list','bookshop_admin_product_add'] %}current{% else %}select{% endif %}">
+        <ul class="{% if app.request.get('_route') in ['bookshop_admin_product_list','bookshop_admin_product_add','bookshop_admin_product_new_edit','bookshop_admin_product_edit'] %}current{% else %}select{% endif %}">
             <li><a href="{{path('bookshop_admin_product_list')}}"><b>Products</b></a>
                 <div class="select_sub show">
                     <ul class="sub">
@@ -29,15 +29,18 @@
 
         <div class="nav-divider">&nbsp;</div>
 
-        <ul class="select"><li><a href="#nogo"><b>Orders</b></a>
-                <div class="select_sub">
+        <ul class="{% if app.request.get('_route') in ['bookshop_admin_order_list'] %}current{% else %}select{% endif %}">
+            <li>
+                <a href="{{path('bookshop_admin_order_list')}}"><b>Orders</b></a>
+                <div class="select_sub show">
                     <ul class="sub">
-                        <li><a href="cpanel.php?link=order/orderlist.php">List Orders</a></li>
+                        <li><a href="{{path('bookshop_admin_order_list')}}">List Orders</a></li>
                     </ul>
                 </div>
             </li>
         </ul>
-
+        
+        
         <div class="nav-divider">&nbsp;</div>
         <div class="clear"></div>
         </div>

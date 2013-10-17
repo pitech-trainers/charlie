@@ -1,0 +1,9 @@
+
+<p class="welcome-msg"><strong>Switch language to</strong> :</p>
+<ul class="locale_chooser">
+    {% for locale in locales %}
+        <li class="welcome-msg {% if current_locale == locale.locale %}locale_current{% endif %}">
+            <span><a href="{{ locale.link }}" title="{{ locale.locale_current_language }}">{{ locale.locale_current_language }}</a></span>
+        </li>
+    {% endfor %}
+</ul>
