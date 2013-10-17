@@ -1,3 +1,7 @@
+bookshop_admin:
+    resource: "@BookshopAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 bookshop_bookshop:
     resource: "@BookshopBookshopBundle/Resources/config/routing.yml"
     prefix:   /
