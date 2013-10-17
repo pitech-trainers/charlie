@@ -63,6 +63,20 @@ class OrderAdminController extends Controller{
         return new RedirectResponse($url);
     }
     
+    public function viewAction($id){
+        $em = $this->getDoctrine()->getManager();
+        
+        $order = $em->getRepository("BookshopBookshopBundle:BookshopOrder")->find($id);
+        $cartitems = null;
+        if($order->getCart()){
+        $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($order->getCart()->getId());
+        }
+        $states = $em->getRepository("BookshopBookshopBundle:State")->findAll();
+        
+        return $this->render('BookshopAdminBundle:OrderAdmin:view.html.twig', array('order' => $order, 'cartitems' =>$cartitems, 'states' => $states));
+    }
+
+
     private function createSqlFilter(){
         $filter = "";
         if (isset($_GET['username'])) {
