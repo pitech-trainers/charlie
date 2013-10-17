@@ -26,7 +26,7 @@ class User extends BaseUser {
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      * 
-     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile"})
      * @Assert\Regex(
      *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
@@ -41,7 +41,7 @@ class User extends BaseUser {
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
      * 
-     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile"})
      * @Assert\Regex(
      *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
@@ -56,18 +56,18 @@ class User extends BaseUser {
      *
      * @ORM\Column(name="mobile", type="string", length=20, nullable=false)
      * 
-     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\NotBlank(message="user.mobile.not_blank", groups={"Registration", "Profile"})
      * @Assert\Regex(
      *     pattern="/^\d+$/",
      *     htmlPattern="*",
      *     match=true,
-     *     message="This mobile number is invalid."
+     *     message="user.mobile.regex1"
      * )
      * @Assert\Regex(
      *     pattern="/^\d{10,12}$/",
      *     htmlPattern="*",
      *     match=true,
-     *     message="This mobile number must contain 10 or 12 digits."
+     *     message="user.mobile.regex2"
      * )
      * 
      * 

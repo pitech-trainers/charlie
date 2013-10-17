@@ -1,0 +1,12 @@
+user.name.not_blank: Please enter a name.
+user.mobile.not_blank: Please enter a mobile number.
+user.mobile.regex2: This mobile number must contain 10 or 12 digits.
+user.mobile.regex1: This mobile number is invalid.
+
+address.address.not_blank: Please enter your address.
+address.city.not_blank: Please enter your city.
+address.country.not_blank: Please enter your country.
+address.first_name.not_blank: Please enter your first_name.
+address.last_name.not_blank: Please enter your last name.
+address.email.not_blank: Please enter your email.
+address.email.not_valid: This email is not a valid mail.

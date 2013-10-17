@@ -5,6 +5,22 @@ menu:
     my:
       cart: My Cart
       account: My Account
+    dashboard:
+      home:           Account dashboard
+      account_info:   Account information
+      account_orders: My orders
+      address:
+        billing:    Billing address
+        shipping:  Shipping address
+dashboard:
+  menu_title: My account
+  title: My dashboard
+  greeting: Hello, %fullname% !
+  info: |
+        From your My Account Dashboard you have the ability to view a
+        snapshot of your recent account activity and update your account
+        information. Select a link below to view or edit information.
+
       
 registration:
     check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
@@ -64,9 +80,10 @@ profile:
         current_password: "Current password :"
         
 address:
+  label_book: Address Book
   show:
     title:
-      billing: Billing address
+      billing:  Billing address
       shipping: Shipping address
     first_name: "First name :"
     last_name:  "Last name :"
@@ -78,5 +95,6 @@ address:
     label:      Edit
     save:       Save
     title:
-      billing: Edit default billing address
+      billing:  Edit default billing address
       shipping: Edit default shipping address
+

@@ -13,8 +13,8 @@ class RegistrationFormType extends BaseType {
         parent::buildForm($builder, $options);
 
         // add your custom field
-        $builder->add('first_name');
-        $builder->add('last_name');
+        $builder->add('first_name','text', array('required' => false));
+        $builder->add('last_name', 'text', array('required' => false));
         $builder->add('mobile');
         $builder->add('gender', 'choice', array(
             'choices' => array('m' => 'Male', 'f' => 'Female'),
@@ -37,7 +37,7 @@ class RegistrationFormType extends BaseType {
             'multiple' => false,
         ));
         
-//        $builder->add('billing_address_id');
+//        $builder->add('billing_address');
 //        $builder->add('shipping_address_id');
     }
 
