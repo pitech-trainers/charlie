@@ -1,0 +1,6 @@
+product.add.title.not_blank: Please enter a title.
+product.add.category.not_blank: Please choose a category.
+product.add.price.not_blank: Please enter a price.
+product.add.author.not_blank: Please enter an author.
+product.isbn.regex: This is neighter an ISBN-10 nor an ISBN-13 number.
+product.year.regex: A valid year is in 1000-2999 range.

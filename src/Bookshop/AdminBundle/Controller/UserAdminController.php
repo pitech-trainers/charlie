@@ -51,12 +51,24 @@ class UserAdminController extends Controller
     public function editAction($userID) {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("BookshopBookshopBundle:User")->find($userID);
-        $form = $this->createForm(new UserEditFormType(), $user);
-        //to do
-        $em->persist($user);
-        $em->flush($user);
-        $url = $this->getRequest()->headers->get("referer");
-        return new RedirectResponse($url);
+        $form = $this->createForm(
+                                    new UserEditFormType(), 
+                                    $user,
+                                    array('validation_groups' => array('Edit'))
+                                  );
+        
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+        }
+
+        if ($form->isValid()) {
+            $em->persist($user);
+            $em->flush($user);
+            return $this->redirect($this->generateUrl('bookshop_admin_user_list'));
+        }
+        
+        return $this->render('BookshopAdminBundle:UserAdmin:edit.html.twig', array('form' => $form->createView(), 'userID' => $user->getId()));
     }
     
     
