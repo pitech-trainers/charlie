@@ -34,18 +34,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for order in orders %}
                     <tr class="first last odd">
-                        <td>100027773</td>
-                        <td><span class="nobr">7/24/12</span></td>
-                        <td>John Doe</td>
-                        <td><span class="price">$2,699.99</span></td>
-                        <td><em>Pending</em></td>
+                        <td>{{"%1$08d"|format(order.id)}}</td>
+                        <td><span class="nobr">{{order.date|date('Y-m-d')}}</span></td>
+                        <td>{{order.shippingAddress.firstName}} {{order.shippingAddress.lastName}}</td>
+                        <td><span class="price">{{order.total|number_format(2,".",",")}}</span></td>
+                        <td><em>{{order.state.name}}</em></td>
                         <td class="a-center last">
                             <span class="nobr">
                                 <a href="#">View Order</a>
                             </span>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

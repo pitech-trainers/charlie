@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * BookshopOrder
  *
  * @ORM\Table(name = "orders")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bookshop\BookshopBundle\Entity\BookshopOrderRepository")
  */
 class BookshopOrder
 {
@@ -58,7 +58,7 @@ class BookshopOrder
     /**
      * @var float
      *
-     * @ORM\Column(name="total", type="decimal")
+     * @ORM\Column(name="total", type="float")
      */
     private $total;
 
