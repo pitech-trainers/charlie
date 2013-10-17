@@ -1,0 +1,23 @@
+bookshop_admin_user_list:
+    pattern:  /
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:index }
+bookshop_admin_user_enable:
+    pattern:  /enable/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:enable }
+    requirements:
+        _method:  GET
+        userID: \d+
+bookshop_admin_user_disable:
+    pattern:  /disbale/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:disable }
+    requirements:
+        _method:  GET
+        userID: \d+
+bookshop_admin_user_new_edit:
+    pattern:  /edit/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:edit }
+bookshop_admin_user_edit:
+    pattern:  /edit/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:edit }
+    requirements:
+      _method: POST

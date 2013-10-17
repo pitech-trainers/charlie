@@ -5,13 +5,19 @@
         <title>Admin</title>
         <link rel="stylesheet" href="{{ asset ('bundles/bookshopadmin/css/screen.css')}}" type="text/css" media="screen" title="default" />
     </head>
-        <body>
+    <body>
         <!-- Start: page-top-outer -->
         <div id="page-top-outer">    
             <!-- Start: page-top -->
-            <div id="page-top"> 
-                <h3 style="padding-top: 25px; text-align: center;" class="special">Administrator</h3>
+            <div id="page-top">
+                
+                <h3 style="padding-top: 25px; text-align: center">Administrator</h3>
                 <div class="clear"></div>
+                <h3 style="padding: 0px 0px 10px 40px; text-align: left">
+                {{ locale_switcher() }}
+                </h3>
+                
+
             </div>
             <!-- End: page-top -->
         </div>
@@ -33,33 +39,33 @@
                 <!-- end nav-right -->
                 <!--  start nav -->
                 <div class="nav">
-                    {% block navigation%}
-                    {% endblock %}
-                </div>
-                <!--  start nav -->
-            </div>
-            <div class="clear"></div>
-            <!--  start nav-outer -->
-        </div>
-        <!--  start nav-outer-repeat................................................... END -->
-        <div class="clear"></div>
-        <!-- start content-outer ........................................................................................................................START -->
-        <div id="content-outer">
-            <!-- start content -->
-            <div id="content">
-                {% block body %}
+                {% block navigation%}
                 {% endblock %}
+                    </div>
+                    <!--  start nav -->
+                </div>
+                <div class="clear"></div>
+                <!--  start nav-outer -->
             </div>
-            <!--  end content -->
-            <div class="clear">&nbsp;</div>
-        </div>
-        <!--  end content-outer........................................................END -->
-        <div class="clear">&nbsp;</div>
-        <!-- start footer -->         
-        <div id="footer">
-            <div class="clear">&nbsp;</div>
-        </div>
-        <!-- end footer -->
-        </body>
-        
-</html>
+            <!--  start nav-outer-repeat................................................... END -->
+            <div class="clear"></div>
+            <!-- start content-outer ........................................................................................................................START -->
+            <div id="content-outer">
+                <!-- start content -->
+                <div id="content">
+            {% block body %}
+            {% endblock %}
+                    </div>
+                    <!--  end content -->
+                    <div class="clear">&nbsp;</div>
+                </div>
+                <!--  end content-outer........................................................END -->
+                <div class="clear">&nbsp;</div>
+                <!-- start footer -->         
+                <div id="footer">
+                    <div class="clear">&nbsp;</div>
+                </div>
+                <!-- end footer -->
+            </body>
+
+        </html>

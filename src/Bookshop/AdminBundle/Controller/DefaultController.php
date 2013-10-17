@@ -10,4 +10,6 @@ class DefaultController extends Controller
     {
         return $this->render('BookshopAdminBundle:Default:index.html.twig', array());
     }
+    
+    
 }
