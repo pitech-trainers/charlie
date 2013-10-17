@@ -1,22 +1,68 @@
 bookshop_bookshop_homepage:
-    pattern:  /
+    pattern: /
     defaults: { _controller: BookshopBookshopBundle:Default:index }
     
 category:
   pattern: category/{id}
   defaults: { _controller: BookshopBookshopBundle:Category:category}
   requirements:
-        _method:  GET
+        _method: GET
         id: \d+
 product:
   pattern: product/{id}
   defaults: { _controller: BookshopBookshopBundle:Product:product}
   requirements:
-        _method:  GET
+        _method: GET
         id: \d+
+search:
+  pattern: search/
+  defaults: { _controller: BookshopBookshopBundle:Search:search}
+  requirements:
+    _method: GET
+
+mycart:
+  pattern: mycart
+  defaults: { _controller: BookshopBookshopBundle:Cart:mycart}
+        
 cart:
   pattern: cart
   defaults: { _controller: BookshopBookshopBundle:Cart:index}
+
+updatecart:
+  pattern: updatecart/
+  defaults: { _controller: BookshopBookshopBundle:Cart:updatecart}
+  requirements:
+    method: post
+    
+
+emtpycart:
+  pattern: emptycart/{cartid}
+  defaults: { _controller: BookshopBookshopBundle:Cart:emptycart}
+  requirements:
+        _method: GET
+        id: \d+
+
+deleteproduct:
+  pattern: deleteproduct/{id}/{cartid}
+  defaults: { _controller: BookshopBookshopBundle:Cart:deleteproduct}
+  requirements:
+    _method: GET
+    id: \d+
+    cartid: \d+
+
+addproduct:
+  pattern: addproduct/
+  defaults: { _controller: BookshopBookshopBundle:Cart:addproduct}
+  requirements:
+        _method: post
+
+checkout:
+  pattern: checkout/index
+  defaults: { _controller: BookshopBookshopBundle:Checkout:index}
+
+billing:
+  pattern: checkout/billing
+  defaults: { _controller: BookshopBookshopBundle:Checkout:billing}
 
 profile:
   pattern: profile/min

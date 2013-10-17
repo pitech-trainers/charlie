@@ -13,16 +13,25 @@ class Builder extends ContainerAware {
 
         $securityContext = $this->container->get('security.context');
 
+        $menu->addChild('Home', array(
+            'route' => 'bookshop_bookshop_homepage'
+        ));
+
+
+
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             // authenticated REMEMBERED, FULLY will imply REMEMBERED (NON anonymous)
             $myAccountTrans = $myTrans->trans('menu.my.account', array(), 'BookshopBundle');
             $menu->addChild($myAccountTrans, array(
-                'route' => 'dashboard_index'
+                'route' => 'fos_user_profile_show'
+            ));
+            $menu->addChild('Checkout', array(
+                'route' => 'checkout'
             ));
 
             $myCartTrans = $myTrans->trans('menu.my.cart', array(), 'BookshopBundle');
             $menu->addChild($myCartTrans, array(
-                'route' => 'bookshop_bookshop_homepage'
+                'route' => 'mycart'
             ));
 
             $logoutTrans = $myTrans->trans('layout.logout', array(), 'FOSUserBundle');
@@ -40,6 +49,22 @@ class Builder extends ContainerAware {
 //            $menu->addChild("Item With Childs", array('route' => '_welcome'));
 //            $menu['Item With Childs']->addChild('first Cild', array('route' => '_welcome'));
 //            $menu['Item With Childs']->addChild('second Cild', array('route' => '_welcome'));
+            $menu->addChild('Checkout', array(
+                'route' => 'checkout'
+            ));
+
+            $myCartTrans = $myTrans->trans('menu.my.cart', array(), 'BookshopBundle');
+            $menu->addChild($myCartTrans, array(
+                'route' => 'mycart'
+            ));
+
+            $loginTrans = $myTrans->trans('layout.login', array(), 'FOSUserBundle');
+            $menu->addChild($loginTrans, array('route' => 'fos_user_security_login'));
+
+//            $rstPassTrans = $myTrans->trans('menu.forgot_pass', array(), 'BookshopBundle');
+//            $menu->addChild($rstPassTrans, array('route' => 'fos_user_resetting_request'));
+//            $registerTrans = $myTrans->trans('menu.register', array(), 'BookshopBundle');
+//            $menu->addChild($registerTrans, array('route' => 'fos_user_registration_register'));
         }
         return $menu;
     }
