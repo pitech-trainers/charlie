@@ -16,3 +16,12 @@ bookshop_admin_user_disable:
     requirements:
         _method:  GET
         userID: \d+
+bookshop_admin_user_new_edit:
+    pattern:  /user/edit/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:edit }
+
+bookshop_admin_user_edit:
+    pattern:  /user/edit/{userID}
+    defaults: { _controller: BookshopAdminBundle:UserAdmin:edit }
+    requirements:
+      _method: POST
