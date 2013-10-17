@@ -38,3 +38,11 @@ bookshop_admin_product_delete:
 bookshop_admin_product_undelete:
   pattern:  /product/undelete/{id}
   defaults: { _controller: BookshopAdminBundle:ProductAdmin:undelete }
+bookshop_admin_product_new_edit:
+  pattern:  /product/edit/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:edit }
+bookshop_admin_product_edit:
+  pattern:  /product/edit/{id}
+  defaults: { _controller: BookshopAdminBundle:ProductAdmin:edit }
+  requirements:
+      _method: POST

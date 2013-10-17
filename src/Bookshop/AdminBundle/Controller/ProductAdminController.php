@@ -95,6 +95,53 @@ class ProductAdminController extends Controller {
         return $this->render('BookshopAdminBundle:ProductAdmin:add.html.twig', array('form' => $form->createView()));
     }
     
+    public function editAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('BookshopBookshopBundle:Product')->find($id);
+        if(!$product){
+            throw $this->createNotFoundException('Unable to find this product.');
+        }
+        
+        $form = $this->createForm(new ProductAddFormType(), $product, array('validation_groups' => array('Add')));
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+        }
+        if ($form->isValid()) {
+            $product->setActive(1);
+
+            $image = $product->getImage();
+            if(!$image){
+                $image = new Image();
+                $image->setPath("bundles/bookshopbookshop/public/image/");
+            }
+            
+            if ($product->getFile()) {
+                $filename = sha1(uniqid(mt_rand(), true));
+                $image->setFilename($filename.".".$product->getFile()->guessExtension());
+            }
+            
+            $em->persist($product);
+            $em->flush($product);
+
+            $image->setProductid($product->getId());
+
+            $em->persist($image);
+            $em->flush($image);
+            $product->setImage($image);
+            
+            if ($product->getFile()) {
+                $product->upload();
+            }
+            
+            $em->persist($product);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl("bookshop_admin_product_list"));
+        }
+        return $this->render('BookshopAdminBundle:ProductAdmin:edit.html.twig', array('form' => $form->createView(), 'id' => $id));
+    }
+    
     public function deleteAction($id) {
         $em = $this->getDoctrine()->getManager();
         $product = new Product();
