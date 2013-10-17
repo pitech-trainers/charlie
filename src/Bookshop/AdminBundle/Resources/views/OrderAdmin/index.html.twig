@@ -1,0 +1,120 @@
+{% extends "BookshopAdminBundle::layout.html.twig" %}
+{% block body %}
+<!--  start page-heading -->
+<div id="page-heading">
+    <h1>Order list</h1>
+</div>
+<!-- end page-heading -->
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+    <tr>
+        <th rowspan="3" class="sized"><img src="{{asset('bundles/bookshopadmin/images/shared/side_shadowleft.jpg') }}" width="20" height="300" alt="" /></th>
+        <th class="topleft"></th>
+        <td id="tbl-border-top">&nbsp;</td>
+        <th class="topright"></th>
+        <th rowspan="3" class="sized"><img src="{{asset('bundles/bookshopadmin/images/shared/side_shadowright.jpg') }}" width="20" height="300" alt="" /></th>
+    </tr>
+    <tr>
+        <td id="tbl-border-left"></td>
+        <td>
+            <!--  start content-table-inner ...................................................................... START -->
+            <div id="content-table-inner">
+
+                <div class="filter-product">
+                    <!-- start filter form -->
+                    <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
+                        <tr>
+                            <th valign="top">Username:</th>
+                            <td><input type="text" class="inp-form" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th valign="top">Status:</th>
+                            <td>	
+                                <select>
+                                    <option value="">All</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th valign="top">Created at:</th>
+                            <td>	
+                                <select>
+                                    <option value="">1 day ago</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td valign="top">
+                                <input type="button" value="" class="form-submit" />
+                                <input type="reset" value="" class="form-reset"  />
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <!--  end filter form  -->
+                </div>
+                <!--  start table-content  -->
+                <div id="table-content">
+                    <!--  start product-table ..................................................................................... -->
+                    <form id="mainform" action="">
+                        <table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+                            <tr>
+                                <th class="table-header-repeat line-left minwidth-1">{{ knp_pagination_sortable(orders, 'orders.user.username'|trans({},'BookshopBookshopBundle'), 'u.username') }}</th>
+                                <th class="table-header-repeat line-left minwidth-1">{{ knp_pagination_sortable(orders, 'orders.user.first_name'|trans({},'BookshopBookshopBundle'), 'u.first_name') }}</th>
+                                <th class="table-header-repeat line-left minwidth-1">{{ knp_pagination_sortable(orders, 'orders.user.last_name'|trans({},'BookshopBookshopBundle'), 'u.last_name') }}</th>
+                                <th class="table-header-repeat line-left minwidth-1">{{ knp_pagination_sortable(orders, 'orders.state.label'|trans({},'BookshopBookshopBundle'), 's.name') }}</th>
+                                <th class="table-header-repeat line-left"><a href="">{{ knp_pagination_sortable(orders, 'orders.date'|trans({},'BookshopBookshopBundle'), 'o.date') }}</a></th>
+                                <th class="table-header-repeat line-left"><a href="">{{ knp_pagination_sortable(orders, 'orders.total'|trans({},'BookshopBookshopBundle'), 'o.total') }}</a></th>
+                                <th class="table-header-options line-left"><a href="">Options</a></th>
+                            </tr>
+                            {% for order in  orders %}
+                            <tr {% if loop.index is odd %}{% else %}class="alternate-row"{% endif %}>
+                                <td>{{order.user.username}}</td>
+                                <td>{{order.user.firstName}}</td>
+                                <td>{{order.user.lastName}}</td>
+                                <td>{{order.state.name}}<a href=""></a></td>
+                                <td>{{order.date|date('Y-m-d H:i:s')}}</td>
+                                <td>{{order.total}}</td>
+                                <td class="options-width">
+                                    <select>
+                                        <option value="">Status</option>
+                                    </select>
+                                    <a href="" title="View" class="icon-1 info-tooltip"></a>
+                                    <a href="" title="Delete" class="icon-2 info-tooltip"></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <!--  end product-table................................... --> 
+                    </form>
+                </div>
+                <!--  end content-table  -->
+
+                <!--  start paging..................................................... -->
+                <table border="0" cellpadding="0" cellspacing="0" id="paging-table">
+                    <tr>
+                        <td>
+                            {{ knp_pagination_render(orders,'BookshopAdminBundle:Pagination:pagination.html.twig') }}
+                        </td>
+                    </tr>
+                </table>
+                <!--  end paging................ -->
+
+                <div class="clear"></div>
+
+            </div>
+            <!--  end content-table-inner ............................................END  -->
+        </td>
+        <td id="tbl-border-right"></td>
+    </tr>
+    <tr>
+        <th class="sized bottomleft"></th>
+        <td id="tbl-border-bottom">&nbsp;</td>
+        <th class="sized bottomright"></th>
+    </tr>
+</table>
+{% endblock %}
