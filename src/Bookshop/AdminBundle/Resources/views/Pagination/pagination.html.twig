@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Twitter Bootstrap v3 Sliding pagination control implementation.
+ *
+ * View that can be used with the pagination module 
+ * from the Twitter Bootstrap CSS Toolkit
+ * http://getbootstrap.com/components/#pagination
+ *
+ * @author Pablo Díez <pablodip@gmail.com>
+ * @author Jan Sorgalla <jsorgalla@gmail.com>
+ * @author Artem Ponomarenko <imenem@inbox.ru>
+ * @author Artem Zabelin <artjomzabelin@gmail.com>
+ */
+#}
+<div class="pages">
+{% if pageCount > 1 %}
+        
+
+    {% if previous is defined %}
+                <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}" class="page-far-left" ></a>
+                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="page-left" ></a>
+    {% else %}
+                
+    {% endif %}
+
+    {% if startPage > 1 %}
+            
+                <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}" >1</a>
+        {% if startPage == 3 %}
+                <a href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+        {% elseif startPage != 2 %}
+                <span>&hellip;</span>
+        {% endif %}
+    {% endif %}
+
+    {% for page in pagesInRange %}
+        {% if page != current %}
+                <!-- <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a> -->
+        {% else %}
+                <div id="page-info"><strong>{{ page }}</strong> / {{ endPage }}</div>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if pageCount > endPage %}
+        {% if pageCount > (endPage + 1) %}
+            {% if pageCount > (endPage + 2) %}
+                <span>&hellip;</span>
+            {% else %}
+                <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+            {% endif %}
+        {% endif %}
+                <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+    {% endif %}
+
+    {% if next is defined %}
+                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="page-right"></a>
+                <a href="{{ path(route, query|merge({(pageParameterName): endPage})) }}" class="page-far-right"></a>
+    {% else %}
+                <!-- <span>&nbsp;&raquo;</span> -->
+    {% endif %}
+                
+{% endif %}
+    </div>
