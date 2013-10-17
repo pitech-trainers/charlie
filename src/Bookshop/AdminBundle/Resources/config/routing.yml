@@ -29,3 +29,6 @@ bookshop_admin_user_edit:
 bookshop_admin_product_list:
     pattern:  /product
     defaults: { _controller: BookshopAdminBundle:ProductAdmin:index }
+bookshop_admin_product_add:
+    pattern:  /product/add
+    defaults: { _controller: BookshopAdminBundle:ProductAdmin:add }

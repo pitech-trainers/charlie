@@ -16,11 +16,11 @@
 
         <div class="nav-divider">&nbsp;</div>
 
-        <ul class="{% if app.request.get('_route') in ['bookshop_admin_product_list'] %}current{% else %}select{% endif %}">
+        <ul class="{% if app.request.get('_route') in ['bookshop_admin_product_list','bookshop_admin_product_add'] %}current{% else %}select{% endif %}">
             <li><a href="{{path('bookshop_admin_product_list')}}"><b>Products</b></a>
                 <div class="select_sub show">
                     <ul class="sub">
-                        <li><a href="cpanel.php?link=product/addproduct.php">Add Product</a></li>
+                        <li><a href="{{path('bookshop_admin_product_add')}}">Add Product</a></li>
                         <li><a href="{{path('bookshop_admin_product_list')}}">List Products</a></li>
                     </ul>
                 </div>
