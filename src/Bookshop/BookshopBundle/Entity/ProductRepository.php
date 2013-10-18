@@ -49,5 +49,20 @@ class ProductRepository extends EntityRepository {
         return $qb->getQuery()
                         ->getResult();
     }
+    
+    public function getNrAllProducts($filter)
+    {
+        $em = $this->getEntityManager();
+        return $em->createQuery('SELECT COUNT(p) FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE 1=1' . $filter)
+                ->getSingleScalarResult();
+    }
+    public function getAllProductsQuery($filter,$count){
+        $em = $this->getEntityManager();
+        $dql = "SELECT p FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE 1=1";
+        $dql.=$filter;
+
+        return $em->createQuery($dql)->setHint('knp_paginator.count', $count);
+        
+    }
 
 }

@@ -4,10 +4,6 @@ namespace Bookshop\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Bookshop\BookshopBundle\Entity\User;
-use Bookshop\BookshopBundle\Entity\Address;
-use Bookshop\BookshopBundle\Entity\State;
-use Bookshop\BookshopBundle\Entity\BookshopOrder;
 /**
  * Description of OrderAdminController
  *
@@ -19,20 +15,9 @@ class OrderAdminController extends Controller{
         $filter = $this->createSqlFilter();
         
         $em = $this->getDoctrine()->getManager();
-        $count = $em
-                ->createQuery('SELECT COUNT(o) FROM BookshopBookshopBundle:BookshopOrder o 
-                    INNER JOIN BookshopBookshopBundle:User u WITH u = o.user 
-                    INNER JOIN BookshopBookshopBundle:State s WITH s = o.state 
-                    WHERE 1=1' . $filter)
-                ->getSingleScalarResult();
+        $count = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getNrAllOrders($filter);
         
-        $dql = "SELECT o FROM BookshopBookshopBundle:BookshopOrder o 
-                    INNER JOIN BookshopBookshopBundle:User u WITH u = o.user 
-                    INNER JOIN BookshopBookshopBundle:State s WITH s = o.state 
-                    WHERE 1=1";
-        $dql.=$filter;
-
-        $query = $em->createQuery($dql)->setHint('knp_paginator.count', $count);
+        $query = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getAllOrdersQuery($filter,$count);
         
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -63,6 +48,20 @@ class OrderAdminController extends Controller{
         return new RedirectResponse($url);
     }
     
+    public function viewAction($id){
+        $em = $this->getDoctrine()->getManager();
+        
+        $order = $em->getRepository("BookshopBookshopBundle:BookshopOrder")->find($id);
+        $cartitems = null;
+        if($order->getCart()){
+        $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($order->getCart()->getId());
+        }
+        $states = $em->getRepository("BookshopBookshopBundle:State")->findAll();
+        
+        return $this->render('BookshopAdminBundle:OrderAdmin:view.html.twig', array('order' => $order, 'cartitems' =>$cartitems, 'states' => $states));
+    }
+
+
     private function createSqlFilter(){
         $filter = "";
         if (isset($_GET['username'])) {

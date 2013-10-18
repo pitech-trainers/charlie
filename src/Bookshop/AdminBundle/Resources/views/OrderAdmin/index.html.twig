@@ -98,7 +98,7 @@
                                         <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[3].id})}}" title="{{states[3].name}}" >{{states[3].name}}</a>
                                         <a href="{{path('bookshop_admin_order_set_status',{'id': order.id, 'stateId': states[4].id})}}" title="{{states[4].name}}" >{{states[4].name}}</a>
                                     {% endif %}
-                                    <a href="" title="View" class="icon-1 info-tooltip"></a>
+                                    <a href="{{path('bookshop_admin_order_view', {'id': order.id})}}" title="View" class="icon-1 info-tooltip"></a>
                                     <a href="" title="Delete" class="icon-2 info-tooltip"></a>
                                 </td>
                             </tr>

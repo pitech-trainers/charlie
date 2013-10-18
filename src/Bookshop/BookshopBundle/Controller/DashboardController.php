@@ -10,9 +10,12 @@ use Bookshop\BookshopBundle\Form\Type\AddressFormType;
 class DashboardController extends Controller {
 
     public function indexAction() {
+        $em = $this->getDoctrine()->getManager();
+        
         $user = $this->get('security.context')->getToken()->getUser();
-
-        return $this->render('BookshopBookshopBundle:Dashboard:index.html.twig');
+        $orders = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getRecentNr($user->getId(),3);
+        
+        return $this->render('BookshopBookshopBundle:Dashboard:index.html.twig', array('orders' => $orders));
     }
 
     public function billingAddressShowAction() {
