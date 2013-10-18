@@ -20,13 +20,10 @@ class ProductAdminController extends Controller {
         
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
-        $count = $em
-                ->createQuery('SELECT COUNT(p) FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE 1=1' . $filter)
-                ->getSingleScalarResult();
-        $dql = "SELECT p FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE 1=1";
-        $dql.=$filter;
-
-        $query = $em->createQuery($dql)->setHint('knp_paginator.count', $count);
+        
+        $count = $em->getRepository('BookshopBookshopBundle:Product')->getNrAllProducts($filter);
+        
+        $query = $em->getRepository('BookshopBookshopBundle:Product')->getAllProductsQuery($filter,$count);
 
 
         $paginator = $this->get('knp_paginator');

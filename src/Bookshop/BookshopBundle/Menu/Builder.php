@@ -23,7 +23,7 @@ class Builder extends ContainerAware {
             // authenticated REMEMBERED, FULLY will imply REMEMBERED (NON anonymous)
             $myAccountTrans = $myTrans->trans('menu.my.account', array(), 'BookshopBundle');
             $menu->addChild($myAccountTrans, array(
-                'route' => 'fos_user_profile_show'
+                'route' => 'dashboard_index'
             ));
             $menu->addChild('Checkout', array(
                 'route' => 'checkout'
@@ -57,9 +57,6 @@ class Builder extends ContainerAware {
             $menu->addChild($myCartTrans, array(
                 'route' => 'mycart'
             ));
-
-            $loginTrans = $myTrans->trans('layout.login', array(), 'FOSUserBundle');
-            $menu->addChild($loginTrans, array('route' => 'fos_user_security_login'));
 
 //            $rstPassTrans = $myTrans->trans('menu.forgot_pass', array(), 'BookshopBundle');
 //            $menu->addChild($rstPassTrans, array('route' => 'fos_user_resetting_request'));

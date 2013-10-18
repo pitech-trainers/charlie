@@ -17,8 +17,9 @@ class UserAdminController extends Controller
     public function indexAction() 
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT u FROM BookshopBookshopBundle:User u WHERE u.roles not like '%ROLE_SUPER_ADMIN%'";
-        $query = $em->createQuery($dql);
+        $query = $em->getRepository('BookshopBookshopBundle:User')->getUsers();
+//        $dql = "SELECT u FROM BookshopBookshopBundle:User u WHERE u.roles not like '%ROLE_SUPER_ADMIN%'";
+//        $query = $em->createQuery($dql);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
