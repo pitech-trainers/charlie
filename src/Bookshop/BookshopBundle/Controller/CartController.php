@@ -3,8 +3,10 @@
 namespace Bookshop\BookshopBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
-class CartController extends Controller {
+class CartController extends Controller 
+{
 
     public function mycartAction() {
         if (is_null($this->getUser()))
@@ -13,23 +15,23 @@ class CartController extends Controller {
             $userid = $this->getUser()->getID();
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
-        $cartid = $cart[0]->getId();
+        $cartid = $cart->getId();
         $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
 
         return $this->render('BookshopBookshopBundle:Default:mycart.html.twig', array(
                     'items' => $cartitems,
-                    'cart' => $cart[0]
+                    'cart' => $cart
                         )
         );
     }
 
-    public function updatecartAction() {
-        if ($this->match($_POST['cartid']) == 1) {
+    public function updatecartAction(Request $request) {
+        if ($this->match($request->request->get('cartid')) == 1) {
             $em = $this->getDoctrine()->getManager();
-            $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($_POST['cartid']);
+            $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($request->request->get('cartid'));
             $success = 1;
-            if (isset($_POST['qty'])) {
-                foreach ($_POST['qty'] as $key => $value)
+            if (is_array($request->request->get('qty'))) {
+                foreach ($request->request->get('qty') as $key => $value)
                     foreach ($cartitems as $cartitem)
                         if ($cartitem->getID() == $key)
                             if ($value <= $cartitems[0]->getProductID()->getStock()) {
@@ -37,7 +39,7 @@ class CartController extends Controller {
                                     $cartitem->setQuantity($value);
                                     $em->persist($cartitem);
                                 } else {
-                                    $this->deleteproductAction($cartitem->getID(), $_POST['cartid']);
+                                    $this->deleteproductAction($cartitem->getID(), $request->request->get('cartid'));
                                 }
                             } else {
                                 $success = 0;
@@ -48,7 +50,7 @@ class CartController extends Controller {
                 $this->getRequest()->getSession()->getFlashBag()->add('error', 'Some values were not updated');
             else
                 $this->getRequest()->getSession()->getFlashBag()->add('success', 'Cart has been updated');
-            $this->updateTotalCart($_POST['cartid']);
+            $this->updateTotalCart($request->request->get('cartid'));
             $referer = $this->getRequest()->headers->get('referer');
             return $this->redirect($referer);
         } else {
@@ -99,14 +101,14 @@ class CartController extends Controller {
         }
     }
 
-    public function addproductAction() {
+    public function addproductAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        if (isset($_POST['productid']))
-            if (ctype_digit($_POST['productid']))
-                $productid = $_POST['productid'];
-        if (isset($_POST['quantity']))
-            if (ctype_digit($_POST['quantity']))
-                $quantity = $_POST['quantity'];
+        if (strlen($request->request->get('productid'))>0)
+            if (ctype_digit($request->request->get('productid')))
+                $productid = $request->request->get('productid');
+        if (strlen($request->request->get('quantity'))>0)
+            if (ctype_digit($request->request->get('quantity')))
+                $quantity = $request->request->get('quantity');
         if (is_null($this->getUser()))
             $userid = 0;
         else
@@ -170,13 +172,13 @@ class CartController extends Controller {
             $em->flush();
             $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         }
-        $cartid = $cart[0]->getId();
+        $cartid = $cart->getId();
 
         $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
 
         return $this->render('BookshopBookshopBundle:Cart:index.html.twig', array(
                     'items' => $cartitems,
-                    'cart' => $cart[0]
+                    'cart' => $cart
                         )
         );
     }

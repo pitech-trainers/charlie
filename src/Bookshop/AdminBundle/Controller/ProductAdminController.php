@@ -4,6 +4,7 @@ namespace Bookshop\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Bookshop\AdminBundle\Form\Type\ProductAddFormType;
 use Bookshop\BookshopBundle\Entity\Product;
 use Bookshop\BookshopBundle\Entity\Image;
@@ -15,16 +16,12 @@ use Bookshop\BookshopBundle\Entity\Image;
  */
 class ProductAdminController extends Controller {
 
-    public function indexAction() {
-        $filter = $this->createSqlFilter();
-        
+    public function indexAction(Request $request) 
+    {
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
-        
-        $count = $em->getRepository('BookshopBookshopBundle:Product')->getNrAllProducts($filter);
-        
-        $query = $em->getRepository('BookshopBookshopBundle:Product')->getAllProductsQuery($filter,$count);
 
+        $categories = $em->getRepository('BookshopBookshopBundle:Category')->findAll();
+        $query = $em->getRepository('BookshopBookshopBundle:Product')->getAllProductsQuery($request);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -35,7 +32,8 @@ class ProductAdminController extends Controller {
         return $this->render('BookshopAdminBundle:ProductAdmin:index.html.twig', array('products' => $pagination, 'categories' => $categories));
     }
 
-    public function addAction() {
+    public function addAction() 
+    {
         $em = $this->getDoctrine()->getManager();
         $product = new Product();
         $form = $this->createForm(new ProductAddFormType(), $product, array('validation_groups' => array('Add')));
@@ -73,7 +71,8 @@ class ProductAdminController extends Controller {
         return $this->render('BookshopAdminBundle:ProductAdmin:add.html.twig', array('form' => $form->createView()));
     }
     
-    public function editAction($id) {
+    public function editAction($id) 
+    {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('BookshopBookshopBundle:Product')->find($id);
         if(!$product){
@@ -120,7 +119,8 @@ class ProductAdminController extends Controller {
         return $this->render('BookshopAdminBundle:ProductAdmin:edit.html.twig', array('form' => $form->createView(), 'id' => $id));
     }
     
-    public function deleteAction($id) {
+    public function deleteAction($id) 
+    {
         $em = $this->getDoctrine()->getManager();
         $product = new Product();
         $product = $em->getRepository('BookshopBookshopBundle:Product')->find($id);
@@ -136,7 +136,8 @@ class ProductAdminController extends Controller {
         return new RedirectResponse($url);
     }
     
-    public function undeleteAction($id) {
+    public function undeleteAction($id) 
+    {
         $em = $this->getDoctrine()->getManager();
         $product = new Product();
         $product = $em->getRepository('BookshopBookshopBundle:Product')->find($id);
@@ -150,29 +151,6 @@ class ProductAdminController extends Controller {
         
         $url = $this->getRequest()->headers->get("referer");
         return new RedirectResponse($url);
-    }
-    
-    private function createSqlFilter(){
-        $filter = "";
-        if (isset($_GET['title'])) {
-            $filter.= " AND p.title like '%" . $_GET['title'] . "%'";
-        }
-        if (isset($_GET['category']) && strlen($_GET['category'])>0) {
-            $filter.= " AND c.id = " . $_GET['category'];
-        }
-
-        if (isset($_GET['stock']))
-            switch ($_GET['stock']) {
-                case 'on':
-                    $filter .= ' and p.stock>0';
-                    break;
-            } else {
-            if (isset($_GET['title']) || isset($_GET['category'])) {
-                $filter .= ' and p.stock>=0';
-            }
-        }
-        
-        return $filter;
     }
 
 }

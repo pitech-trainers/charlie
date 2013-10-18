@@ -3,6 +3,7 @@
 namespace Bookshop\BookshopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * BookshopOrder
@@ -83,6 +84,8 @@ class BookshopOrder
      *
      * @ORM\ManyToOne(targetEntity="ShippingMethod")
      * @ORM\JoinColumn(name="shipping_id", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="user.name.not_blank", groups={"Shipping"})
      * 
      */
     private $shipping;
