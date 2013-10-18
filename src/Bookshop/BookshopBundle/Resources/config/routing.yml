@@ -76,6 +76,9 @@ shipping:
 shipping_method:
   pattern: checkout/shipping_method
   defaults: { _controller: BookshopBookshopBundle:Checkout:shippingMethod}
+payment:
+  pattern: checkout/payment
+  defaults: { _controller: BookshopBookshopBundle:Checkout:payment}
 
 profile:
   pattern: profile/min

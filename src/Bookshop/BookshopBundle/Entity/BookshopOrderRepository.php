@@ -35,11 +35,14 @@ class BookshopOrderRepository extends EntityRepository
                         ->getResult();
     }
     
-    public function getCurrentOrder($userID,$cartID){
+    public function getCurrentOrder($userID){
+        $em = $this->getEntityManager();
+        
+        $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userID);
         $qb = $this->createQueryBuilder("o")
                 ->select('o')->where('o.user = :userID AND o.cart = :cartID')
                 ->setParameter("userID", $userID)
-                ->setParameter("cartID", $cartID);
+                ->setParameter("cartID", $cart->getId());
                 
         return $qb->getQuery()->getSingleResult();
     }

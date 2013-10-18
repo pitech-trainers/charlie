@@ -15,12 +15,12 @@ class CartController extends Controller
             $userid = $this->getUser()->getID();
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
-        $cartid = $cart[0]->getId();
+        $cartid = $cart->getId();
         $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
 
         return $this->render('BookshopBookshopBundle:Default:mycart.html.twig', array(
                     'items' => $cartitems,
-                    'cart' => $cart[0]
+                    'cart' => $cart
                         )
         );
     }
@@ -172,13 +172,13 @@ class CartController extends Controller
             $em->flush();
             $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         }
-        $cartid = $cart[0]->getId();
+        $cartid = $cart->getId();
 
         $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
 
         return $this->render('BookshopBookshopBundle:Cart:index.html.twig', array(
                     'items' => $cartitems,
-                    'cart' => $cart[0]
+                    'cart' => $cart
                         )
         );
     }
