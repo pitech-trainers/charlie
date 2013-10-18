@@ -9,8 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\Entity(repositoryClass="Bookshop\BookshopBundle\Entity\UserRepository")
+ * 
  */
 class User extends BaseUser {
 
@@ -71,7 +72,6 @@ class User extends BaseUser {
      *     match=true,
      *     message="user.mobile.regex2"
      * )
-     * 
      * 
      */
     protected $mobile;

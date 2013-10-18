@@ -34,5 +34,37 @@ class BookshopOrderRepository extends EntityRepository
         return $qb->getQuery()
                         ->getResult();
     }
+    
+    public function getCurrentOrder($userID,$cartID){
+        $qb = $this->createQueryBuilder("o")
+                ->select('o')->where('o.user = :userID AND o.cart = :cartID')
+                ->setParameter("userID", $userID)
+                ->setParameter("cartID", $cartID);
+                
+        return $qb->getQuery()->getSingleResult();
+    }
+    
+    public function getNrAllOrders($filter)
+    {
+        $em = $this->getEntityManager();
+        
+        return $em->createQuery('SELECT COUNT(o) FROM BookshopBookshopBundle:BookshopOrder o 
+                    INNER JOIN BookshopBookshopBundle:User u WITH u = o.user 
+                    INNER JOIN BookshopBookshopBundle:State s WITH s = o.state 
+                    WHERE 1=1' . $filter)
+                  ->getSingleScalarResult();
+    }
+    
+    public function getAllOrdersQuery($filter,$count)
+    {
+        $em = $this->getEntityManager();
+        $dql = "SELECT o FROM BookshopBookshopBundle:BookshopOrder o 
+                    INNER JOIN BookshopBookshopBundle:User u WITH u = o.user 
+                    INNER JOIN BookshopBookshopBundle:State s WITH s = o.state 
+                    WHERE 1=1";
+        $dql.=$filter;
+
+        return $em->createQuery($dql)->setHint('knp_paginator.count', $count);
+    }
 
 }

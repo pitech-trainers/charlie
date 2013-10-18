@@ -70,6 +70,12 @@ checkout:
 billing:
   pattern: checkout/billing
   defaults: { _controller: BookshopBookshopBundle:Checkout:billing}
+shipping:
+  pattern: checkout/shipping
+  defaults: { _controller: BookshopBookshopBundle:Checkout:shipping}
+shipping_method:
+  pattern: checkout/shipping_method
+  defaults: { _controller: BookshopBookshopBundle:Checkout:shippingMethod}
 
 profile:
   pattern: profile/min
