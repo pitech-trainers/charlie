@@ -55,16 +55,52 @@ class BookshopOrderRepository extends EntityRepository
                   ->getSingleScalarResult();
     }
     
-    public function getAllOrdersQuery($filter,$count)
-    {
+    public function getAllOrdersQuery($request)
+    {   
+        $filter = $this->createSqlFilter($request);
+        
+        $count = $this->getNrAllOrders($filter);
+        
         $em = $this->getEntityManager();
         $dql = "SELECT o FROM BookshopBookshopBundle:BookshopOrder o 
                     INNER JOIN BookshopBookshopBundle:User u WITH u = o.user 
                     INNER JOIN BookshopBookshopBundle:State s WITH s = o.state 
-                    WHERE 1=1";
+                    WHERE 1=1 ";
         $dql.=$filter;
 
         return $em->createQuery($dql)->setHint('knp_paginator.count', $count);
+    }
+    
+    private function createSqlFilter($request){
+        $filter = "";
+        if (strlen($request->query->get('username'))>0) {
+            $filter.= " AND u.username like '%" . $request->query->get('username') . "%'";
+        }
+        if (strlen($request->query->get('state'))>0) {
+            $filter.= " AND s.id = " . $request->query->get('state');
+        }
+
+        if (strlen($request->query->get('created'))>0){
+            $created  = $request->query->get('created');
+            $now = new \DateTime();
+            $nowStr = $now->format("Y-m-d");
+            $oneYearAgoStr = date("Y-m-d", strtotime(date("Y-m-d", strtotime($nowStr)) . " - 1 year"));
+            
+            switch ($created) {
+                case 'all':
+                    break;
+                case 'day':
+                    $filter .= " AND o.date > DATE_SUB('$nowStr', 1, 'day')";
+                    break;
+                case 'month':
+                    $filter .= " AND o.date > DATE_SUB('$nowStr', 1, 'month')";
+                    break;
+                case 'year':
+                    $filter .= " AND o.date > '$oneYearAgoStr'"; //DATE_SUB don'twork for years
+                    break;
+            }
+        }
+        return $filter;
     }
 
 }

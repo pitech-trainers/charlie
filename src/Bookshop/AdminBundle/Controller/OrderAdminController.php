@@ -4,6 +4,7 @@ namespace Bookshop\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 /**
  * Description of OrderAdminController
  *
@@ -11,13 +12,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class OrderAdminController extends Controller{
     
-    public function indexAction() {
-        $filter = $this->createSqlFilter();
-        
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $count = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getNrAllOrders($filter);
-        
-        $query = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getAllOrdersQuery($filter,$count);
+        $query = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getAllOrdersQuery($request);
         
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
