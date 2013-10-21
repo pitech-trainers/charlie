@@ -14,7 +14,7 @@
             <div class="box-account box-recent">
                 <div class="box-head">
                     <h2>Recent Orders</h2>
-                    <a href="#">View All</a>
+                    <a href="{{path('dashboard_orders')}}">View All</a>
                 </div>
                 <table class="data-table" id="my-orders-table">
                     <col width="1" />
@@ -44,7 +44,10 @@
                                 <td><em>{{order.state.name}}</em></td>
                                 <td class="a-center last">
                                     <span class="nobr">
-                                        <a href="#">View Order</a>
+                                        <form method="post" action="{{path('dashboard_vieworder')}}">
+                                            <input type="hidden" value="{{order.id}}" name="id">
+                                            <button class="link" >View Order</button>
+                                        </form>
                                     </span>
                                 </td>
                             </tr>
