@@ -41,7 +41,7 @@ class BookshopOrderRepository extends EntityRepository
                 ->setParameter("userID", $userID)
                 ->setParameter("cartID", $cartID);
                 
-        return $qb->getQuery()->getSingleResult();
+        return $qb->getQuery()->getResult();
     }
     
     public function getNrAllOrders($filter)

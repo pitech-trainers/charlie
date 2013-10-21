@@ -10,11 +10,8 @@ class ProductController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('BookshopBookshopBundle:Product')->retrieveProduct($id);
-
-        $categoryid = $product[0]->getCategory()->getId();
-
+        $categoryid = $product->getCategory()->getId();
         $allproducts = $em->getRepository('BookshopBookshopBundle:Product')->relatedProducts($categoryid);
-
         $array = array_rand($allproducts, 4);
 
         for ($i = 0; $i < 4; $i++) {
@@ -22,7 +19,7 @@ class ProductController extends Controller {
         }
 
         return $this->render('BookshopBookshopBundle:Default:productdetail.html.twig', array(
-                    'product' => $product[0],
+                    'product' => $product,
                     'relatedproducts' => $relatedproducts
                         )
         );
