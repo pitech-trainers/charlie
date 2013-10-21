@@ -26,7 +26,8 @@ class CheckoutController extends Controller {
         if (sizeof($cartitems) == 0) {
             return $this->render("BookshopBookshopBundle:Error:Empty.html.twig");
         } else {
-            return $this->redirect($this->generateUrl('billing'));
+            $step = $this->dispatchToStep();
+            return $this->redirect($this->generateUrl($step));
         }
     }
 
@@ -40,6 +41,7 @@ class CheckoutController extends Controller {
         $userid = $this->getUser()->getID();
 
         $em = $this->getDoctrine()->getManager();
+        $state = $em->getRepository('BookshopBookshopBundle:State')->find(1);
         $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         $order = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getCurrentOrder($userid);
         if(!$order){
@@ -68,6 +70,7 @@ class CheckoutController extends Controller {
             $order->setCart($cart);
             $order->setTotal($cart->getTotal());
             $order->setDate(new \DateTime());
+            $order->setState($state);
             $em->persist($order);
             $em->flush($order);
             
@@ -88,7 +91,7 @@ class CheckoutController extends Controller {
             return new RedirectResponse($url);
         }
         $step = $this->dispatchToStep();
-        if($step != false && $step != 'shipping' && $step != 'shipping_method' && $step != 'payment'){
+        if($step != false && $step != 'shipping' && $step != 'shipping_method' && $step != 'payment' && $step != 'review'){
             return $this->redirect($this->generateUrl($step));
         }
         
@@ -127,7 +130,7 @@ class CheckoutController extends Controller {
             return new RedirectResponse($url);
         }
         $step = $this->dispatchToStep();
-        if($step != false && $step != 'shipping_method' && $step != 'payment'){
+        if($step != false && $step != 'shipping_method' && $step != 'payment' && $step != 'review'){
             return $this->redirect($this->generateUrl($step));
         }
         
@@ -168,6 +171,10 @@ class CheckoutController extends Controller {
             $url = $this->getRequest()->headers->get("referer");
             return new RedirectResponse($url);
         }
+        $step = $this->dispatchToStep();
+        if($step != false && $step != 'payment' && $step != 'review'){
+            return $this->redirect($this->generateUrl($step));
+        }
         
         $user = $this->getUser();
 
@@ -190,6 +197,12 @@ class CheckoutController extends Controller {
     }
 
     public function reviewAction() {
+        if (!$this->getUser()) {
+            $this->getRequest()->getSession()->getFlashBag()->add('error', "Please login before checkout!");
+            $url = $this->getRequest()->headers->get("referer");
+            return new RedirectResponse($url);
+        }
+        
         return $this->render('BookshopBookshopBundle:Checkout:review.html.twig');
     }
     
@@ -206,8 +219,10 @@ class CheckoutController extends Controller {
             return 'shipping';
         elseif(!$order->getShipping())
             return 'shipping_method';
+        elseif(!$order->getPayment())
+            return 'payment';
         else
-            return false;
+            return 'review';
         
     }
 
