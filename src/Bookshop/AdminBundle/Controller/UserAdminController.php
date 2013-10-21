@@ -11,11 +11,9 @@ use Bookshop\AdminBundle\Form\Type\UserEditFormType;
  *
  * @author mzaharie
  */
-class UserAdminController extends Controller 
-{
+class UserAdminController extends Controller {
 
-    public function indexAction() 
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('BookshopBookshopBundle:User')->getUsers();
 //        $dql = "SELECT u FROM BookshopBookshopBundle:User u WHERE u.roles not like '%ROLE_SUPER_ADMIN%'";
@@ -23,8 +21,7 @@ class UserAdminController extends Controller
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-                $query, 
-                $this->get('request')->query->get('page', 1)/* page number */, 2/* limit per page */
+                $query, $this->get('request')->query->get('page', 1)/* page number */, 2/* limit per page */
         );
         return $this->render('BookshopAdminBundle:UserAdmin:index.html.twig', array('users' => $pagination));
     }
@@ -38,7 +35,7 @@ class UserAdminController extends Controller
         $url = $this->getRequest()->headers->get("referer");
         return new RedirectResponse($url);
     }
-    
+
     public function disableAction($userID) {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("BookshopBookshopBundle:User")->find($userID);
@@ -48,32 +45,50 @@ class UserAdminController extends Controller
         $url = $this->getRequest()->headers->get("referer");
         return new RedirectResponse($url);
     }
-    
+
     public function editAction($userID) {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("BookshopBookshopBundle:User")->find($userID);
         $form = $this->createForm(
-                                    new UserEditFormType(), 
-                                    $user,
-                                    array('validation_groups' => array('Edit'))
-                                  );
-        
+                new UserEditFormType(), $user, array('validation_groups' => array('Edit'))
+        );
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+        }
+        if ($form->isValid()) {
+            $em->persist($user);
+            $em->flush($user);
+            return $this->redirect($this->generateUrl('bookshop_admin_user_list'));
+        }
+
+        return $this->render('BookshopAdminBundle:UserAdmin:edit.html.twig', array('form' => $form->createView(), 'userID' => $user->getId()));
+    }
+
+    public function newuserAction() {
+        $em = $this->getDoctrine()->getManager();
+        $user = new \Bookshop\BookshopBundle\Entity\User();
+        $form = $this->createForm(
+                new \Bookshop\AdminBundle\Form\Type\UserNewFormType(), $user, array('validation_groups' => array('Edit'))
+        );
+
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
         }
 
         if ($form->isValid()) {
+            $user->setPassword('000000');
+            $user->setEnabled(true);
             $em->persist($user);
             $em->flush($user);
+
             return $this->redirect($this->generateUrl('bookshop_admin_user_list'));
         }
-        
-        return $this->render('BookshopAdminBundle:UserAdmin:edit.html.twig', array('form' => $form->createView(), 'userID' => $user->getId()));
+
+        return $this->render('BookshopAdminBundle:UserAdmin:new.html.twig', array('form' => $form->createView()));
     }
-    
-    
-    
 
 }
 
