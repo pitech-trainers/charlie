@@ -163,7 +163,7 @@ class DashboardController extends Controller {
 
         $paginator = $this->get('knp_paginator');
 
-        $orders = $paginator->paginate($query, $this->get('request')->query->get('page', 1), 1);
+        $orders = $paginator->paginate($query, $this->get('request')->query->get('page', 1), 10);
 
         return $this->render('BookshopBookshopBundle:Dashboard:orders.html.twig', array(
                     'orders' => $orders
