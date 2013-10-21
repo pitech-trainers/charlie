@@ -82,6 +82,18 @@ payment:
 review:
   pattern: checkout/review
   defaults: { _controller: BookshopBookshopBundle:Checkout:review}
+cancel:
+  pattern: checkout/cancel
+  defaults: { _controller: BookshopBookshopBundle:Checkout:cancel}
+place_order:
+  pattern: checkout/submit
+  defaults: { _controller: BookshopBookshopBundle:Checkout:placeOrder}
+order_details:
+  pattern: checkout/details/{id}
+  defaults: { _controller: BookshopBookshopBundle:Checkout:orderDetails}
+  requirements:
+    _method: GET
+    id: \d+
 
 profile:
   pattern: profile/min

@@ -18,8 +18,11 @@ class CartRepository extends EntityRepository {
                 ->where('c.userId = :userid and c.active = 1')
                 ->setParameter('userid', $userid);
 
-        return $qb->getQuery()
-                        ->getSingleResult();
+        $results = $qb->getQuery()->getResult();
+        if(count($results)>0)
+            return $results[0];
+        else
+            return null;
     }
 
     public function updateCart($cartid) {

@@ -116,7 +116,7 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         $product = $em->getRepository('BookshopBookshopBundle:Product')->retrieveProduct($productid);
-        $existitem = $em->getRepository('BookshopBookshopBundle:CartItems')->getCartItem($productid, $cart[0]->getId());
+        $existitem = $em->getRepository('BookshopBookshopBundle:CartItems')->getCartItem($productid, $cart->getId());
         $success = 1;
         if (empty($existitem[0])) {
             if ($quantity <= $product[0]->getStock()) {
@@ -125,7 +125,7 @@ class CartController extends Controller
                 $cartitem->setTitle($product[0]->getTitle());
                 $cartitem->setQuantity($quantity);
                 $cartitem->setProductId($product[0]);
-                $cartitem->setCartId($cart[0]);
+                $cartitem->setCartId($cart);
                 $em->persist($cartitem);
                 $em->flush();
             } else {
@@ -134,7 +134,7 @@ class CartController extends Controller
         } else {
             if ($quantity + $existitem[0]->getQuantity() <= $product[0]->getStock()) {
                 $existitem[0]->setQuantity($existitem[0]->getQuantity() + $quantity);
-                $em->persist($cart[0]);
+                $em->persist($cart);
                 $em->persist($existitem[0]);
                 $em->flush();
             } else {
@@ -145,8 +145,8 @@ class CartController extends Controller
             $this->getRequest()->getSession()->getFlashBag()->add('error', "We don't have the quantity you requested");
         else
             $this->getRequest()->getSession()->getFlashBag()->add('success', 'Product was successfully added');
-        $this->updateTotalCart($cart[0]->getId());
-        $this->updateTotalCart($cart[0]->getId());
+        $this->updateTotalCart($cart->getId());
+        $this->updateTotalCart($cart->getId());
         $referer = $this->getRequest()->headers->get('referer');
 
         return $this->redirect($referer);
@@ -172,6 +172,7 @@ class CartController extends Controller
             $em->flush();
             $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         }
+        
         $cartid = $cart->getId();
 
         $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
@@ -193,12 +194,12 @@ class CartController extends Controller
             $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
             $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
 
-            $cart[0]->setTotal(0.00);
+            $cart->setTotal(0.00);
 
             foreach ($cartitems as $item) {
-                $cart[0]->setTotal($item->getQuantity() * $item->getPrice() + $cart[0]->getTotal());
+                $cart->setTotal($item->getQuantity() * $item->getPrice() + $cart->getTotal());
             }
-            $em->persist($cart[0]);
+            $em->persist($cart);
             $em->flush();
         } else {
             return $this->render('BookshopBookshopBundle:Error:Error.html.twig');

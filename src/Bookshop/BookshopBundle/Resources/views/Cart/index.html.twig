@@ -17,6 +17,7 @@
         <p class="block-subtitle">Recently added item(s)</p>
 
         <ol id="cart-sidebar" class="mini-products-list">
+            
             {% for i in 0..2 %}
                 {% if items[i] is defined %}
                 <li class="item">
@@ -33,6 +34,7 @@
                 </li>
                 {% endif %}
             {% endfor %}
+            
             </ol>
         </div>
     </div>
