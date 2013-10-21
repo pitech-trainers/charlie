@@ -111,19 +111,6 @@ class ProductRepository extends EntityRepository {
             }
         }
 
-//        if (strlen($request->get('sort')) > 0)
-//            if (($request->get('sort') != 'a.price') && ($request->get('sort') != 'a.title')) {
-//                $request->get('sort') = 'a.price';
-//            }
-//
-//        if (strlen($request->get('page')) > 0)
-//            if (!ctype_digit($request->get('page')))
-//                $request->get('page') = '1';
-//
-//        if (strlen($request->get('direction')) > 0)
-//            if (($request->get('direction') != 'asc') && ($request->get('direction') != 'desc'))
-//                $request->get('direction') = 'asc';
-
         return $filter;
     }
 
