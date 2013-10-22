@@ -70,7 +70,7 @@ class UserAdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $user = new \Bookshop\BookshopBundle\Entity\User();
         $form = $this->createForm(
-                new \Bookshop\AdminBundle\Form\Type\UserNewFormType(), $user, array('validation_groups' => array('Edit'))
+                new \Bookshop\AdminBundle\Form\Type\UserNewFormType(), $user, array('validation_groups' => array('Registration'))
         );
 
         $request = $this->getRequest();
