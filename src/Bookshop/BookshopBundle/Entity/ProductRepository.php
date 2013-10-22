@@ -55,7 +55,7 @@ class ProductRepository extends EntityRepository {
         return $em->createQuery($dql)->setHint('knp_paginator.count', $count);
     }
 
-    public function getProduse($categoryid, $request) {
+    public function getProducts($categoryid, $request) {
         $filters = $this->createSqlFilter($request);
         $em = $this->getEntityManager();
         
