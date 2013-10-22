@@ -7,7 +7,7 @@ namespace Bookshop\AdminBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class UserNewFormType extends AbstractType{
+class UserNewFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
@@ -17,9 +17,9 @@ class UserNewFormType extends AbstractType{
         $builder->add('last_name');
         $builder->add('email');
         $builder->add('mobile');
-        
-//        $builder->add('billing_address_id');
-//        $builder->add('shipping_address_id');
+        $builder->add('plainPassword', "hidden" ,array(
+            'data' => '000000',
+        ));
     }
 
     public function getName() {

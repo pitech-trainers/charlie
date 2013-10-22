@@ -68,24 +68,41 @@ class UserAdminController extends Controller {
 
     public function newuserAction() {
         $em = $this->getDoctrine()->getManager();
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->createUser();
+
         $user = new \Bookshop\BookshopBundle\Entity\User();
         $form = $this->createForm(
-                new \Bookshop\AdminBundle\Form\Type\UserNewFormType(), $user, array('validation_groups' => array('Registration'))
+                new \Bookshop\AdminBundle\Form\Type\UserNewFormType(), $user, array('validation_groups' => array('New'))
         );
 
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
+
+            if ($form->isValid()) {
+                $user->setEnabled(true);
+//                $user->setPlainPassword($form->getData()->getpassword());
+                var_dump($user);
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('New account on SymBookShop')
+                        ->setFrom('symbookshop@bookshop.com')
+                        ->setTo('ahusar@pitechnologies.ro')
+                        ->setBody("Hello " . $user->getFirstName() . " " . $user->getLastName() . ".  A new account has been created for you on SymBookshop, using the next email address: " .$user->getEmail(). ".
+                        Your username is: " . $user->getUsername() . " and your password is " . $user->getPassword() . ".
+                            You can now log in on our website ( http://symbookshop/app.php/login  ) and change your password.
+                            Welcome!"
+                        )
+                ;
+                $this->get('mailer')->send($message);
+
+                $em->persist($user);
+                $em->flush($user);
+
+                return $this->redirect($this->generateUrl('bookshop_admin_user_list'));
+            }
         }
 
-        if ($form->isValid()) {
-            $user->setPassword('000000');
-            $user->setEnabled(true);
-            $em->persist($user);
-            $em->flush($user);
-
-            return $this->redirect($this->generateUrl('bookshop_admin_user_list'));
-        }
 
         return $this->render('BookshopAdminBundle:UserAdmin:new.html.twig', array('form' => $form->createView()));
     }
