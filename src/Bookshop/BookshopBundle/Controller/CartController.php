@@ -117,12 +117,12 @@ class CartController extends Controller {
         $existitem = $em->getRepository('BookshopBookshopBundle:CartItems')->getCartItem($productid, $cart[0]->getId());
         $success = 1;
         if (empty($existitem[0])) {
-            if ($quantity <= $product[0]->getStock()) {
+            if ($quantity <= $product->getStock()) {
                 $cartitem = new \Bookshop\BookshopBundle\Entity\CartItems;
-                $cartitem->setPrice($product[0]->getPrice());
-                $cartitem->setTitle($product[0]->getTitle());
+                $cartitem->setPrice($product->getPrice());
+                $cartitem->setTitle($product->getTitle());
                 $cartitem->setQuantity($quantity);
-                $cartitem->setProductId($product[0]);
+                $cartitem->setProductId($product);
                 $cartitem->setCartId($cart[0]);
                 $em->persist($cartitem);
                 $em->flush();
@@ -130,7 +130,7 @@ class CartController extends Controller {
                 $success = 0;
             }
         } else {
-            if ($quantity + $existitem[0]->getQuantity() <= $product[0]->getStock()) {
+            if ($quantity + $existitem[0]->getQuantity() <= $product->getStock()) {
                 $existitem[0]->setQuantity($existitem[0]->getQuantity() + $quantity);
                 $em->persist($cart[0]);
                 $em->persist($existitem[0]);
