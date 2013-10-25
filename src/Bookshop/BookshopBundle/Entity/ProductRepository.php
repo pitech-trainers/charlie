@@ -47,7 +47,10 @@ class ProductRepository extends EntityRepository {
                         ->getSingleScalarResult();
     }
 
-    public function getAllProductsQuery($filter, $count) {
+    public function getAllProductsQuery($request)
+    {
+        $filter = $this->createAdminSqlFilter($request);
+        $count = $this->getNrAllProducts($filter);
         $em = $this->getEntityManager();
         $dql = "SELECT p FROM BookshopBookshopBundle:Product p INNER JOIN BookshopBookshopBundle:Category c WITH c = p.category WHERE 1=1";
         $dql.=$filter;
@@ -111,6 +114,29 @@ class ProductRepository extends EntityRepository {
             }
         }
 
+        return $filter;
+    }
+    
+    private function createAdminSqlFilter($request){
+        $filter = "";
+        if (strlen($request->query->get('title'))>0) {
+            $filter.= " AND p.title like '%" . $request->query->get('title') . "%'";
+        }
+        if (strlen($request->query->get('category'))>0) {
+            $filter.= " AND c.id = " . $request->query->get('category');
+        }
+
+        if (strlen($request->query->get('stock'))>0)
+            switch ($request->query->get('stock')) {
+                case 'on':
+                    $filter .= ' and p.stock>0';
+                    break;
+            } else {
+            if (strlen($request->query->get('title'))>0 || strlen($request->query->get('category'))>0) {
+                $filter .= ' and p.stock>=0';
+            }
+        }
+        
         return $filter;
     }
 

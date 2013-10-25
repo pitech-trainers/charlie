@@ -91,4 +91,8 @@ class ShippingMethod
     {
         return $this->price;
     }
+    
+    public function __toString() {
+        return $this->name." $".$this->price;
+    }
 }
