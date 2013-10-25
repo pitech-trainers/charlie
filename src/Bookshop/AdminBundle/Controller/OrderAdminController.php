@@ -57,38 +57,7 @@ class OrderAdminController extends Controller{
         
         return $this->render('BookshopAdminBundle:OrderAdmin:view.html.twig', array('order' => $order, 'cartitems' =>$cartitems, 'states' => $states));
     }
-
-
-    private function createSqlFilter(){
-        $filter = "";
-        if (isset($_GET['username'])) {
-            $filter.= " AND u.username like '%" . $_GET['username'] . "%'";
-        }
-        if (isset($_GET['state']) && strlen($_GET['state'])>0) {
-            $filter.= " AND s.id = " . $_GET['state'];
-        }
-
-        if (isset($_GET['created'])){
-            $now = new \DateTime();
-            $nowStr = $now->format("Y-m-d");
-            $oneYearAgoStr = date("Y-m-d", strtotime(date("Y-m-d", strtotime($nowStr)) . " - 1 year"));
-            
-            switch ($_GET['created']) {
-                case 'all':
-                    break;
-                case 'day':
-                    $filter .= " AND o.date > DATE_SUB('$nowStr', 1, 'day')";
-                    break;
-                case 'month':
-                    $filter .= " AND o.date > DATE_SUB('$nowStr', 1, 'month')";
-                    break;
-                case 'year':
-                    $filter .= " AND o.date > '$oneYearAgoStr'"; //DATE_SUB don'twork for years
-                    break;
-            }
-        }
-        return $filter;
-    }
+    
 }
 
 ?>
