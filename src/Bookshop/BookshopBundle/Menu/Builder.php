@@ -95,7 +95,7 @@ class Builder extends ContainerAware {
         ));
         $myOrdersTrans = $myTrans->trans('menu.dashboard.account_orders', array(), 'BookshopBundle');
         $menu->addChild($myOrdersTrans, array(
-            'route' => 'dashboard_index'  // not existing feature
+            'route' => 'dashboard_orders'  // not existing feature
         ));
         $billingTrans = $myTrans->trans('menu.dashboard.address.billing', array(), 'BookshopBundle');
         $menu->addChild($billingTrans, array(
