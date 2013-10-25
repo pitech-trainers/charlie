@@ -146,44 +146,4 @@ class Cart {
         return $this->total;
     }
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cartitems = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add cartitems
-     *
-     * @param \Bookshop\BookshopBundle\Entity\CartItems $cartitems
-     * @return Cart
-     */
-    public function addCartitem(\Bookshop\BookshopBundle\Entity\CartItems $cartitems)
-    {
-        $this->cartitems[] = $cartitems;
-    
-        return $this;
-    }
-
-    /**
-     * Remove cartitems
-     *
-     * @param \Bookshop\BookshopBundle\Entity\CartItems $cartitems
-     */
-    public function removeCartitem(\Bookshop\BookshopBundle\Entity\CartItems $cartitems)
-    {
-        $this->cartitems->removeElement($cartitems);
-    }
-
-    /**
-     * Get cartitems
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCartitems()
-    {
-        return $this->cartitems;
-    }
 }

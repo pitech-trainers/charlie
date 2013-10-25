@@ -27,13 +27,13 @@ class User extends BaseUser {
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      * 
-     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile", "Edit"})
+     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile", "Edit", "New"})
      * @Assert\Regex(
      *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
      *     match=true,
      *     message="The name contains leters only.",
-     *     groups={"Registration", "Profile", "Edit"}
+     *     groups={"Registration", "Profile", "Edit","New"}
      * )
      */
     protected $first_name;
@@ -43,13 +43,13 @@ class User extends BaseUser {
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
      * 
-     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile", "Edit"})
+     * @Assert\NotBlank(message="user.name.not_blank", groups={"Registration", "Profile", "Edit","New"})
      * @Assert\Regex(
      *     pattern="/^[A-Z a-z]+$/",
      *     htmlPattern="*",
      *     match=true,
      *     message="The name contains leters only.",
-     *     groups={"Registration", "Profile", "Edit"}
+     *     groups={"Registration", "Profile", "Edit","New"}
      * )
      */
     protected $last_name;
@@ -59,18 +59,20 @@ class User extends BaseUser {
      *
      * @ORM\Column(name="mobile", type="string", length=20, nullable=false)
      * 
-     * @Assert\NotBlank(message="user.mobile.not_blank", groups={"Registration", "Profile"})
+     * @Assert\NotBlank(message="user.mobile.not_blank", groups={"Registration", "Profile","New"})
      * @Assert\Regex(
      *     pattern="/^\d+$/",
      *     htmlPattern="*",
      *     match=true,
-     *     message="user.mobile.regex1"
+     *     message="user.mobile.regex1",
+     *     groups={"Registration", "Profile","New"})
      * )
      * @Assert\Regex(
      *     pattern="/^\d{10,12}$/",
      *     htmlPattern="*",
      *     match=true,
-     *     message="user.mobile.regex2"
+     *     message="user.mobile.regex2",
+     *     groups={"Registration", "Profile","New"})
      * )
      * 
      */

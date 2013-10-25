@@ -11,7 +11,7 @@ bookshop_bookhop_set_locale:
     
 category:
   pattern: category/{id}
-  defaults: { _controller: BookshopBookshopBundle:Category:category}
+  defaults: { _controller: BookshopBookshopBundle:Category:show}
   requirements:
         _method: GET
         id: \d+
@@ -70,9 +70,11 @@ checkout:
 billing:
   pattern: checkout/billing
   defaults: { _controller: BookshopBookshopBundle:Checkout:billing}
+
 shipping:
   pattern: checkout/shipping
   defaults: { _controller: BookshopBookshopBundle:Checkout:shipping}
+
 shipping_method:
   pattern: checkout/shipping_method
   defaults: { _controller: BookshopBookshopBundle:Checkout:shippingMethod}
@@ -91,6 +93,15 @@ dashboard_index:
   pattern: dashboard/
   defaults: { _controller: BookshopBookshopBundle:Dashboard:index}
 
+dashboard_orders:
+  pattern: dashboard/orders
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:ordersview}
+
+dashboard_vieworder:
+  pattern: dashboard/vieworder/
+  defaults: { _controller: BookshopBookshopBundle:Dashboard:vieworder}
+  requirements:
+      _method: POST
 
 dashboard_billing_address_show:
   pattern: dashboard/billingAddress
