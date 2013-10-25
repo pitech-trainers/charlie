@@ -130,7 +130,7 @@ class CartController extends Controller {
                 $success = 0;
             }
         } else {
-            if ($quantity + $existitem[0]->getQuantity() <= $product[0]->getStock()) {
+            if ($quantity + $existitem[0]->getQuantity() <= $product->getStock()) {
                 $existitem[0]->setQuantity($existitem[0]->getQuantity() + $quantity);
                 $em->persist($cart[0]);
                 $em->persist($existitem[0]);
