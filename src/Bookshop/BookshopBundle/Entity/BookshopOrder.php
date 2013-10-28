@@ -66,7 +66,7 @@ class BookshopOrder
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="datetime", nullable = true)
      */
     private $date;
 

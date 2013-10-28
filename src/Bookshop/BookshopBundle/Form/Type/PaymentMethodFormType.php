@@ -16,7 +16,7 @@ class PaymentMethodFormType extends AbstractType
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
+//        $currentPayment = $this->em->getRepository('BookshopBookshopBundle:BookshopOrder')->getCurrentOrder($this->getUser()->getID());
         $builder
             ->add('payment',
                     'entity',

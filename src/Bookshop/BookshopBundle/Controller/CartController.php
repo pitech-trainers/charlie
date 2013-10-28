@@ -125,6 +125,7 @@ class CartController extends Controller
                 $cartitem->setTitle($product->getTitle());
                 $cartitem->setQuantity($quantity);
                 $cartitem->setProductId($product);
+
                 $cartitem->setCartId($cart);
                 $em->persist($cartitem);
                 $em->flush();
@@ -172,6 +173,7 @@ class CartController extends Controller
             $em->flush();
             $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
         }
+        
         $cartid = $cart->getId();
 
         $cartitems = $em->getRepository('BookshopBookshopBundle:CartItems')->getItems($cartid);
