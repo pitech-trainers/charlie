@@ -18,8 +18,11 @@ class CartRepository extends EntityRepository {
                 ->where('c.userId = :userid and c.active = 1')
                 ->setParameter('userid', $userid);
 
-        return $qb->getQuery()
-                        ->getSingleResult();
+        $reslut = $qb->getQuery()->getResult();
+        if(count($reslut)>0)
+            return $reslut[0];
+        else
+            return null;
     }
 
     public function updateCart($cartid) {
@@ -37,8 +40,11 @@ class CartRepository extends EntityRepository {
                 ->where('c.id = :cartid')
                 ->setParameter('cartid', $cartid);
 
-        return $qb->getQuery()
-                        ->getResult();
+        $reslut = $qb->getQuery()->getResult();
+        if(count($reslut)>0)
+            return $reslut[0];
+        else
+            return null;
     }
 
 }

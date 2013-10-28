@@ -162,7 +162,7 @@ class CartController extends Controller
 
         $cart = $em->getRepository('BookshopBookshopBundle:Cart')->getCart($userid);
 
-        if (sizeof($cart) == 0) {
+        if ($cart == null) {  //$cart is an object of type Cart or a null
             $cartmodel = new \Bookshop\BookshopBundle\Entity\Cart;
             $cartmodel->setUserId($userid);
             $cartmodel->setDate(date('Y-m-d'));
