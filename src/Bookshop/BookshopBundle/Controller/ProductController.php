@@ -12,9 +12,13 @@ class ProductController extends Controller {
         $product = $em->getRepository('BookshopBookshopBundle:Product')->retrieveProduct($id);
         $categoryid = $product->getCategory()->getId();
         $allproducts = $em->getRepository('BookshopBookshopBundle:Product')->relatedProducts($categoryid);
-        $array = array_rand($allproducts, 4);
+        
+        $nrRandProds = count($allproducts);
+        if($nrRandProds > 4) $nrRandProds = 4;
+        
+        $array = array_rand($allproducts, $nrRandProds); 
 
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 4 && $i<  $nrRandProds; $i++) {
             $relatedproducts[$i] = $allproducts[$array[$i]];
         }
 

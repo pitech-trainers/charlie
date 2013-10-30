@@ -202,10 +202,87 @@ class CheckoutController extends Controller {
             $url = $this->getRequest()->headers->get("referer");
             return new RedirectResponse($url);
         }
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getCurrentOrder($this->getUser()->getID());
         
-        return $this->render('BookshopBookshopBundle:Checkout:review.html.twig');
+        return $this->render('BookshopBookshopBundle:Checkout:review.html.twig', array('order' => $order));
     }
     
+    public function cancelAction(){
+        if (!$this->getUser()) {
+            $this->getRequest()->getSession()->getFlashBag()->add('error', "Please login before checkout!");
+            $url = $this->getRequest()->headers->get("referer");
+            return new RedirectResponse($url);
+        }
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $order = new BookshopOrder();
+        $order = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getCurrentOrder($this->getUser()->getID());
+        $order->setDate(null);
+        $order->setPayment();
+        $order->setShipping();
+        $order->setShippingAddress();
+        $order->setBillingAddress();
+        $order->setState(null);
+        $order->setTotal(0);
+        $em->persist($order);
+        $em->flush($order);
+        
+        return $this->redirect($this->generateUrl('bookshop_bookshop_homepage'));
+    }
+    
+    public function placeOrderAction()
+    {
+        if (!$this->getUser()) {
+               $this->getRequest()->getSession()->getFlashBag()->add('error', "Please login before checkout!");
+               $url = $this->getRequest()->headers->get("referer");
+               return new RedirectResponse($url);
+           }
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $order = new BookshopOrder();
+        $order = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getCurrentOrder($this->getUser()->getID());
+        $state = $em->getRepository('BookshopBookshopBundle:State')->find(2);
+        
+        $cart = $order->getCart();
+        $cart->setActive(0);
+        $em->persist($cart);
+        $em->flush($cart);
+        
+        $order->setState($state);
+        $em->persist($order);
+        $em->flush($order);
+        
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Contact enquiry from symblog')
+            ->setFrom('office@bookshop.com')
+            ->setTo($user->getEmail())
+            ->setBody($this->renderView('BookshopBookshopBundle:Checkout:orderEmail.html.twig', array('order' => $order)));
+        $this->get('mailer')->send($message);
+        
+        return $this->render('BookshopBookshopBundle:Checkout:success.html.twig', array('order' => $order));
+    }
+    
+    public function orderDetailsAction($id)
+    {
+        if (!$this->getUser()) {
+            $this->getRequest()->getSession()->getFlashBag()->add('error', "Please login before checkout!");
+            $url = $this->getRequest()->headers->get("referer");
+            return new RedirectResponse($url);
+        }
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->find($id);
+        
+        return $this->render('BookshopBookshopBundle:Checkout:orderDetails.html.twig', array('order' => $order));
+    }
+
+
     private function dispatchToStep(){
         $user = $this->getUser();
         $userid = $user->getID();
@@ -214,6 +291,8 @@ class CheckoutController extends Controller {
         $order = $em->getRepository('BookshopBookshopBundle:BookshopOrder')->getCurrentOrder($userid);
         
         if(!$order)
+            return 'billing';
+        elseif(!$order->getBillingAddress())
             return 'billing';
         elseif(!$order->getShippingAddress())
             return 'shipping';

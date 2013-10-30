@@ -36,21 +36,19 @@
                     <tbody>
                     {% if orders|length > 0 %}
                     {% for order in orders %}
-                            <tr class="first last odd">
-                                <td>{{"%1$08d"|format(order.id)}}</td>
-                                <td><span class="nobr">{{order.date|date('Y-m-d')}}</span></td>
-                                <td>{{order.shippingAddress.firstName}} {{order.shippingAddress.lastName}}</td>
-                                <td><span class="price">{{order.total|number_format(2,".",",")}}</span></td>
-                                <td><em>{{order.state.name}}</em></td>
-                                <td class="a-center last">
-                                    <span class="nobr">
-                                        <form method="post" action="{{path('dashboard_vieworder')}}">
-                                            <input type="hidden" value="{{order.id}}" name="id">
-                                            <button class="link" >View Order</button>
-                                        </form>
-                                    </span>
-                                </td>
-                            </tr>
+
+                    <tr class="first last odd">
+                        <td>{{"%1$08d"|format(order.id)}}</td>
+                        <td><span class="nobr">{% if not order.date is null %}{{order.date|date('Y-m-d')}}{% endif %}</span></td>
+                        <td>{% if not order.shippingAddress is null %}{{order.shippingAddress.firstName}} {{order.shippingAddress.lastName}}{% endif %}</td>
+                        <td><span class="price">{{order.total|number_format(2,".",",")}}</span></td>
+                        <td><em>{% if not order.state is null %}{{order.state.name}}{% endif %}</em></td>
+                        <td class="a-center last">
+                            <span class="nobr">
+                                <a href="#">View Order</a>
+                            </span>
+                        </td>
+                    </tr>
                     {% endfor %}
                     {% endif %}
                         </tbody>
