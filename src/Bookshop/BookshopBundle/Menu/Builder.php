@@ -73,6 +73,10 @@ class Builder extends ContainerAware {
 
         $menu = $factory->createItem('root');
         foreach ($categs as $categ) {
+//            $categ->setTranslatableLocale('ro');    
+//            $em->refresh($categ);
+//            var_dump($categ->getLocale());
+//            $categ->setTranslatableLocale('ro');
             $menu->addChild($categ->getName(), array(
                 'route' => 'category',
                 'routeParameters' => array('id' => $categ->getID())));
